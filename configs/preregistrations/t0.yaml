@@ -1,0 +1,26 @@
+work_package: FDCA_VIS_T0_SYNTHETIC
+date: 2026-08-12
+float_dtype: float64
+tolerances:
+  probability: 1.0e-12
+  inequality: 1.0e-10
+  matrix: 1.0e-10
+  lp: 1.0e-9
+random_instance_seeds:
+  - 1729
+  - 20260812
+  - 314159
+couplings:
+  theorem: conditional_maximal
+  comparison: inverse_cdf_crn
+terminal_metric: normalized_uniform_hamming
+limits:
+  max_positions: 8
+  max_vocabulary: 4
+prohibitions:
+  - real_model_download
+  - checkpoint_download
+  - gpu_service
+  - remote_creation
+  - push
+  - automatic_wp_p0

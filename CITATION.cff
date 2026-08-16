@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this work, cite the DOI below."
+type: article
+title: "First-Divergence Consequence Analysis: From Quantization Onset to Perceptual Impact in Masked Visual Generators"
+authors:
+  - family-names: Kim
+    given-names: Munsik
+    orcid: "https://orcid.org/0009-0008-9350-2435"
+version: "1.0.0"
+date-released: "2026-08-16"
+doi: "10.5281/zenodo.21965747"
+repository-code: "https://github.com/Munsik-Kim/fdca-visual-token"
+url: "https://zenodo.org/records/21965747"
+license: CC-BY-4.0

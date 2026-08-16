@@ -1,0 +1,95 @@
+{
+  "H5_seed_severity": {
+    "H5_positive": false,
+    "S0_MAE": 0.05386040688828307,
+    "S1_MAE": 0.05318199417864489,
+    "S1_over_S0": 0.9874042409102972,
+    "block_grouped_lobo": true,
+    "block_improvement_ci95_lower": -0.0007398814360360175
+  },
+  "automatic_next_phase_authorized": false,
+  "hypotheses": {
+    "H1": {
+      "block_count": 48,
+      "ci95_lower": 0.04007235656536139,
+      "ci95_upper": 0.05437929208065459,
+      "difference_mean": 0.04723191238067407,
+      "left_mean": 0.08476783192090397,
+      "pass": true,
+      "ratio_of_aggregate_means": 2.2583123834238914,
+      "right_mean": 0.03753591954022988,
+      "semantic_seed": 3796763295534554164
+    },
+    "H2": {
+      "block_count": 48,
+      "ci95_lower": 0.0024249402214847407,
+      "ci95_upper": 0.003598443818767522,
+      "difference_mean": 0.0030013604106207807,
+      "left_mean": 0.005779912182848676,
+      "pass": true,
+      "ratio_of_aggregate_means": 2.080188766183843,
+      "right_mean": 0.002778551772227895,
+      "semantic_seed": 2129959509569098776
+    },
+    "H3": {
+      "block_count": 48,
+      "ci95_lower": 0.07585187146892655,
+      "ci95_upper": 0.0936617231638418,
+      "descendant_positive_fraction": 0.9739583333333334,
+      "mean": 0.08476783192090397,
+      "pass": true
+    },
+    "H4": {
+      "block_count": 48,
+      "ci95_lower": 0.035714285714285705,
+      "ci95_upper": 0.06097056878306878,
+      "difference_mean": 0.048342427248677246,
+      "left_mean": 0.09680886243386244,
+      "pass": true,
+      "ratio_of_aggregate_means": 1.9974413646055433,
+      "right_mean": 0.048466435185185196,
+      "semantic_seed": 15687718961170269226
+    }
+  },
+  "later_experiment_started": false,
+  "next_phase_recommendation": "RECOMMEND_PERCEPTUAL_NATURAL_SHOCK_PANEL",
+  "overall_gate": "PASS_FDCA_VIS_P2N_STRONG",
+  "preset": "FULL",
+  "profile_secondary": {
+    "claim": "secondary_finite_panel_profile_not_global_certificate",
+    "frozen_max_sha256": "b7736c10f34fae247fc70cb4cb4da9abafba3618e2992636cee350d1e2d39a8b",
+    "frozen_q95_sha256": "6ea151ed08b2623726317e65072549dab7c9b65b51c6c518080a71eea54f100e",
+    "multi_seed_rows": 731,
+    "rho_mean_spearman_max_vs_actual": 0.9999999999999999
+  },
+  "schema": "FDCA_VIS_P2N_GATE_V1",
+  "scientific_blocks": 48,
+  "scientific_outcome_label": "NATURAL_SHOCK_BRIDGE_AND_TIMING_SUPPORTED",
+  "stop_rule": "STOP_AFTER_P2N_PENDING_USER_REVIEW",
+  "validity_checks": {
+    "common_q_suffix": true,
+    "conditional_attempt_cap": true,
+    "decomposition": true,
+    "event_rng": true,
+    "finite_primary": true,
+    "matched_identity": true,
+    "measurement_complete": true,
+    "mismatch_monotonicity": true,
+    "model_eval": true,
+    "no_future_reference_approximate_innovation": true,
+    "no_posthoc_design_change": true,
+    "nonzero_seed_retention": true,
+    "numeric_repeat_cell_order_restoration": true,
+    "predecessors_unchanged": true,
+    "preflight": true,
+    "profile_hash": true,
+    "profile_not_refit": true,
+    "seed_coupling_properties": true,
+    "seed_law_two_implementation": true,
+    "seed_mc_vs_exact": true,
+    "seed_persistence": true,
+    "zero_seed_terminal_identity": true
+  },
+  "validity_gate": "PASS_FDCA_VIS_P2N_VALIDITY",
+  "work_package": "FDCA_VIS_P2N_NATURAL_SHOCK_BRIDGE"
+}

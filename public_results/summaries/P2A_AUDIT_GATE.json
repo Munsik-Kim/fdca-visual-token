@@ -1,0 +1,23 @@
+{
+  "H1_H4_pass_state_changes": {
+    "H1": false,
+    "H2": false,
+    "H3": false,
+    "H4": false
+  },
+  "analysis_kind": "post-hoc model-free implementation audit",
+  "audit_outcome_label": "INCOMPLETE_FDCA_VIS_P2A",
+  "automatic_perceptual_authorization": false,
+  "frozen_p2n_gate_changed": false,
+  "overall_gate": "INCOMPLETE_FDCA_VIS_P2A",
+  "perceptual_experiment_started": false,
+  "perceptual_panel_recommendation": "NO_RECOMMENDATION_INCOMPLETE",
+  "pre_post_mismatch_consequence_proven_unchanged": true,
+  "rng_key_audit_pass": true,
+  "schema": "FDCA_VIS_P2A_GATE_V1",
+  "selected_mask_component_complete": false,
+  "stable_set_correction_complete": true,
+  "stop_rule": "STOP_AFTER_P2A_PENDING_USER_REVIEW",
+  "terminal_preclamp_mask_total_identifiable": false,
+  "validity_gate": "INCOMPLETE_FDCA_VIS_P2A"
+}

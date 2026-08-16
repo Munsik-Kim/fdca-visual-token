@@ -1,0 +1,77 @@
+schema: FDCA_VIS_P2B_PREREGISTRATION_V1
+work_package: FDCA_VIS_P2B_SEED_MASK_CLOSURE
+analysis_kind: preregistered one-step model-forward replay audit
+frozen_predecessors:
+  p0_gate: PASS_FDCA_VIS_P0_CONTRACT
+  p2n_validity: PASS_FDCA_VIS_P2N_VALIDITY
+  p2n_effect: NATURAL_SHOCK_BRIDGE_AND_TIMING_SUPPORTED
+  p2n_overall: PASS_FDCA_VIS_P2N_STRONG
+  p2a_overall: INCOMPLETE_FDCA_VIS_P2A
+canonical_p2n_run: runs/FDCA_VIS_P2N_NATURAL_SHOCK_BRIDGE_20260814_133625
+canonical_p2a_workspace: postmortem/FDCA_VIS_P2A_POST_P2N_AUDIT_20260814_212123
+runtime:
+  environment: fdca_vis
+  device: cuda
+  user_batch_size: 1
+  cfg_internal_batch_size: 2
+  dtype: FP32
+  compile: false
+  model_eval: true
+  tf32: false
+  sampler: Halton randomize=False
+  runtime_target_hours: 2
+  runtime_hard_cap_hours: 4
+  peak_vram_hard_cap_gib: 15.2
+scope:
+  scientific_blocks: 48
+  smoke_blocks: 4
+  anchor_rho: [0.1, 0.3, 0.5, 0.7, 0.9]
+  cells: [W8_L1.00, W4_L1.00]
+  seed_only_replicates_per_cell_anchor: 256
+  conditional_replicates_scientific: {W8_L1.00: 8, W4_L1.00: 4}
+  conditional_w4_rho: [0.1, 0.3, 0.5]
+  conditional_smoke_replicates: 2
+  zero_control_replicates_per_active_cell_anchor: 1
+  replay_suffix: false
+  new_scientific_keys: false
+token_pair_categories:
+  - EQUAL_NONMASK
+  - EQUAL_MASK_MASK
+  - REFERENCE_MASK_ONLY
+  - APPROXIMATE_MASK_ONLY
+  - VALUE_VALUE_MISMATCH
+mask_law:
+  equal_mask: min(p_mask, q_mask)
+  reference_only: max(p_mask-q_mask, 0)
+  approximate_only: max(q_mask-p_mask, 0)
+  any_branch: max(p_mask, q_mask)
+  arithmetic_dtype: FP64
+  independent_max_discrepancy: 1.0e-10
+stable_sets:
+  immutable_equality: equal after seed transition and never scheduled again; common clamp preserves equality
+  nonmask_semantic: equal non-MASK after seed transition and never scheduled again
+denominators:
+  - schedule_future_count
+  - reference_actual_mask_count
+  - approximate_actual_mask_count
+  - mask_union_count
+  - mask_intersection_count
+diagnostics:
+  frozen_hypotheses: [H1, H3]
+  bootstrap_resamples: 20000
+  diagnostic_only: true
+validity_pass_requires:
+  - canonical source and hash verification
+  - exact replay-scope coverage
+  - exact mismatch token position count and accepted-attempt reproduction
+  - complete equal token-pair retention
+  - clean runtime semantic-key registry
+  - complete mask law stable-set and clamp accounting
+  - independent reaggregation and tests pass
+outcomes:
+  clean: {effect: SEED_MASK_CLOSURE_CLEAN, overall: PASS_FDCA_VIS_P2B_CLEAN, recommendation: READY_TO_DESIGN_P2P_PERCEPTUAL_PANEL}
+  qualified: {effect: SEED_MASK_CLOSURE_QUALIFIED, overall: PASS_FDCA_VIS_P2B_QUALIFIED, recommendation: READY_AFTER_CONTRACT_REVISION}
+  material: {effect: SEED_MASK_CLOSURE_MATERIAL_ISSUE, overall: FAIL_FDCA_VIS_P2B_MATERIAL, recommendation: DO_NOT_PROCEED_TO_P2P}
+  incomplete: {effect: INCOMPLETE_FDCA_VIS_P2B, overall: INCOMPLETE_FDCA_VIS_P2B, recommendation: NO_RECOMMENDATION_INCOMPLETE}
+stop_rule: STOP_AFTER_P2B_PENDING_USER_REVIEW
+deliverable: deliverables/FDCA_VIS_P2B_SEED_MASK_CLOSURE_compact_review.zip

@@ -1,0 +1,50 @@
+experiment_id: FDCA_VIS_P3S_SECOND_CHECKPOINT_REPLICATION
+predecessor:
+  run: runs/FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK_20260815_194342
+  validity: PASS_FDCA_VIS_P2P_VALIDITY
+  scientific: PERCEPTUAL_NATURAL_SHOCK_BRIDGE_SUPPORTED
+  overall: PASS_FDCA_VIS_P2P_STRONG
+checkpoint:
+  model: H-MaskGIT-S
+  repository_revision: ffc7fd4c5fc7b16010acc4aa342310484d7de62a
+  filename: ImageNet_256_small.pth
+  size_bytes: 832274338
+  sha256: 760b9937d16157e7e518fbf405efe281552933242b552d5e8262cb10507fb0e2
+  architecture: {hidden_dim: 512, depth: 12, heads: 6, input_size: 16, codebook_size: 16384}
+power:
+  source: frozen P2P block-level paired differences
+  planning_fraction: 0.5
+  alpha: 0.05
+  sidedness: one-sided
+  candidates: [32, 40, 48]
+  target_power: 0.90
+  selected_blocks: 40
+primary:
+  cell: W8_L1.00
+  rhos: [0.3, 0.5]
+  cfg: 3.0
+  natural_replicates_per_block_rho: 8
+  zero_controls_per_block_rho: 1
+  matched_replicates_per_block_rho: 2
+secondary_official_cfg:
+  enabled: true
+  cfg: 1.0
+  blocks: 16
+  natural_replicates_per_block_rho: 4
+  zero_controls_per_block_rho: 1
+  matched_panel: false
+runtime:
+  user_batch_size: 1
+  cfg_internal_batch_size: 2
+  dtype: FP32
+  compile: false
+  model_eval: true
+  tf32: false
+  sampler: Halton
+  randomize: false
+metrics: [LPIPS_AlexNet, DINOv2_ViT-S-14]
+excluded: [W4, rho_0.1, rho_0.7, rho_0.9, classifier, SSIM, PSNR, FID, IS]
+gates:
+  bootstrap_resamples: 20000
+  pass_if: lower_paired_ci_gt_0_and_ratio_ge_1.5
+stop_after: P3S

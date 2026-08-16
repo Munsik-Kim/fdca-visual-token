@@ -1,0 +1,30 @@
+{
+  "aggregation_recovery": {
+    "frozen_profile_hashes_verified": true,
+    "holdout_rows_modified": false,
+    "model_forwards_repeated": 0,
+    "profile_refit": false,
+    "reason": "post-measurement configuration-key lookup error"
+  },
+  "batch_diagnostic_gating": false,
+  "hybrid_violation_count": 0,
+  "model_free_reaggregation_pass": true,
+  "overall_gate": "PASS_FDCA_VIS_P05R_NEGATIVE",
+  "p1_authorization": "NOT_AUTHORIZED_P1",
+  "p1_started": false,
+  "package_scope_validation_pass": true,
+  "profile_freeze_precedes_holdout": true,
+  "run_directory": "${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P05R_SCALAR_20260813_101434",
+  "run_manifest_generated": true,
+  "runtime_preset": "FULL",
+  "scalar_repeatability_pass": true,
+  "schema": "FDCA_VIS_P05R_GATE_V1_1",
+  "scientific_effect_label": "INFLUENCE_ENVELOPE_VACUOUS",
+  "stop_rule": "STOP_AFTER_P05R_PENDING_USER_REVIEW",
+  "test_count": 46,
+  "test_fail_count": 0,
+  "test_pass_count": 46,
+  "thresholds_changed_after_holdout": false,
+  "validity_gate": "PASS_FDCA_VIS_P05R_VALIDITY",
+  "work_package": "FDCA_VIS_P05R_SCALAR"
+}

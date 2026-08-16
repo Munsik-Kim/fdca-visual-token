@@ -1,0 +1,31 @@
+FDCA v1.0.0 BUILD AND VALIDATION
+
+Primary source:
+  FDCA_v1.0.0.tex
+
+Bibliography:
+  references.bib
+
+Recommended build:
+  latexmk -pdf FDCA_v1.0.0.tex
+
+Explicit build:
+  pdflatex -interaction=nonstopmode -halt-on-error FDCA_v1.0.0.tex
+  bibtex FDCA_v1.0.0
+  pdflatex -interaction=nonstopmode -halt-on-error FDCA_v1.0.0.tex
+  pdflatex -interaction=nonstopmode -halt-on-error FDCA_v1.0.0.tex
+
+The release PDF uses embedded TeX Gyre Termes/NewTX Type 1 fonts.
+
+Validation required for the initial public release:
+  - BibTeX completes without missing entries.
+  - LaTeX completes without undefined citations/references.
+  - LaTeX log has no overfull boxes.
+  - PDF opens successfully and uses A4 pages.
+  - PDF preflight produces no warnings.
+  - All pages are rendered and visually reviewed.
+  - All fonts are embedded; no Type 3 fonts are present.
+  - Source/audit ZIP passes CRC and clean-extraction checksum validation.
+
+Checksum verification after extraction:
+  sha256sum -c MANIFEST.sha256

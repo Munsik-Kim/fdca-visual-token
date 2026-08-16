@@ -1,0 +1,178 @@
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ben-Hamu et~al.(2025)Ben-Hamu, Gat, Severo, Nolte, and
+  Karrer]{benhamu2025accelerated}
+Heli Ben-Hamu, Itai Gat, Daniel Severo, Niklas Nolte, and Brian Karrer.
+\newblock Accelerated sampling from masked diffusion models via entropy bounded
+  unmasking.
+\newblock \emph{arXiv preprint arXiv:2505.24857}, 2025.
+
+\bibitem[Besnier et~al.(2025)Besnier, Chen, Hurych, Valle, and
+  Cord]{besnier2025halton}
+Victor Besnier, Mickael Chen, David Hurych, Eduardo Valle, and Matthieu Cord.
+\newblock Halton scheduler for masked generative image transformer.
+\newblock In \emph{The Thirteenth International Conference on Learning
+  Representations (ICLR)}, 2025.
+\newblock OpenReview: RDVrlWAb7K; arXiv:2503.17076.
+
+\bibitem[Cai and Li(2026)]{cai2026confidence}
+Changxiao Cai and Gen Li.
+\newblock Confidence-based decoding is provably efficient for diffusion
+  language models.
+\newblock \emph{arXiv preprint arXiv:2603.22248}, 2026.
+
+\bibitem[Chang et~al.(2022)Chang, Zhang, Jiang, Liu, and
+  Freeman]{chang2022maskgit}
+Huiwen Chang, Han Zhang, Lu~Jiang, Ce~Liu, and William~T. Freeman.
+\newblock {MaskGIT}: Masked generative image transformer.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, pages 11305--11315, 2022.
+\newblock \doi{10.1109/CVPR52688.2022.01103}.
+
+\bibitem[Chen et~al.(2026)Chen, Cong, and Li]{chen2026optimal}
+Sitan Chen, Kevin Cong, and Jerry Li.
+\newblock Optimal inference schedules for masked diffusion models.
+\newblock In \emph{Proceedings of the Thirty-Ninth Conference on Learning
+  Theory (COLT)}, volume 336 of \emph{Proceedings of Machine Learning
+  Research}, pages 1279--1311. PMLR, 2026.
+\newblock arXiv:2511.04647.
+
+\bibitem[Ernst et~al.(2019)Ernst, Kendall, Roberts, and
+  Rosenthal]{ernst2019mexit}
+Philip~A. Ernst, Wilfrid~S. Kendall, Gareth~O. Roberts, and Jeffrey~S.
+  Rosenthal.
+\newblock {MEXIT}: Maximal un-coupling times for stochastic processes.
+\newblock \emph{Stochastic Processes and their Applications}, 129\penalty0
+  (2):\penalty0 355--380, 2019.
+\newblock \doi{10.1016/j.spa.2018.03.001}.
+
+\bibitem[Halton(1960)]{halton1960efficiency}
+John~H. Halton.
+\newblock On the efficiency of certain quasi-random sequences of points in
+  evaluating multi-dimensional integrals.
+\newblock \emph{Numerische Mathematik}, 2:\penalty0 84--90, 1960.
+\newblock \doi{10.1007/BF01386213}.
+
+\bibitem[Hayakawa et~al.(2025)Hayakawa, Takida, Imaizumi, Wakaki, and
+  Mitsufuji]{hayakawa2025demystifying}
+Satoshi Hayakawa, Yuhta Takida, Masaaki Imaizumi, Hiromi Wakaki, and Yuki
+  Mitsufuji.
+\newblock Demystifying {MaskGIT} sampler and beyond: Adaptive order selection
+  in masked diffusion.
+\newblock \emph{arXiv preprint arXiv:2510.04525}, 2025.
+
+\bibitem[He et~al.(2016)He, Zhang, Ren, and Sun]{he2016deep}
+Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+\newblock Deep residual learning for image recognition.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 770--778, 2016.
+\newblock \doi{10.1109/CVPR.2016.90}.
+
+\bibitem[Kim et~al.(2025)Kim, Shah, Kontonis, Kakade, and Chen]{kim2025train}
+Jaeyeon Kim, Kulin Shah, Vasilis Kontonis, Sham~M. Kakade, and Sitan Chen.
+\newblock Train for the worst, plan for the best: Understanding token ordering
+  in masked diffusions.
+\newblock In \emph{Proceedings of the 42nd International Conference on Machine
+  Learning (ICML)}, volume 267 of \emph{Proceedings of Machine Learning
+  Research}, pages 30749--30768. PMLR, 2025.
+\newblock arXiv:2502.06768.
+
+\bibitem[Lavenant and Zanella(2025)]{lavenant2025error}
+Hugo Lavenant and Giacomo Zanella.
+\newblock Error bounds and optimal schedules for masked diffusions with
+  factorized approximations.
+\newblock \emph{arXiv preprint arXiv:2510.25544}, 2025.
+
+\bibitem[Levin et~al.(2017)Levin, Peres, and Wilmer]{levin2017markov}
+David~A. Levin, Yuval Peres, and Elizabeth~L. Wilmer.
+\newblock \emph{Markov Chains and Mixing Times}.
+\newblock American Mathematical Society, 2nd edition, 2017.
+
+\bibitem[Lindvall(2002)]{lindvall2002coupling}
+Torgny Lindvall.
+\newblock \emph{Lectures on the Coupling Method}.
+\newblock Dover Publications, 2002.
+\newblock Corrected reprint of the 1992 Wiley edition.
+
+\bibitem[Moon and Ham(2026)]{moon2026shift}
+Jaehyeon Moon and Bumsub Ham.
+\newblock Shift-and-sum quantization for visual autoregressive models.
+\newblock In \emph{The Fourteenth International Conference on Learning
+  Representations (ICLR)}, 2026.
+\newblock arXiv:2606.16131.
+
+\bibitem[Oquab et~al.(2024)Oquab, Darcet, Moutakanni, Vo, Szafraniec, Khalidov,
+  Fernandez, Haziza, Massa, El-Nouby, Assran, Ballas, Galuba, Howes, Huang, Li,
+  Misra, Rabbat, Sharma, Synnaeve, Xu, J{\'e}gou, Mairal, Labatut, Joulin, and
+  Bojanowski]{oquab2024dinov2}
+Maxime Oquab, Timoth{\'e}e Darcet, Th{\'e}o Moutakanni, Huy Vo, Marc
+  Szafraniec, Vasil Khalidov, Pierre Fernandez, Daniel Haziza, Francisco Massa,
+  Alaaeldin El-Nouby, Mahmoud Assran, Nicolas Ballas, Wojciech Galuba, Russell
+  Howes, Po-Yao Huang, Shang-Wen Li, Ishan Misra, Michael Rabbat, Vasu Sharma,
+  Gabriel Synnaeve, Hu~Xu, Herv{\'e} J{\'e}gou, Julien Mairal, Patrick Labatut,
+  Armand Joulin, and Piotr Bojanowski.
+\newblock {DINOv2}: Learning robust visual features without supervision.
+\newblock \emph{Transactions on Machine Learning Research}, 2024.
+\newblock arXiv:2304.07193.
+
+\bibitem[Park et~al.(2025)Park, Lai, Hayakawa, Takida, and
+  Mitsufuji]{park2025jump}
+Yong-Hyun Park, Chieh-Hsin Lai, Satoshi Hayakawa, Yuhta Takida, and Yuki
+  Mitsufuji.
+\newblock Jump your steps: Optimizing sampling schedule of discrete diffusion
+  models.
+\newblock In \emph{The Thirteenth International Conference on Learning
+  Representations (ICLR)}, 2025.
+\newblock arXiv:2410.07761.
+
+\bibitem[Peng et~al.(2025)Peng, Bezemek, Patel, Rector-Brooks, Yao, Bose, Tong,
+  and Chatterjee]{peng2025path}
+Fred~Zhangzhi Peng, Zachary Bezemek, Sawan Patel, Jarrid Rector-Brooks,
+  Sherwood Yao, Avishek~Joey Bose, Alexander Tong, and Pranam Chatterjee.
+\newblock Path planning for masked diffusion model sampling.
+\newblock \emph{arXiv preprint arXiv:2502.03540}, 2025.
+
+\bibitem[Rebeschini and van Handel(2014)]{rebeschini2014comparison}
+Patrick Rebeschini and Ramon van Handel.
+\newblock Comparison theorems for {G}ibbs measures.
+\newblock \emph{Journal of Statistical Physics}, 157:\penalty0 234--281, 2014.
+\newblock \doi{10.1007/s10955-014-1087-7}.
+
+\bibitem[V{\"o}llering(2016)]{vollering2016maximal}
+Florian V{\"o}llering.
+\newblock On maximal agreement couplings.
+\newblock \emph{arXiv preprint arXiv:1608.01511}, 2016.
+
+\bibitem[Wu et~al.(2025)Wu, Li, Hui, Zhang, Kong, and Yang]{wu2025quantcache}
+Junyi Wu, Zhiteng Li, Zheng Hui, Yulun Zhang, Linghe Kong, and Xiaokang Yang.
+\newblock {QuantCache}: Adaptive importance-guided quantization with
+  hierarchical latent and layer caching for video generation.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pages 15035--15044, 2025.
+\newblock arXiv:2503.06545.
+
+\bibitem[Yan et~al.(2025)Yan, Wei, Tang, Li, Wang, Hu, Li, and
+  Zhang]{yan2025lazymar}
+Feihong Yan, Qingyan Wei, Jiayi Tang, Jiajun Li, Yulin Wang, Xuming Hu, Huiqi
+  Li, and Linfeng Zhang.
+\newblock {LazyMAR}: Accelerating masked autoregressive models via feature
+  caching.
+\newblock In \emph{Proceedings of the IEEE/CVF International Conference on
+  Computer Vision (ICCV)}, pages 15552--15561, 2025.
+\newblock arXiv:2503.12450.
+
+\bibitem[Zhang et~al.(2018)Zhang, Isola, Efros, Shechtman, and
+  Wang]{zhang2018unreasonable}
+Richard Zhang, Phillip Isola, Alexei~A. Efros, Eli Shechtman, and Oliver Wang.
+\newblock The unreasonable effectiveness of deep features as a perceptual
+  metric.
+\newblock In \emph{Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition (CVPR)}, pages 586--595, 2018.
+\newblock \doi{10.1109/CVPR.2018.00068}.
+
+\end{thebibliography}

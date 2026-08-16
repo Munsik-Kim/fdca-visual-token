@@ -1,0 +1,15 @@
+[build-system]
+requires=["setuptools>=68"]
+build-backend="setuptools.build_meta"
+[project]
+name="fdca-visual-token"
+version="1.0.0"
+description="Public model-free research artifact for First-Divergence Consequence Analysis"
+requires-python=">=3.11"
+dependencies=["numpy==2.2.6","scipy==1.15.2"]
+[tool.pytest.ini_options]
+testpaths=["tests/model_free","tests/public_contract"]
+pythonpath=["."]
+addopts="-ra --strict-markers"
+[tool.setuptools.packages.find]
+include=["fdca*"]

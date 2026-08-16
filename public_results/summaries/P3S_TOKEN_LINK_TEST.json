@@ -1,0 +1,15 @@
+{
+  "blocks": 40,
+  "lobo_no_leakage": true,
+  "mae_S0": 0.01280240607909606,
+  "mae_S1": 0.006964033652428927,
+  "mae_improvement": 0.005838372426667132,
+  "mae_improvement_ci95_lower": 0.004914134031532894,
+  "mae_improvement_ci95_upper": 0.006789642520855396,
+  "mae_ratio_S1_over_S0": 0.5439628777124867,
+  "replicated": true,
+  "rows": 640,
+  "within_rho_spearman": 0.5836396031369595,
+  "within_rho_spearman_ci95_lower": 0.5011198805496319,
+  "within_rho_spearman_ci95_upper": 0.663509643485824
+}

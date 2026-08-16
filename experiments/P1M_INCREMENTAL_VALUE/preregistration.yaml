@@ -1,0 +1,115 @@
+schema: FDCA_VIS_P1M_INCREMENTAL_VALUE_PREREGISTRATION_V1
+work_package: FDCA_VIS_P1M_INCREMENTAL_VALUE
+analysis_kind: post-hoc model-free diagnostic
+frozen_before_target_outcome_load: true
+timestamp_asia_seoul: "20260813_192016"
+project_root: ${FDCA_PROJECT_ROOT}
+workspace: ${FDCA_PROJECT_ROOT}/postmortem/FDCA_VIS_P1M_INCREMENTAL_VALUE_20260813_192016
+execution_contract:
+  source: <private-attachment-excluded>
+  sha256: 84f0f3af6d529e1e7b3b5514978ec3683b1d802cd6bade64f998d21f92719999
+canonical_source:
+  run: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P1L_SINGLE_SHOCK_REGIME_20260813_152129
+  required_gate:
+    validity_gate: PASS_FDCA_VIS_P1L_VALIDITY
+    scientific_outcome_label: SINGLE_SHOCK_REGIME_AND_PROFILE_SUPPORTED
+    overall_gate: PASS_FDCA_VIS_P1L_STRONG
+    automatic_next_phase_authorized: false
+    zero_shock_terminal_mismatch_sum: 0
+  expected_archives:
+    summary: {size_bytes: 454967, sha256: e524a229ad2752873c75d451a155549ec4d687e077a2fe8881f294fc46be75bc}
+    full: {size_bytes: 10546409, sha256: 114ee644be8267adefea318c2f83d84ee02cd9e6a1d516601fa253016d1157f2}
+    delivery: {size_bytes: 4974, sha256: 1c9f39b83191d2879742145d7bba9a2934fb7777c3c58ce957b09b70a36f67eb}
+  preservation:
+    hash_all_p1l_files_before_and_after: true
+    hash_existing_p1l_zips_before_and_after: true
+    run_sha256sums_absence_policy: record_missing_and_require_run_manifest_plus_final_full_zip_package_sha_list
+source_tables:
+  - derived/p1l_terminal_rows.parquet
+  - derived/p1l_envelope_rows.parquet
+  - derived/p1l_growth_curves.parquet
+  - derived/p1l_shock_manifest.parquet
+  - derived/p1l_anchor_index.parquet
+  - derived/p1l_source_position_manifest.csv
+  - derived/p1l_block_anchor_aggregation.parquet
+  - derived/p1l_terminal_summary.csv
+  - derived/p1l_distinct_aggregations.csv
+  - derived/p1l_hypothesis_tests.json
+analysis_rows:
+  primary_key: [block_id, cell_id, anchor_target_rho, source_type, replicate_id]
+  exclude_control_type: zero_shock
+  primary_cell: W8_L1.00
+  stress_cell: W4_L1.00
+  independent_unit: class-seed block
+  load_bearing_aggregation: [block_id, cell_id, anchor_target_rho, source_type]
+  sensitivity_aggregation: [block_id, cell_id, anchor_target_rho]
+features:
+  probability_clip: 1.0e-12
+  source_center: [7.5, 7.5]
+  normalized_source_commit_step_divisor: 31
+  remaining_steps_definition: 32 - anchor_step
+  retained_unavailable_metadata_policy: record_absent_do_not_reconstruct_from_model
+cross_validation:
+  method: deterministic leave-one-block-out
+  folds: 48
+  group: block_id
+  ridge_alpha: 1.0e-6
+  intercept_penalized: false
+  continuous_feature_processing: train-fold mean/standard-deviation only
+  zero_variance_scale: 1.0
+  missing_continuous_imputation: train-fold median only
+  categorical_encoding: fixed declared levels with first level omitted
+  target_processing: none
+models:
+  M0: C(rho) + source_type + C(rho):source_type
+  M1: M0 + actual_rho + unresolved_fraction + remaining_steps_fraction + normalized_source_commit_step + source_x_fraction + source_y_fraction + logit_alternative_probability + source_selection_fallback
+  M2: M1 + B_total_max + B_desc_max + max_cap_rate
+  M3: M1 + B_total_q95 + B_desc_q95 + q95_cap_rate
+  rho_only: C(rho)
+  remaining_steps_only: remaining_steps_fraction
+  unresolved_only: unresolved_fraction
+  stable_only: B_stable_total
+  rho_source_age: C(rho) + source_type
+  rho_shock_severity: C(rho) + logit_alternative_probability
+  profile_only: B_total_max + B_desc_max + max_cap_rate
+metrics: [MAE, RMSE, Spearman, within_rho_residual_Spearman, block_level_MAE]
+bootstrap:
+  resamples: 20000
+  unit: block_id
+  seed_prefix: FDCA-P1M-BOOTSTRAP
+  quantile_method: higher
+primary_profile_label:
+  adds_incremental_value_requires:
+    m2_mae_relative_to_m1_max: 0.90
+    mean_block_improvement_ci95_lower_gt: 0
+    within_rho_residual_spearman_gt: 0.20
+    within_rho_residual_spearman_ci95_lower_gt: 0
+  ordering_only_if_rho_order_reproduced_and_primary_fails: true
+source_age:
+  pair_key: [block_id, cell_id, anchor_target_rho, replicate_id]
+  adjusted_formula: delta_D_desc_rate ~ delta_logit_alt_probability + delta_source_commit_step + delta_center_distance + C(rho)
+  adjusted_source_age_effect: intercept_with_rho_0.1_reference
+  robust_requires_positive_rho_sign_count: 4
+trajectory_adequacy:
+  exceedance: D_total > B_combined_profile
+  positive_exceedance: max(D_total - B_combined_profile, 0)
+  block_event: any_trajectory_exceedance
+regime_sensitivities:
+  - source_type_separate
+  - no_fallback_only
+  - severity_adjusted
+  - extinction_excluded
+  - block_median
+  - W4_stress
+validity:
+  maximum_independent_discrepancy: 1.0e-9
+  no_profile_refit: true
+  no_model_or_gpu_execution: true
+outputs:
+  analysis_rows: data/p1m_analysis_rows.parquet
+  block_anchor_source: data/p1m_block_anchor_source.parquet
+  block_anchor: data/p1m_block_anchor.parquet
+  predictions: derived/P1M_OOF_PREDICTIONS.parquet
+  scoreboard: derived/P1M_MODEL_SCOREBOARD.csv
+  gate: reports/P1M_GATE.json
+stop_rule: STOP_AFTER_P1M_PENDING_USER_REVIEW

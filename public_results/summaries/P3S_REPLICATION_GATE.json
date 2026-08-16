@@ -1,0 +1,17 @@
+{
+  "R1": true,
+  "R2": true,
+  "R3": true,
+  "R4": true,
+  "clamp_mismatch_delta_total": 0,
+  "later_experiment_started": false,
+  "official_cfg_sensitivity_gate_role": "secondary_non_gating",
+  "overall_gate": "PASS_FDCA_VIS_P3S_STRONG_REPLICATION",
+  "paper_integration_recommendation": "RECOMMEND_PAPER_INTEGRATION_AND_FREEZE",
+  "replication_outcome": "SECOND_CHECKPOINT_PERCEPTUAL_BRIDGE_REPLICATED",
+  "schema": "FDCA_VIS_P3S_GATE_V1",
+  "selected_mask_count": 0,
+  "stop_rule": "STOP_AFTER_P3S_PENDING_USER_REVIEW",
+  "token_link_secondary_replicated": true,
+  "validity_gate": "PASS_FDCA_VIS_P3S_VALIDITY"
+}

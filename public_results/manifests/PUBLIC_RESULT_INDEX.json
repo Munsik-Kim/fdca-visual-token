@@ -1,0 +1,269 @@
+{
+  "entries": [
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "T0",
+      "private_source_id": "T0_GATE.json",
+      "public_file": "public_results/summaries/T0_SYNTHETIC_GATE.json",
+      "public_sha256": "371d02245ae741d2131eb7f8f5fefd107042e296d9e301c0d26642788480bf6b",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "5ff5b3a9d18ac056deb6ccd96baabeb9427c62272783034aef3a13beb970ec89"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P0",
+      "private_source_id": "P0_GATE.json",
+      "public_file": "public_results/summaries/P0_CONTRACT_GATE.json",
+      "public_sha256": "6dc8e156bed9829aea3aaa523135897642f603d0316f5392b7cecf17682452be",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "d1bb3020fce5ec7e2c5a98827acddee85e96a4c592da6d55354dbafd46a14eeb"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P05R",
+      "private_source_id": "P05R_GATE.json",
+      "public_file": "public_results/summaries/P05R_INFLUENCE_GATE.json",
+      "public_sha256": "4461d3b1b6017b26d537d86593181c681547e29561bac71b15fbfafe8bd61b59",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "04d7731d618f4937412e1757a0e567f524ff6f2534abc08789f475a68994853f"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P1L",
+      "private_source_id": "P1L_GATE.json",
+      "public_file": "public_results/summaries/P1L_SINGLE_SHOCK_GATE.json",
+      "public_sha256": "ed8e28fdeb37f079ba9fb2323507667adb48f67970991eb01ddbb86ce85a2129",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "ed8e28fdeb37f079ba9fb2323507667adb48f67970991eb01ddbb86ce85a2129"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P1M",
+      "private_source_id": "P1M_GATE.json",
+      "public_file": "public_results/summaries/P1M_INCREMENTAL_VALUE_GATE.json",
+      "public_sha256": "2124c2e09cbbd8e993368d33e82fb15ae683853be97e795404246cde06200eeb",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "2124c2e09cbbd8e993368d33e82fb15ae683853be97e795404246cde06200eeb"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2N",
+      "private_source_id": "P2N_GATE.json",
+      "public_file": "public_results/summaries/P2N_NATURAL_SHOCK_GATE.json",
+      "public_sha256": "7687b7d5565d07084664e4c0f9ebaf5aa0091cc9625e4c5d2ef2c88a4690a5aa",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "7687b7d5565d07084664e4c0f9ebaf5aa0091cc9625e4c5d2ef2c88a4690a5aa"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2A",
+      "private_source_id": "P2A_GATE.json",
+      "public_file": "public_results/summaries/P2A_AUDIT_GATE.json",
+      "public_sha256": "b5359c401715d60871c6774799066db10bb4a5131e594c3306133971cc5a75e9",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "b5359c401715d60871c6774799066db10bb4a5131e594c3306133971cc5a75e9"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2B",
+      "private_source_id": "P2B_GATE.json",
+      "public_file": "public_results/summaries/P2B_AUDIT_GATE.json",
+      "public_sha256": "61816f94065fef7e3337290a94d8a37f1b46a4e2f94117f27a7038106fbc3f10",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "61816f94065fef7e3337290a94d8a37f1b46a4e2f94117f27a7038106fbc3f10"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_GATE.json",
+      "public_file": "public_results/summaries/P2P_PERCEPTUAL_GATE.json",
+      "public_sha256": "650b20c72f3a3d3bf7904fda63e9676eb188ea8d1b53cc709eccb749a5e65706",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "650b20c72f3a3d3bf7904fda63e9676eb188ea8d1b53cc709eccb749a5e65706"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_GATE.json",
+      "public_file": "public_results/summaries/P3S_REPLICATION_GATE.json",
+      "public_sha256": "da9c438b9d4392d2d666c304b7c0c3cd41cf18cd65a53b21c0365dc93ab30a9f",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "da9c438b9d4392d2d666c304b7c0c3cd41cf18cd65a53b21c0365dc93ab30a9f"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P05",
+      "private_source_id": "P05_GATE.json",
+      "public_file": "public_results/summaries/P05_INCOMPLETE_GATE.json",
+      "public_sha256": "1c772b1065483924a82146da5afac585a9432ed0f14ac31c57891d2e0f4a9d03",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "e6376c6bafdbd8d6a1b1e1fbac91b28c1893bc4603bd26d8824c1d55bcc975d2"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "T0",
+      "private_source_id": "key_numerical_gaps.json",
+      "public_file": "public_results/summaries/T0_KEY_NUMERICAL_GAPS.json",
+      "public_sha256": "2bc5fa28a722ee09b6db1109ebc31639583330ee93c327847490abbadb848fdb",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "2bc5fa28a722ee09b6db1109ebc31639583330ee93c327847490abbadb848fdb"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "T0",
+      "private_source_id": "persistent_fresh_innovation_counterexample.json",
+      "public_file": "public_results/summaries/T0_FRESH_INNOVATION_COUNTEREXAMPLE.json",
+      "public_sha256": "d3e3a8cecedf430fe219a0e8d9172f4b9c5938a7d8c4d256cf569e0d1c2baf60",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "d3e3a8cecedf430fe219a0e8d9172f4b9c5938a7d8c4d256cf569e0d1c2baf60"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_PERCEPTUAL_SUMMARY.csv",
+      "public_file": "public_results/tables/P2P_PERCEPTUAL_SUMMARY.csv",
+      "public_sha256": "cfb62f0af7654d0956715de76bf8191ff2e5dd323fe9c542fcb9bd67f6d449fc",
+      "row_count": 7,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "cfb62f0af7654d0956715de76bf8191ff2e5dd323fe9c542fcb9bd67f6d449fc"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_HYPOTHESIS_TESTS.json",
+      "public_file": "public_results/summaries/P2P_HYPOTHESIS_TESTS.json",
+      "public_sha256": "278078894a1d4e66574634a55f0f128d3cdb303574411a58044a3d08f93b7022",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "278078894a1d4e66574634a55f0f128d3cdb303574411a58044a3d08f93b7022"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_REPLICATION_SUMMARY.csv",
+      "public_file": "public_results/tables/P3S_REPLICATION_SUMMARY.csv",
+      "public_sha256": "6c9ac395d76a763130ad5edb2d74a30711781188061f2af533cf08a463c45c75",
+      "row_count": 4,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "6c9ac395d76a763130ad5edb2d74a30711781188061f2af533cf08a463c45c75"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_REPLICATION_TESTS.json",
+      "public_file": "public_results/summaries/P3S_REPLICATION_TESTS.json",
+      "public_sha256": "e9ddd9dbc8096281c02d1f55df021e251ec48dc013f90f46a2ed7797ffa076b7",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "e9ddd9dbc8096281c02d1f55df021e251ec48dc013f90f46a2ed7797ffa076b7"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_TOKEN_LINK_TEST.json",
+      "public_file": "public_results/summaries/P3S_TOKEN_LINK_TEST.json",
+      "public_sha256": "b145e92810ec7ceb8f9dff6f0486611818865e5bcb3b2ca758ffbc9a1c85b516",
+      "row_count": null,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "b145e92810ec7ceb8f9dff6f0486611818865e5bcb3b2ca758ffbc9a1c85b516"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_PERCEPTUAL_DECOMPOSITION_ROWS.parquet",
+      "public_file": "public_results/tables/P2P_BLOCK_LEVEL.csv",
+      "public_sha256": "091151449d2b02745741c92d7307237d34b1f439af415f99af219cd4cbc0c46a",
+      "row_count": 288,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "b6dde076652f78738a8314de2a873e5b1857119432a2b430d27b3123c3d11e1f"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_PERCEPTUAL_ROWS.parquet",
+      "public_file": "public_results/tables/P2P_MATCHED_BLOCK_LEVEL.csv",
+      "public_sha256": "e44304c6d31c20a90952d047b1900f5e1bb0bea453e8176dcf92bf34e2cef5ed",
+      "row_count": 48,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "23a31b05c51fe0549cf1046eed9a44ceb32ead62519b647fdfa7379dae519b12"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P2P",
+      "private_source_id": "P2P_TOKEN_TO_LPIPS_OOF_ROWS.parquet",
+      "public_file": "public_results/tables/P2P_TOKEN_OOF.csv",
+      "public_sha256": "5aecda3a05bf90f6830a16810abcc6a8aa176606a1ec64e6de9fbd736d403eaf",
+      "row_count": 1920,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "94d4b94cc8cd0a133f0ed65eeeac800f65dfc9c236092dcd6feaac957421e050"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_PERCEPTUAL_DECOMPOSITION_ROWS.parquet",
+      "public_file": "public_results/tables/P3S_BLOCK_LEVEL.csv",
+      "public_sha256": "0e595b018b1c7a029fda7eed94778bad4c8b1e1e076525bc0bbd73066317367a",
+      "row_count": 112,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "3d14c2d77fa328daa48f65c6f7085cbe33b49e8c6ff2f0ef64cf54f09b6c03f7"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_PERCEPTUAL_ROWS.parquet",
+      "public_file": "public_results/tables/P3S_MATCHED_BLOCK_LEVEL.csv",
+      "public_sha256": "7abc14674609a2690d498eb9ae1e531521eea46ce1ed0744ae9d41acaba9a0f7",
+      "row_count": 80,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "b159f6e816eacc4625004a038671b64aa3375db9222d3409a98487cf898597b8"
+    },
+    {
+      "aggregation_script": "scripts/reproduce_public_results.py",
+      "paper_reference": "main text or supplement",
+      "phase": "P3S",
+      "private_source_id": "P3S_TOKEN_TO_LPIPS_OOF_ROWS.parquet",
+      "public_file": "public_results/tables/P3S_TOKEN_OOF.csv",
+      "public_sha256": "39f91e2ea64c0bbd77e87b0c22019b9fd9e8f2ed8a6db3ce053b18274a669243",
+      "row_count": 640,
+      "scope": "compact/model-free; external forwards excluded",
+      "source_sha256": "2601cc5286b8eb7b4484d1a68b0659e1ada70a10d8fcd56c09e087facf0569af"
+    }
+  ],
+  "schema": "FDCA_PUBLIC_RESULT_INDEX_V1"
+}

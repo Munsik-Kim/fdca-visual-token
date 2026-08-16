@@ -1,0 +1,82 @@
+schema: FDCA_VIS_P2N_PREREGISTRATION_V1
+work_package: FDCA_VIS_P2N_NATURAL_SHOCK_BRIDGE
+status: frozen_before_model_forward
+predecessors:
+  p05r: PASS_FDCA_VIS_P05R_NEGATIVE
+  p1l: PASS_FDCA_VIS_P1L_STRONG
+  p1m_strategy: PROCEED_NATURAL_SHOCK_REGIME_PRIMARY_PROFILE_SECONDARY
+kernel:
+  model: H-MaskGIT-T
+  sampler: Halton
+  randomize: false
+  steps: 32
+  user_batch_size: 1
+  cfg_internal_batch_size: 2
+  dtype: FP32
+  compile: false
+  model_eval: true
+  tf32: false
+cells:
+  primary: W8_L1.00
+  secondary_stress: W4_L1.00
+anchors:
+  target_rho: [0.1, 0.3, 0.5, 0.7, 0.9]
+  deterministic_rule: nearest_pre_transition_mask_fraction_tie_earlier_step
+panels:
+  smoke_blocks: 4
+  full_scientific_blocks: 48
+  core_scientific_blocks: 24
+  seed_only_mc_per_block_anchor_cell: 256
+  conditional_replicates_w8: 8
+  conditional_replicates_w4: 4
+  w4_propagation_rhos: [0.1, 0.3, 0.5]
+  matched_timing_replicates_w8: 2
+  conditional_attempt_cap: 10000
+natural_seed:
+  transition: one_reference_fp32_vs_realistic_rtn_transition
+  coupling: coordinatewise_conditional_maximal
+  exact_split_probability: 1_minus_product_one_minus_coordinate_tv
+  expected_seed_count: sum_coordinate_tv
+  seed_count_law: poisson_binomial
+suffix:
+  both_branches: same_realistic_approximate_q
+  future_reference_approximate_innovation: prohibited
+  coupling: coordinatewise_conditional_maximal
+estimands:
+  - exact_split_incidence
+  - expected_natural_seed_count
+  - single_and_multi_seed_probability
+  - seed_severity_and_spatial_topology
+  - split_conditional_descendant_propagation
+  - unconditional_expected_consequence
+  - incidence_times_conditional_consequence
+  - matched_timing_control
+profile:
+  role: secondary_diagnostic_only
+  source: frozen_P05R_q95_and_max
+  refit: prohibited
+primary_contrasts:
+  rho_high: 0.5
+  rho_low: 0.3
+  H1: conditional_descendant_rate_difference
+  H2: unconditional_expected_consequence_difference
+  H3: natural_seed_creates_descendants_at_rho_0.5
+  H4: matched_timing_reverse_time_amplification
+  H5: seed_severity_oof_incremental_prediction_secondary
+  H6: frozen_profile_rho_ordering_secondary
+bootstrap:
+  unit: class_seed_block
+  resamples: 10000
+  ci: [0.025, 0.975]
+runtime:
+  target_hours: 7.5
+  hard_stop_hours: 9.0
+  vram_budget_gib: 15.2
+packaging_order:
+  - freeze_all_run_and_source_files
+  - build_verify_summary
+  - build_verify_full
+  - build_delivery_from_final_summary_full_bytes
+  - verify_delivery
+  - calculate_final_sha_and_never_rewrite
+stop_rule: STOP_AFTER_P2N_PENDING_USER_REVIEW

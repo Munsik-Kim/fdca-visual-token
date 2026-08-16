@@ -1,0 +1,17 @@
+{
+  "H1": true,
+  "H2": true,
+  "H3": true,
+  "H4": true,
+  "H5": true,
+  "clamp_mismatch_delta_total": 0,
+  "later_experiment_started": false,
+  "next_phase_recommendation": "RECOMMEND_SECOND_CHECKPOINT_REPLICATION",
+  "overall_gate": "PASS_FDCA_VIS_P2P_STRONG",
+  "preset": "FULL",
+  "schema": "FDCA_VIS_P2P_GATE_V1",
+  "scientific_outcome_label": "PERCEPTUAL_NATURAL_SHOCK_BRIDGE_SUPPORTED",
+  "selected_mask_count": 0,
+  "stop_rule": "STOP_AFTER_P2P_PENDING_USER_REVIEW",
+  "validity_gate": "PASS_FDCA_VIS_P2P_VALIDITY"
+}

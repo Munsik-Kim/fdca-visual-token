@@ -1,0 +1,22 @@
+FDCA v1.0.0 RIGHTS STATEMENT
+
+Copyright (c) 2026 Munsik Kim.
+
+The paper text, figures, tables, LaTeX/BibTeX sources, release documentation,
+and included audit reports in this archive are licensed under the Creative
+Commons Attribution 4.0 International License (CC BY 4.0).
+
+You are free to share and adapt the licensed material for any purpose, provided
+that appropriate credit is given, a link to the license is supplied, and changes
+are indicated. No additional restrictions may be applied.
+
+License summary and legal code:
+https://creativecommons.org/licenses/by/4.0/
+
+Suggested attribution:
+Munsik Kim, "First-Divergence Consequence Analysis: From Quantization Onset to
+Perceptual Impact in Masked Visual Generators," version 1.0.0, 2026.
+
+Third-party software, model checkpoints, metric weights, cited publications,
+and trademarks are not relicensed by this statement. Large external assets are
+not redistributed in this package and remain subject to their original terms.

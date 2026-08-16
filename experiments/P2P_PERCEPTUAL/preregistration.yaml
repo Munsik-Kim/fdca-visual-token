@@ -1,0 +1,111 @@
+schema: FDCA_VIS_P2P_PREREGISTRATION_V1
+experiment_id: FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK
+frozen_at: '2026-08-15T19:43:42+09:00'
+run_directory: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK_20260815_194342
+predecessors:
+  p2n_run: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P2N_NATURAL_SHOCK_BRIDGE_20260814_133625
+  p2n_validity: PASS_FDCA_VIS_P2N_VALIDITY
+  p2n_effect: NATURAL_SHOCK_BRIDGE_AND_TIMING_SUPPORTED
+  p2n_overall: PASS_FDCA_VIS_P2N_STRONG
+  p2b_run: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P2B_SEED_MASK_CLOSURE_20260814_225150
+  p2b_validity: PASS_FDCA_VIS_P2B_VALIDITY
+  p2b_effect: SEED_MASK_CLOSURE_CLEAN
+  p2b_overall: PASS_FDCA_VIS_P2B_CLEAN
+  p2b_recommendation: READY_TO_DESIGN_P2P_PERCEPTUAL_PANEL
+generator:
+  model: H-MaskGIT-T
+  sampler: Halton
+  randomize: false
+  steps: 32
+  top_k: -1
+  cfg: 3.0
+  user_batch: 1
+  cfg_internal_batch: 2
+  dtype: FP32
+  compile: false
+  eval: true
+  tf32: false
+  state: actual_pre_clamp
+cells:
+  primary: {id: W8_L1.00, bit_width: 8, lambda: 1.0, quantizer: per_tensor_symmetric_RTN}
+  stress: {id: W4_L1.00, bit_width: 4, lambda: 1.0, quantizer: per_tensor_symmetric_RTN}
+anchors: [0.1, 0.3, 0.5, 0.7, 0.9]
+primary_contrast: [0.5, 0.3]
+coupling:
+  seed_transition: coordinatewise_conditional_maximal_FP32_vs_quantized
+  conditional_split_attempt_limit: 10000
+  suffix: coordinatewise_maximal_common_approximate_q
+  future_reference_vs_approximate_innovation: prohibited
+blocks:
+  generation: candidate_SHA256_FDCA-P2P-CANDIDATE_counter_pair_SHA256_FDCA-P2P_class_seed
+  smoke: 4
+  full: 48
+  core: 24
+  predecessor_pair_exclusion: all_P0_P05_P05R_P1L_P1M_P2N_P2A_P2B_smoke_and_scientific
+replicates:
+  W8_FULL: 8
+  W8_CORE: 8
+  W4_FULL: 4
+  W4_CORE: 4
+  matched_timing: 2
+  zero_control: 1
+  smoke_conditional: 2
+panels:
+  W8_FULL: {blocks: 48, anchors: [0.1, 0.3, 0.5, 0.7, 0.9]}
+  W8_CORE: {blocks: 24, anchors: [0.1, 0.3, 0.5, 0.7, 0.9]}
+  W4_FULL: {blocks: 24, anchors: [0.3, 0.5]}
+  W4_CORE: {blocks: 12, anchors: [0.3, 0.5]}
+  matched_FULL: {blocks: 24, anchors: [0.3, 0.5]}
+  matched_CORE: {blocks: 12, anchors: [0.3, 0.5]}
+decode:
+  vq: frozen_H-MaskGIT-vq_ds16_c2i
+  input_grid: terminal_post_clamp
+  clamp: [0, 1023]
+  output: RGB_float32_minus1_plus1_256x256
+  png_retention: deterministic_stratified_representative_only_minimum_8_pairs_per_W8_rho
+metrics:
+  primary: LPIPS_official_alex
+  corroborating: DINOv2_official_vits14_cosine_distance
+  classifier: torchvision_ResNet50_IMAGENET1K_V2
+  diagnostics: [SSIM, pixel_L1, PSNR]
+  inference: scalar_canonical_sequential_model_loading
+  random_augmentation: false
+predictors:
+  target: LPIPS
+  validation: leave_one_block_out
+  estimator: ridge_alpha_1_fold_specific_standardization
+  S0: [categorical_rho, seed_count, seed_tv, seed_surprisal, seed_components, seed_bbox_area]
+  S1_additions: [descendant_rate, descendant_count, first_descendant_step, descendant_radius, descendant_components, descendant_fraction_distance_le_5]
+statistics:
+  independent_unit: class_seed_block
+  replicate_handling: mean_within_block_anchor_cell
+  bootstrap_resamples: 20000
+  bootstrap_seed_namespace: FDCA-P2P-BOOTSTRAP
+  interval: paired_block_percentile_95
+hypotheses:
+  H1: {metric: conditional_LPIPS_W8_rho_0.5_minus_0.3, lower_ci_gt: 0, ratio_ge: 1.5}
+  H2: {metric: unconditional_expected_LPIPS_W8_rho_0.5_minus_0.3, lower_ci_gt: 0, ratio_ge: 1.5}
+  H3: {mae_S1_le_fraction_S0: 0.90, improvement_lower_ci_gt: 0, within_rho_residual_spearman_gt: 0.20, spearman_lower_ci_gt: 0}
+  H4: {metric: conditional_DINO_W8_rho_0.5_minus_0.3, lower_ci_gt: 0, ratio_ge: 1.5}
+  H5: {metric: matched_timing_LPIPS_W8_rho_0.5_minus_0.3, lower_ci_gt: 0, ratio_ge: 1.5}
+runtime_gate:
+  FULL: {projected_hours_le: 7.5, peak_vram_gb_le: 15.2}
+  CORE: {projected_hours_le: 8.5, peak_vram_gb_le: 15.2}
+  mutable_dimension: scientific_block_count_only
+validity:
+  require_metric_asset_pinning: true
+  require_metric_numerical_audit: true
+  require_zero_control_exactness: true
+  require_complete_token_pair_and_grid_logging: true
+  require_rng_unclassified_duplicates: 0
+  require_rng_missing_expected: 0
+  require_tests_at_least: 50
+packaging:
+  full_zip_target_mb: 100
+  exclude: [model_checkpoint, VQ_weight, metric_weights, external_git_clone, conda_environment, full_PNG_corpus]
+  order: [freeze_run_and_source, summary, full, hash_summary_full, delivery, verify_delivery, stop]
+semantic_rng_keys:
+  fields: [experiment_id, approximation_cell, block_id, anchor_id, seed_replicate_id, step, position, event_kind, attempt_id, draw_id]
+  intentional_cross_cell_reuse: REFERENCE_SHARED_proposal_x
+  event_kinds: [reference_history_token, proposal_x, proposal_accept, proposal_residual, suffix_proposal_x, suffix_proposal_accept, suffix_proposal_residual, bootstrap_index]
+stop_rule: STOP_AFTER_P2P_PENDING_USER_REVIEW

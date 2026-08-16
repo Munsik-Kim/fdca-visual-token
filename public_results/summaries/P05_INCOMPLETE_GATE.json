@@ -1,0 +1,39 @@
+{
+  "schema": "FDCA_VIS_P05_GATE_V1",
+  "work_package": "FDCA_VIS_P05_INFLUENCE",
+  "run_directory": "${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P05_INFLUENCE_20260813_081309",
+  "prerequisite_gate": "PASS_FDCA_VIS_P05_PREFLIGHT",
+  "runtime_preset": "STOP",
+  "validity_gate": "INCOMPLETE_FDCA_VIS_P05",
+  "scientific_effect_label": "SCIENTIFIC_EFFECT_NOT_EVALUATED_INCOMPLETE",
+  "overall_gate": "INCOMPLETE_FDCA_VIS_P05",
+  "p1_authorization": "NOT_AUTHORIZED_P1",
+  "load_bearing_stop": {
+    "criterion": "scalar-vs-batched intervention output maximum absolute difference <= 1e-7",
+    "observed": 3.17692756652832e-5,
+    "tolerance": 1e-7,
+    "pass": false
+  },
+  "completed_before_stop": {
+    "preflight": true,
+    "preregistration": true,
+    "class_seed_block_freeze": true,
+    "quantization_lambda0_identity": true,
+    "quantization_lambda1_rtn_identity": true,
+    "reference_restoration": true,
+    "cell_order_invariance": true,
+    "two_block_runtime_smoke": true,
+    "smoke_hybrid_violation_count": 0
+  },
+  "not_started_after_stop": {
+    "full_or_core_main_panel": true,
+    "calibration_profile_fit": true,
+    "holdout_coverage": true,
+    "measured_envelopes": true,
+    "scientific_effect_gate": true,
+    "p1_coupling": true
+  },
+  "thresholds_changed_after_observation": false,
+  "holdout_inspected": false,
+  "stop_rule": "STOP_AFTER_P05_PENDING_USER_REVIEW"
+}

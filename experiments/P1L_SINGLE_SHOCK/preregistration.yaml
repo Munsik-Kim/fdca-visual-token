@@ -1,0 +1,153 @@
+schema: FDCA_VIS_P1L_SINGLE_SHOCK_REGIME_PREREGISTRATION_V1
+work_package: FDCA_VIS_P1L_SINGLE_SHOCK_REGIME
+frozen_before_model_forward: true
+timestamp_asia_seoul: "20260813_152129"
+run_directory: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P1L_SINGLE_SHOCK_REGIME_20260813_152129
+execution_contract:
+  source: <private-attachment-excluded>
+  sha256: 10222c32b21cad2b3d3ef3c70d9691e5e540327d7356d9f8e8f9e8c8c0adf948
+predecessor:
+  canonical_p05r_run: runs/FDCA_VIS_P05R_SCALAR_20260813_101434
+  frozen_validity: PASS_FDCA_VIS_P05R_VALIDITY
+  frozen_effect: INFLUENCE_ENVELOPE_VACUOUS
+  frozen_overall: PASS_FDCA_VIS_P05R_NEGATIVE
+  frozen_p1_authorization: NOT_AUTHORIZED_P1
+  compact_postmortem_source_verification_required: true
+  t0_commit: f9e70bbf136581c8235c928c4ba8d0ab46bf8994
+  p0_commit: 0e41bedb72c4bbf5f944225e362a632dd81a65d4
+assets:
+  upstream_commit: f61b0a1314717004dc7487531fd16a8bb71e1888
+  generator:
+    filename: ImageNet_256_tiny.pth
+    sha256: 50e149d6eb4958bc2d43f4ed075d0c62e5aca858d825b9de8196fe8c3fc78408
+  vq:
+    filename: vq_ds16_c2i.pt
+    sha256: 109aa8afb2cf3761eec23cdc8644154cb498f5ab7eef2a35264d25e5e0499f7d
+frozen_profiles:
+  fit_or_refit: prohibited
+  q95_sha256: 6ea151ed08b2623726317e65072549dab7c9b65b51c6c518080a71eea54f100e
+  maximum_sha256: b7736c10f34fae247fc70cb4cb4da9abafba3618e2992636cee350d1e2d39a8b
+  freeze_metadata_sha256: 351460a456ece2bb389a9cb09267431a08e4d33646a285e6f796ae82b42921cc
+new_blocks:
+  manifest: provenance/p1l_class_seed_manifest.csv
+  manifest_sha256: 9cd76648adc83d86fe13e1c49729876fd1a1fc0408ac160e4a7b1d69bfdb2ee7
+  candidate_rule: SHA256("FDCA-P1L-CANDIDATE|" + zero_padded_counter)
+  pair_digest_rule: SHA256("FDCA-P1L|class_id|sample_seed")
+  no_replacement_after_outcomes: true
+  smoke: 4
+  full_scientific: 48
+  core_scientific: 24
+primary_system:
+  model: H-MaskGIT-T
+  sampler: Halton
+  randomize: false
+  steps: 32
+  grid: [16, 16]
+  top_k: -1
+  cfg_weight: 3.0
+  user_batch_size: 1
+  cfg_internal_batch_size: 2
+  dtype: float32
+  compile: false
+  model_eval_each_section: true
+  tf32: false
+  common_approximate_suffix: true
+  future_direct_implementation_innovation_between_branches: 0
+cells:
+  - {id: W8_L1.00, bit: 8, lambda: 1.0, role: primary_realistic}
+  - {id: W4_L1.00, bit: 4, lambda: 1.0, role: secondary_stress}
+anchors:
+  target_rhos: [0.1, 0.3, 0.5, 0.7, 0.9]
+  state_point: actual_pre_transition_pre_decode_clamp
+  selection: nearest_actual_unresolved_ratio
+  tie_break: earlier_step
+sources:
+  types: [oldest_source, newest_source]
+  stable_definition: actual_non_MASK_committed_before_anchor_and_never_revised
+  rank_rule: SHA256("FDCA-P1L-SOURCE|block_id|anchor_id|position_id|source_type")
+  oldest_quartile: commit_steps_0_to_7
+  newest_quartile: commit_steps_24_to_31
+  empty_quartile_fallback: earliest_or_latest_available_commit_step_then_same_hash_rank
+shock:
+  coordinate_count: 1
+  token_rule: commit_top_alternative
+  alternative: highest_probability_non_MASK_token_different_from_actual
+  tie_break: lowest_token_id_via_argmax
+coupling:
+  primary: coordinatewise_conditional_maximal
+  diagnostic: inverse_CDF_CRN_smoke_only
+  baseline_key_excludes: [source_type, shock_id]
+  event_key_fields: [experiment_id, model_cell, block_id, anchor_id, replicate_id, step, position, event_kind, draw_id]
+  experiment_id: FDCA_VIS_P1L_SINGLE_SHOCK_REGIME
+  baseline_event_kind: proposal_x
+  shock_event_kinds: [proposal_accept, proposal_residual]
+  terminal_or_path_optimality_claim: false
+replicates:
+  full:
+    W8_L1.00: 4
+    W4_L1.00: 2
+  core:
+    W8_L1.00: 4
+    W4_L1.00: 2
+  w4_scientific_rhos: [0.1, 0.3, 0.5]
+  smoke_minimum_each_cell: 2
+  zero_shock_each_block_anchor_cell: 1
+runtime:
+  full_hours_max: 7.5
+  core_hours_max: 8.5
+  hard_hours_max: 9.0
+  peak_vram_bytes_max: 16320875724
+  selection_changes_only_block_count: true
+outcomes:
+  N: 256
+  D_total: terminal_mismatch_count_div_256
+  D_desc_total: terminal_descendant_count_div_256
+  D_desc_rate: terminal_descendant_count_div_actual_anchor_unresolved_count
+  extinction: no_descendant_beyond_seed
+  seed_inclusive_stable: (1_plus_actual_unresolved_count)_div_256
+  no_healing_or_reagreement_estimand: true
+envelopes:
+  direct_b_term: 0
+  seed_value: 1
+  q95_and_max_coordinatewise_clipped_recursion: true
+  combined: min(seed_inclusive_stable,total_profile_prediction)
+  terminology: frozen_finite_panel_measured_profile_prediction_not_global_certificate
+aggregation:
+  independent_unit: class_seed_block
+  average_replicates_and_source_types_within_block: true
+  pseudo_replication: prohibited
+statistics:
+  paired_block_bootstrap_resamples: 20000
+  bootstrap_key_prefix: FDCA-P1L-BOOTSTRAP
+primary_hypotheses:
+  H1:
+    cell: W8_L1.00
+    contrast: rho_0.5_minus_rho_0.3
+    outcome: D_desc_rate
+    success: paired_lower_95_gt_0_and_ratio_of_block_means_ge_1.5
+  H2:
+    cell: W8_L1.00
+    rhos: [0.1, 0.3, 0.5]
+    outcome: D_total_minus_B_combined_max
+    success: point_le_0_and_one_sided_u95_le_0.01_each_rho
+  H3:
+    cell: W8_L1.00
+    outcome: Spearman_of_rho_level_block_means_B_combined_max_vs_D_total
+    success_threshold: 0.8
+secondary_hypotheses:
+  H4: oldest_source_D_desc_rate_gt_newest_source
+  H5: late_rho_0.1_0.3_descendant_fraction_distance_le_5_gt_early_rho_0.7_0.9
+scientific_labels:
+  - SINGLE_SHOCK_REGIME_AND_PROFILE_SUPPORTED
+  - SINGLE_SHOCK_REGIME_SUPPORTED_PROFILE_WEAK
+  - SINGLE_SHOCK_PROPAGATION_NO_REGIME_TRANSITION
+  - SINGLE_SHOCK_PROPAGATION_TRIVIAL
+  - SINGLE_SHOCK_UNEXPECTED_REGIME
+validity_requirements:
+  zero_shock_mismatch_count: 0
+  mismatch_monotonicity_violations: 0
+  semantic_rng_duplicate_count: 0
+  probability_normalization_tolerance: 1.0e-6
+  scalar_repeat_max_abs: 1.0e-7
+  model_free_max_discrepancy: 1.0e-9
+stop_rule: STOP_AFTER_P1L_PENDING_USER_REVIEW

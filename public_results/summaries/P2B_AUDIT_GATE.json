@@ -1,0 +1,13 @@
+{
+  "approximate_only_mask_count": 0,
+  "audit_outcome_label": "SEED_MASK_CLOSURE_CLEAN",
+  "equal_mask_mask_count": 0,
+  "frozen_p2n_gate_changed": false,
+  "overall_gate": "PASS_FDCA_VIS_P2B_CLEAN",
+  "perceptual_experiment_started": false,
+  "perceptual_panel_recommendation": "READY_TO_DESIGN_P2P_PERCEPTUAL_PANEL",
+  "reference_only_mask_count": 0,
+  "schema": "FDCA_VIS_P2B_GATE_V1",
+  "stop_rule": "STOP_AFTER_P2B_PENDING_USER_REVIEW",
+  "validity_gate": "PASS_FDCA_VIS_P2B_VALIDITY"
+}

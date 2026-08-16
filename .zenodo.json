@@ -1,0 +1,41 @@
+{
+  "access_right": "open",
+  "creators": [
+    {
+      "affiliation": "Independent Researcher, Seoul, Republic of Korea",
+      "name": "Kim, Munsik",
+      "orcid": "0009-0008-9350-2435"
+    }
+  ],
+  "description": "<p>Approximation error in an iterative generator is usually measured either locally, as weight or logit distortion, or at the endpoint, as image quality. Neither view identifies the step at which an approximated sampler first behaves differently or separates the frequency of that event from its downstream cost.</p><p>First-Divergence Consequence Analysis (FDCA) couples a reference decoder and an approximate decoder, defines the first divergence as the first transition at which their states differ, and decomposes paired risk into split incidence and split-conditional consequence. For a fixed monotone masked-decoding schedule, the paper gives a pathwise stable-set bound, an exact onset-consequence decomposition, and a time-ordered innovation-influence envelope under explicit product-law and hybrid-state assumptions.</p><p>The framework is evaluated on two official H-MaskGIT checkpoints with a branch-independent Halton schedule, realistic symmetric W8 post-training weight quantization, conditional-form coordinatewise maximal coupling, and event-addressed random-number generation. On H-MaskGIT-T, split incidence falls from 0.213 at target anchor label 0.3 to 0.130 at label 0.5, while split-conditional LPIPS rises by 2.98x and exact incidence-weighted LPIPS rises by 1.77x. DINOv2 and a matched same-shock timing control corroborate the contrast, and token-descendant features reduce held-out LPIPS prediction error by 48.3%. On H-MaskGIT-S, the conditional and incidence-weighted LPIPS ratios are 2.96x and 1.92x; all preregistered replication tests pass.</p><p>The main conclusion is that split frequency is insufficient as a standalone risk measure: onset and consequence move in opposite directions across reverse time. Claims are limited to the audited Halton schedule, the specified coupling, a one-step natural seed followed by a common approximate suffix, two checkpoints in one model family, and operational perceptual metrics. This is a technical preprint and has not been peer reviewed.</p><p>Version 1.0.0 is the initial public archival release. It includes the final reviewed manuscript, LaTeX/BibTeX sources, citation and deposit metadata, public release notes, and compact independent-audit records. Earlier numbered manuscripts were internal drafts and were not public versions.</p>",
+  "keywords": [
+    "masked visual generation",
+    "MaskGIT",
+    "post-training quantization",
+    "approximation error propagation",
+    "first divergence",
+    "coupling",
+    "maximal coupling",
+    "total variation",
+    "reverse-time amplification",
+    "LPIPS",
+    "DINOv2",
+    "reproducibility",
+    "iterative generative models"
+  ],
+  "language": "eng",
+  "license": "cc-by-4.0",
+  "notes": "Initial public archival release. Technical preprint; not peer reviewed. Large trajectory archives and external model/metric weights are not redistributed; frozen filenames, revisions, sizes, and SHA-256 ledgers are documented in the paper and audit records.",
+  "publication_date": "2026-08-16",
+  "publication_type": "preprint",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/Munsik-Kim/fdca-visual-token",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    }
+  ],
+  "title": "First-Divergence Consequence Analysis: From Quantization Onset to Perceptual Impact in Masked Visual Generators",
+  "upload_type": "publication",
+  "version": "1.0.0"
+}

@@ -1,0 +1,67 @@
+{
+  "conditional_mismatch_profile": [
+    1.0,
+    0.5,
+    0.4000000000000001
+  ],
+  "conditional_paired_cost": 0.6333333333333334,
+  "conditioning_event": {
+    "first_divergence_round": 0,
+    "seed": [
+      0
+    ]
+  },
+  "conditioning_event_mass": 0.25,
+  "counterexample_found": true,
+  "direct_b_supremum": [
+    0.25,
+    0.5,
+    0.4
+  ],
+  "influence_matrix": [
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0
+    ]
+  ],
+  "interpretation": "M is zero, so the first-split seed cannot reach later coordinates. Nevertheless p and q differ at both future rounds, producing fresh mismatch probabilities 0.5 and 0.4.",
+  "model": "family_d_persistent_fresh_innovation",
+  "persistent_coordinate_violations": [],
+  "persistent_cost_bound": 0.6333333333333333,
+  "persistent_cost_violation": false,
+  "persistent_envelope_with_future_innovation": [
+    1.0,
+    0.5,
+    0.4
+  ],
+  "seed_only_coordinate_failures": [
+    {
+      "lhs": 0.5,
+      "position": 1,
+      "rhs": 0.0
+    },
+    {
+      "lhs": 0.4000000000000001,
+      "position": 2,
+      "rhs": 0.0
+    }
+  ],
+  "seed_only_cost_bound": 0.3333333333333333,
+  "seed_only_cost_gap": 0.3000000000000001,
+  "seed_only_envelope": [
+    1.0,
+    0.0,
+    0.0
+  ]
+}

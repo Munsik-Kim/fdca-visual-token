@@ -1,0 +1,71 @@
+{
+  "schema": "FDCA_VIS_P0_GATE_V1",
+  "work_package": "FDCA_VIS_P0_CONTRACT",
+  "run_directory": "${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P0_CONTRACT_20260812_151500",
+  "basis_t0_commit": "f9e70bbf136581c8235c928c4ba8d0ab46bf8994",
+  "t0_snapshot_audit": {
+    "label": "PASS_T0_POST_COMMIT_SNAPSHOT_IDENTITY",
+    "compared_paths": 27,
+    "byte_identical_paths": 27,
+    "mismatches": 0,
+    "load_bearing_claim_affected": false
+  },
+  "subgates": {
+    "literature": "PASS_G0_LIT",
+    "halton_contract": "PASS_G0_CONTRACT_HALTON",
+    "confidence_classification": "CONFIDENCE_OCCUPANCY_ONLY_MONOTONE",
+    "runtime_assets": "PASS_P0_RUNTIME_ASSETS"
+  },
+  "overall_gate": "PASS_FDCA_VIS_P0_CONTRACT",
+  "overall_pass": true,
+  "requirements": {
+    "t0_post_commit_snapshot_identity": true,
+    "literature_delta_survives_provisionally": true,
+    "official_source_commit_pinned": true,
+    "asset_revisions_sizes_sha256_verified": true,
+    "rtx_5080_environment_documented": true,
+    "primary_halton_batch1_smoke": true,
+    "halton_branch_independent_fixed_schedule": true,
+    "halton_token_value_monotone": true,
+    "commit_partition_and_state_mapping_known": true,
+    "instrumentation_byte_identical_on_successful_cases": true,
+    "fixed_seed_replay_on_successful_cases": true,
+    "p05_smoke_scale_runtime_feasible": true,
+    "load_bearing_contract_issue_unresolved": false
+  },
+  "smoke": {
+    "registered_or_diagnostic_cases": 8,
+    "successful_cases": 6,
+    "source_original_negative_probes": 2,
+    "primary_case": "halton_primary_seed_1234",
+    "primary_pass": true,
+    "successful_instrumentation_equivalence": "6/6",
+    "successful_fixed_seed_replay": "6/6",
+    "halton_revisions": 0,
+    "confidence_batch1_linear_revisions": 2,
+    "max_peak_vram_bytes": 796551680
+  },
+  "tests": {
+    "total": 175,
+    "passed": 175,
+    "failed": 0,
+    "skipped": 0,
+    "p0_contract_tests": 28,
+    "t0_regression_tests": 147
+  },
+  "known_negative_findings": [
+    "halton_seed_5678_bfloat16_categorical_simplex_validation_error",
+    "confidence_no_gumbel_batch1_unqualified_squeeze_index_error",
+    "confidence_previously_committed_values_are_reassigned_and_can_change",
+    "sampler_forces_vit_train_mode_after_call",
+    "readme_va_model_path_differs_from_pinned_vq_model_path"
+  ],
+  "p05": {
+    "technically_recommended_for_separate_review": true,
+    "authorized": false,
+    "decision": "STOP_AFTER_P0_PENDING_USER_REVIEW",
+    "w8_w4_sweep_started": false,
+    "coupling_experiment_started": false,
+    "influence_measurement_started": false
+  }
+}

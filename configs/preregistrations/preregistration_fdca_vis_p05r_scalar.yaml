@@ -1,0 +1,160 @@
+schema: FDCA_VIS_P05R_SCALAR_PREREGISTRATION_V1_1
+work_package: FDCA_VIS_P05R_SCALAR
+frozen_before_model_forward: true
+timestamp_asia_seoul: "20260813_101434"
+run_directory: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P05R_SCALAR_20260813_101434
+contracts:
+  execution_prompt:
+    path: docs/frozen/FDCA_VIS_P05R_SCALAR_CODEX_PROMPT.txt
+    sha256: 0a334e46c2d0501a5cbc0837d7b22b6365abc7e60672bda489695ab9ba0c9e24
+  scalar_addendum:
+    path: docs/frozen/FDCA_P05R_Scalar_Addendum_v1.1.txt
+    sha256: 7eed6ca9c8abbafc924ef8940f7b240593a57d9ab6d40b72bf5f0591f0899f8c
+  amendment: docs/P05R_SCALAR_EXECUTION_AMENDMENT.md
+predecessors:
+  t0_commit: f9e70bbf136581c8235c928c4ba8d0ab46bf8994
+  p0_commit: 0e41bedb72c4bbf5f944225e362a632dd81a65d4
+  p05_run: runs/FDCA_VIS_P05_INFLUENCE_20260813_081309
+  required_p05_status: INCOMPLETE_FDCA_VIS_P05
+  reusable_only_if_false:
+    - main_panel_started
+    - holdout_inspected
+    - calibration_profile_fitted
+    - scientific_effect_evaluated
+primary_kernel:
+  model: H-MaskGIT-T
+  sampler: Halton
+  randomize: false
+  steps: 32
+  grid: [16, 16]
+  top_k: -1
+  cfg_weight: 3.0
+  softmax_temperature: 1.0
+  user_batch_size: 1
+  cfg_internal_batch_size: 2
+  dtype: float32
+  compile: false
+  explicit_model_eval_each_section: true
+  cuda_matmul_tf32: false
+  cudnn_tf32: false
+  cudnn_benchmark: false
+  float32_matmul_precision: highest
+  load_bearing_forward: scalar_only
+  batched_execution_role: numerical_diagnostic_only
+frozen_reuse:
+  source_csv: runs/FDCA_VIS_P05_INFLUENCE_20260813_081309/raw/class_seed_blocks.csv
+  source_sha256: cc9c235038933e97b88bc0b64d7d1250b4539b7c96afef8d229bee372e7f6cdf
+  full_total: 32
+  calibration: 24
+  holdout: 8
+  anchor_target_unresolved_ratios: [0.9, 0.7, 0.5, 0.3, 0.1]
+  anchor_state_point: pre_transition
+  anchor_tie_break: earlier_step
+  minimum_unique_anchors: 4
+approximation_cells:
+  - {id: W8_L0.00, bit: 8, lambda: 0.0, role: identity_audit}
+  - {id: W8_L0.20, bit: 8, lambda: 0.2, role: mechanism_homotopy}
+  - {id: W8_L1.00, bit: 8, lambda: 1.0, role: realistic}
+  - {id: W4_L0.10, bit: 4, lambda: 0.1, role: mechanism_homotopy}
+  - {id: W4_L0.40, bit: 4, lambda: 0.4, role: mechanism_homotopy}
+  - {id: W4_L1.00, bit: 4, lambda: 1.0, role: realistic}
+quantization:
+  eligible: unique_transformer_linear_weights_excluding_embedding_tied_parameters
+  scheme: signed_symmetric_per_output_channel_RTN
+  qmax: "2^(bit-1)-1"
+  qmin: "-qmax"
+  scale: max_abs_per_output_channel_div_qmax
+  rounding: torch.round
+  zero_point: none
+  activations: float32
+  stochastic_rounding: false
+sources:
+  full_per_anchor: 8
+  smoke_per_anchor: 4
+  strata: [oldest, early_middle, late_middle, newest]
+  counterfactual: commit_top_alternative
+  mask_allowed: false
+numerical_floor:
+  smoke_block_semantic_rule: sha256("FDCA-P05R-SMOKE-BLOCK|" + zero_padded_index)
+  smoke_block_uniqueness: reject_any_pair_in_frozen_32_and_advance_counter
+  smoke_blocks: 2
+  blocks_outside_frozen_panel: true
+  minimum_anchors_per_block: 4
+  intervention_states_per_anchor: 4
+  cells: [W8_L0.00, W8_L1.00, W4_L1.00]
+  scalar_repeats: 5
+  scalar_repeat_max_abs: 1.0e-7
+  scalar_repeat_max_tv: 1.0e-6
+  scalar_repeat_top1_mismatches: 0
+  identical_batch_replicates: 4
+  mixed_batch_permutations: 3
+  batch_results_gating: false
+  minimum_signal_to_floor: 20.0
+profile:
+  fit_split: calibration_only
+  quantile_method: higher
+  minimum_bin_count: 20
+  statistics: [count, mean, median, q90, q95, max]
+  rho_bins: target_anchor_ratio
+  source_quartiles: [oldest, early_middle, late_middle, newest]
+  future_step_offset_bins:
+    - {id: S01_04, lower: 1, upper: 4}
+    - {id: S05_08, lower: 5, upper: 8}
+    - {id: S09_16, lower: 9, upper: 16}
+    - {id: S17_32, lower: 17, upper: 32}
+  manhattan_distance_bins:
+    - {id: D01_02, lower: 1, upper: 2}
+    - {id: D03_05, lower: 3, upper: 5}
+    - {id: D06_08, lower: 6, upper: 8}
+    - {id: D09_30, lower: 9, upper: 30}
+  sparse_fallback:
+    - drop_source_quartile
+    - merge_adjacent_distance_bins
+    - merge_adjacent_step_offset_bins
+    - cell_anchor_global
+  frozen_before_holdout: true
+holdout:
+  no_refit_after_observation: true
+  maximum_profile_coverage_minimum: 0.95
+  critical_subgroup_minimum: 0.80
+  critical_subgroup_minimum_n: 20
+envelopes:
+  normalization: sum_over_future_positions_divided_by_256
+  variants: [q95, max]
+  stable: actual_unresolved_positions_divided_by_256
+  clipped: "r_u=min(1,b_u+sum_{v before u} M_hat[u,v] r_v)"
+  linear: "e_u=b_u+sum_{v before u} M_hat[u,v] e_v"
+  linear_reporting: coordinatewise_clip_to_one_then_sum_divided_by_256
+  combined: min(B_stable,B_clipped_variant)
+  terminology: finite_panel_measured_envelope_not_global_certificate
+statistics:
+  block_bootstrap_resamples: 20000
+  bootstrap_seed: 15170455943338772155
+scientific_gate:
+  realistic_cells: [W8_L1.00, W4_L1.00]
+  homotopy_cells: [W8_L0.20, W4_L0.10, W4_L0.40]
+  realistic_median_combined_max_over_stable_max: 0.75
+  bootstrap_mean_or_median_u95_max: 1.0
+  maximum_profile_coverage_minimum: 0.95
+  critical_subgroup_minimum: 0.80
+  missingness_maximum: 0.05
+  cap_activation_maximum: 0.25
+  minimum_signal_to_scalar_floor: 20.0
+runtime_gate:
+  full_max_projected_hours: 7.5
+  core_max_projected_hours: 8.5
+  maximum_peak_vram_bytes: 16320875724
+  selection_may_change_only_sample_size: true
+numeric_tolerances:
+  identity_b: 1.0e-10
+  hybrid: 1.0e-8
+  independent_implementation: 1.0e-9
+scope_exclusions:
+  - P1_coupling
+  - persistent_approximation_rollout
+  - single_shock_rollout
+  - confidence_exact_theorem
+  - image_quality_benchmark
+  - training
+  - finetuning
+stop_rule: STOP_AFTER_P05R_PENDING_USER_REVIEW

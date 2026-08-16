@@ -1,0 +1,146 @@
+work_package: FDCA_VIS_P0_CONTRACT
+preregistered_at_asia_seoul: 2026-08-12T15:15:00+09:00
+run_directory: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_P0_CONTRACT_20260812_151500
+t0_basis:
+  run: ${FDCA_PROJECT_ROOT}/runs/FDCA_VIS_T0_SYNTHETIC_20260812_134211
+  final_commit: f9e70bbf136581c8235c928c4ba8d0ab46bf8994
+  required_gate: PASS_FDCA_VIS_T0_SYNTHETIC
+upstream:
+  repository: https://github.com/valeoai/Halton-MaskGIT.git
+  target_commit: f61b0a1314717004dc7487531fd16a8bb71e1888
+  checkout: ${FDCA_PROJECT_ROOT}/external/Halton-MaskGIT
+  policy: detached_clean_read_only_scientific_source
+candidate_assets:
+  - role: primary_generator
+    repository: llvictorll/Halton-MaskGIT
+    filename: ImageNet_256_tiny.pth
+  - role: vq_tokenizer_decoder
+    repository: FoundationVision/LlamaGen
+    filename: vq_ds16_c2i.pt
+environment_policy:
+  name: fdca_vis
+  path: ${FDCA_CONDA_ENV}
+  python: "3.11"
+  pytorch: RTX_5080_compatible_current_build
+  torchvision: build_compatible_with_pytorch
+  upstream_env_yaml_is_provenance_only: true
+  driver_changes: prohibited
+  existing_environment_modification: prohibited
+  install_only_inference_audit_dependencies: true
+smoke_cases:
+  - id: halton_primary_seed_1234
+    sampler: halton
+    seed: 1234
+    class_id: 207
+    batch_size: 1
+    image_size: 256
+    randomize: false
+    compile: false
+    top_k: -1
+    replay: true
+    instrumentation_equivalence: true
+  - id: halton_second_seed_5678
+    sampler: halton
+    seed: 5678
+    class_id: 207
+    batch_size: 1
+    image_size: 256
+    randomize: false
+    compile: false
+    top_k: -1
+    replay: true
+  - id: confidence_no_gumbel_seed_1234
+    sampler: confidence
+    seed: 1234
+    class_id: 207
+    batch_size: 1
+    image_size: 256
+    gumbel_mode: none_or_zero_temperature_if_supported
+    compile: false
+    top_k: -1
+  - id: confidence_official_gumbel_seed_1234
+    sampler: confidence
+    seed: 1234
+    class_id: 207
+    batch_size: 1
+    image_size: 256
+    gumbel_mode: official_or_linear_source_path
+    compile: false
+    top_k: -1
+  - id: halton_randomized_device_contract_seed_1234
+    sampler: halton
+    seed: 1234
+    class_id: 207
+    batch_size: 1
+    image_size: 256
+    randomize: true
+    compile: false
+    top_k: -1
+    optional: true
+literature_priority:
+  - MaskGIT
+  - Halton Scheduler for Masked Generative Image Transformer
+  - Demystifying MaskGIT Sampler and Beyond
+  - Jump Your Steps
+  - Error Bounds and Optimal Schedules for Masked Diffusions with Factorized Approximations
+  - Optimal Inference Schedules for Masked Diffusion Models
+  - Confidence-Based Decoding is Provably Efficient for Diffusion Language Models
+  - Entropy Bounded Unmasking
+  - Path Planning for Masked Diffusion Model Sampling
+  - Train for the Worst, Plan for the Best
+  - maximal agreement coupling and MEXIT
+  - Dobrushin comparison and influence-matrix literature
+  - directly relevant masked-generator quantization and caching
+contract_questions:
+  - halton_branch_independent_schedule
+  - halton_accepted_token_future_immutability
+  - halton_32_step_cumulative_and_incremental_counts
+  - halton_returned_mask_and_code_semantics
+  - confidence_committed_value_revisions
+  - confidence_occupancy_vs_token_value_monotonicity
+  - categorical_numpy_gumbel_and_spatial_rng_paths
+  - instrumented_vs_original_byte_identity
+  - vq_grid_to_image_mapping
+  - p05_runtime_and_vram_feasibility
+p05_contract_freeze:
+  bounds:
+    - B_stable
+    - B_clipped
+    - B_combined=min(B_stable,B_clipped)
+  estimands:
+    - single_shock_propagation
+    - persistent_approximation
+  separate_measurements:
+    - direct_innovation_b
+    - state_influence_M
+    - first_split_seed
+    - future_fresh_innovations
+  measured_language:
+    - local_accounting
+    - finite_panel_measured_envelope
+    - population_UCB
+    - global_certificate
+gates:
+  literature: [PASS_G0_LIT, FAIL_G0_LIT]
+  halton_contract: [PASS_G0_CONTRACT_HALTON, FAIL_G0_CONTRACT_HALTON]
+  confidence:
+    - CONFIDENCE_TOKEN_MONOTONE
+    - CONFIDENCE_OCCUPANCY_ONLY_MONOTONE
+    - CONFIDENCE_CONTRACT_INCOMPLETE
+  runtime_assets: [PASS_P0_RUNTIME_ASSETS, INCOMPLETE_P0_RUNTIME_ASSETS]
+  overall:
+    - PASS_FDCA_VIS_P0_CONTRACT
+    - FAIL_FDCA_VIS_P0_CONTRACT
+    - INCOMPLETE_FDCA_VIS_P0_CONTRACT
+prohibitions:
+  - W8_or_W4_scientific_sweep
+  - final_coupling_experiment
+  - influence_matrix_measurement
+  - P05_execution
+  - ImageNet_download
+  - FID_IS_LPIPS_DINO
+  - training
+  - caching_experiment
+  - external_gpu
+  - git_remote_or_push
+stop_rule: STOP_AFTER_P0_ZIPS_PENDING_USER_REVIEW

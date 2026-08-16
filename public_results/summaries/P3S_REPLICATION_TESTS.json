@@ -1,0 +1,62 @@
+{
+  "R1": {
+    "block_count": 40,
+    "bootstrap_resamples": 20000,
+    "ci95_lower": 0.017141893275770405,
+    "ci95_upper": 0.023805507700019036,
+    "difference_mean": 0.02037575586459104,
+    "effect_retention_ratio": 1.0187873823030689,
+    "left_mean": 0.030755900288842584,
+    "p2p_difference": 0.02000000806697237,
+    "pass": true,
+    "positive_block_count": 40,
+    "ratio_of_block_means": 2.9629549485830218,
+    "right_mean": 0.010380144424251548,
+    "semantic_seed": 7998640703221130502
+  },
+  "R2": {
+    "block_count": 40,
+    "bootstrap_resamples": 20000,
+    "ci95_lower": 0.001498796002178465,
+    "ci95_upper": 0.002477486281297787,
+    "difference_mean": 0.0019660171450579613,
+    "effect_retention_ratio": 1.1467270924916777,
+    "left_mean": 0.004105587906137741,
+    "p2p_difference": 0.0017144594890368212,
+    "pass": true,
+    "positive_block_count": 39,
+    "ratio_of_block_means": 1.918883909249988,
+    "right_mean": 0.0021395707610797803,
+    "semantic_seed": 12931627008654626857
+  },
+  "R3": {
+    "block_count": 40,
+    "bootstrap_resamples": 20000,
+    "ci95_lower": 0.007297069579362869,
+    "ci95_upper": 0.01191915962845087,
+    "difference_mean": 0.009421073831617832,
+    "effect_retention_ratio": 0.6349634739219526,
+    "left_mean": 0.01398958507925272,
+    "p2p_difference": 0.01483719019840161,
+    "pass": true,
+    "positive_block_count": 40,
+    "ratio_of_block_means": 3.0621759082885283,
+    "right_mean": 0.004568511247634887,
+    "semantic_seed": 5083132424384182878
+  },
+  "R4": {
+    "block_count": 40,
+    "bootstrap_resamples": 20000,
+    "ci95_lower": 0.016027551199618274,
+    "ci95_upper": 0.02886210227264243,
+    "difference_mean": 0.02223452247252773,
+    "effect_retention_ratio": 0.8862768309168793,
+    "left_mean": 0.03227094187627202,
+    "p2p_difference": 0.02508755921050702,
+    "pass": true,
+    "positive_block_count": 34,
+    "ratio_of_block_means": 3.2153839509967757,
+    "right_mean": 0.01003641940374429,
+    "semantic_seed": 14948240795819288633
+  }
+}

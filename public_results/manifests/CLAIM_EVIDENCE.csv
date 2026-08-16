@@ -1,0 +1,6 @@
+claim_id,claim,evidence,reproduction,scope
+T0_EXACT,Synthetic terminal laws/coupling/envelopes pass exhaustive validation,public_results/summaries/T0_SYNTHETIC_GATE.json,pytest tests/model_free,synthetic only
+P2P_H1,H-MaskGIT-T conditional LPIPS rho .5 > .3,public_results/tables/P2P_BLOCK_LEVEL.csv,make reproduce,W8/CFG3/common suffix
+P2P_H2,H-MaskGIT-T incidence-weighted LPIPS rho .5 > .3,public_results/tables/P2P_BLOCK_LEVEL.csv,make reproduce,same
+P2P_H3,Token propagation improves OOF LPIPS prediction,public_results/tables/P2P_TOKEN_OOF.csv,make reproduce,diagnostic operational metric
+P3S_R1_R4,H-MaskGIT-S preregistered R1-R4 pass,public_results/tables/P3S_BLOCK_LEVEL.csv; P3S_MATCHED_BLOCK_LEVEL.csv,make reproduce,same model family

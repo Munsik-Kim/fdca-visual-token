@@ -1,0 +1,57 @@
+{
+  "schema": "FDCA_VIS_P3S_FINAL_INDEPENDENT_AUDIT_V1",
+  "verdict": "PASS_P3S_INDEPENDENT_ARTIFACT_AUDIT_WITH_MINOR_REPORTING_QUALIFICATIONS",
+  "archives": {
+    "full": {
+      "size_bytes": 22116505,
+      "sha256": "58c200af8e51bc6320321422c847e91b29cc58454d541acf3403ffc7960a0298",
+      "crc": "PASS",
+      "package_manifest_entries": 1431,
+      "package_manifest_mismatches": 0,
+      "run_manifest_entries": 1429,
+      "run_manifest_mismatches": 0
+    },
+    "summary": {
+      "size_bytes": 12204312,
+      "sha256": "cb48c2f53a5f2903b5103adfff747f18546e8472e48728d2ad3f386ce03798df",
+      "crc": "PASS",
+      "package_manifest_entries": 151,
+      "package_manifest_mismatches": 0
+    }
+  },
+  "frozen_gate": {
+    "validity": "PASS_FDCA_VIS_P3S_VALIDITY",
+    "R1": true,
+    "R2": true,
+    "R3": true,
+    "R4": true,
+    "outcome": "SECOND_CHECKPOINT_PERCEPTUAL_BRIDGE_REPLICATED",
+    "overall": "PASS_FDCA_VIS_P3S_STRONG_REPLICATION",
+    "recommendation": "RECOMMEND_PAPER_INTEGRATION_AND_FREEZE"
+  },
+  "audit": {
+    "power_frozen_before_outcomes": true,
+    "selected_blocks": 40,
+    "new_block_overlap": 0,
+    "zero_controls": 112,
+    "selected_mask_count": 0,
+    "clamp_delta": 0,
+    "unclassified_rng_duplicates": 0,
+    "missing_rng_keys": 0,
+    "pytest_distinct_passed": 52,
+    "generated_audit_assertions_passed": 60,
+    "generated_assertions_independent": false,
+    "model_free_rows": 1040,
+    "decomposition_rows": 112,
+    "oof_rows": 640,
+    "secondary_implementation_max_discrepancy": 0.0
+  },
+  "qualifications": [
+    "external checkpoint bytes excluded; ledger consistency only",
+    "Parquet reaggregation not re-executed in this audit environment",
+    "same architecture family",
+    "specified coupling and common-W8 suffix",
+    "operational metrics, not human ground truth"
+  ],
+  "final_recommendation": "RECOMMEND_PAPER_INTEGRATION_AND_EMPIRICAL_FREEZE"
+}

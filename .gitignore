@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+build/
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+paper/source/FDCA_v1.0.0.pdf
+release/FDCA_v1.0.0_Public_Research_Artifact.zip
