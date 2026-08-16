@@ -542,8 +542,8 @@
     },
     {
       "path": "public_results/manifests/CLAIM_EVIDENCE.csv",
-      "sha256": "cc13915713f4a0516fa419949d283ba51c275ad72cf16d0b7cd81b143982eb20",
-      "size": 752
+      "sha256": "657d2f0184816b9c6d7a5741687d4d979c1a6ebad36077276ce636f83f9d3baa",
+      "size": 746
     },
     {
       "path": "public_results/manifests/PUBLIC_RESULT_INDEX.json",
