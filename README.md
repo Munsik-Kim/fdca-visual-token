@@ -1,5 +1,7 @@
 # First-Divergence Consequence Analysis for Masked Visual Generators
 
+Built tools to locate the first token choice changed by low-bit weights in an image generator, then measure its effect on the final image. The project combines controlled comparisons, mathematical analysis and reproducible CPU checks.
+
 **Munsik Kim** · [ORCID 0009-0008-9350-2435](https://orcid.org/0009-0008-9350-2435)
 
 **Technical preprint; not peer reviewed.** First public release: `v1.0.0`.
