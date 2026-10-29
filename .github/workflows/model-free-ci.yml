@@ -14,7 +14,9 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - run: pip install -r environment/requirements-model-free.txt
+      - run: pip install -r environment/requirements-revision.txt
       - run: make verify
       - run: make test
       - run: make reproduce
+      - run: python scripts/reanalyse_revision.py --check
+      - run: python scripts/update_revision_docs.py --check

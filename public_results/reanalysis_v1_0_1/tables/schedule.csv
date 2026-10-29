@@ -1,0 +1,6 @@
+target_rho,transition,unresolved_tokens,attained_rho,commit_batch_c,final_flush
+0.1,32,41,0.16015625,41,True
+0.3,30,72,0.28125,14,False
+0.5,24,126,0.4921875,8,False
+0.7,16,177,0.69140625,6,False
+0.9,6,231,0.90234375,5,False
