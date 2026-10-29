@@ -1,0 +1,903 @@
+% FDCA v1.0.1 -- unreleased GitHub accuracy revision candidate.
+% Original v1.0.0 source and archival PDF are preserved separately.
+% CPU-only reanalysis; no new image generation, model training or GPU inference.
+\documentclass[11pt,a4paper]{article}
+\PassOptionsToPackage{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=blue}{hyperref}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{newtxtext,newtxmath}
+\usepackage[scaled=0.9]{helvet}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,array,longtable}
+\usepackage{graphicx,caption,subcaption,placeins}
+\usepackage{enumitem,xcolor,microtype}
+\usepackage{natbib,fancyhdr,hyperref,xurl}
+\setlength{\emergencystretch}{2em}
+\hypersetup{pdftitle={First-Divergence Consequence Analysis: Separating Quantization Onset and Output Discrepancy in Masked Visual Generators},pdfauthor={Munsik Kim},pdfsubject={Unreleased scientific accuracy revision},pdfkeywords={masked visual generators, quantization, coupling, paired block inference},pdfcreator={TeX; FDCA v1.0.1 revision candidate}}
+\bibliographystyle{plainnat}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\TV}{\mathrm{TV}}
+\newcommand{\Ind}[1]{\mathbf{1}\{#1\}}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Mask}{\texttt{M}}
+\newcommand{\diam}{\mathrm{diam}}
+\newcommand{\rholabel}{\widetilde{\rho}}
+\newcommand{\rhoatt}{\rho_{\mathrm{att}}}
+\newcommand{\Meq}{M_{\mathrm{equal}}}
+\newcommand{\Msplit}{M_{\mathrm{split}}}
+\newcommand{\revisiongenerated}{../../generated/v1.0.1}
+\setlength{\headheight}{15pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small First-Divergence Consequence Analysis}
+\fancyhead[R]{\small v1.0.1 revision candidate}
+\fancyfoot[C]{\thepage}
+\title{\bfseries First-Divergence Consequence Analysis:\\
+Separating Quantization Onset and Output Discrepancy\\
+in Masked Visual Generators}
+\author{Munsik Kim\\\small Independent Researcher, Seoul, Republic of Korea\\
+\small ORCID: \href{https://orcid.org/0009-0008-9350-2435}{0009-0008-9350-2435}}
+\date{Version 1.0.1 --- unreleased revision candidate\\[2pt]
+\small Accuracy revision prepared 29 October 2026. Technical preprint; not peer reviewed.}
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+\noindent
+A small local change in an iterative generator can cause either no sampled-token
+change or a mismatch that propagates to the output. First-Divergence Consequence
+Analysis (FDCA) separates these events through an explicit measurement contract:
+a common anchor state, a natural quantization seed drawn under a declared
+coordinatewise coupling, a common propagation kernel, audited random events,
+and inference over class--generation-seed blocks. The mathematical contribution
+consists of a stable-set additive-cost bound, an expectation identity for
+first-divergence paths, and a finite-horizon influence envelope under global
+hybrid-state assumptions. These results do not prescribe opposite trends in
+incidence and consequence and do not automatically bound LPIPS.
+
+Under a fixed 32-step Halton schedule we compare one FP32-versus-W8 transition
+and propagate both branches with a common W8 suffix. In separate H-MaskGIT-T
+($n=48$) and H-MaskGIT-S ($n=40$) CFG3 panels, moving from target unresolved
+fraction $0.3$ to $0.5$ lowers batch split probability while increasing both the
+equal-block split-conditional LPIPS and the mean of blockwise incidence-weighted
+LPIPS. Original paired-block intervals support conditional-LPIPS increases of
+$0.02000$ and $0.02038$, and incidence-weighted increases of $0.001714$ and
+$0.001966$. The latter is a mean of products, not a product of panel means.
+A labeled post-hoc CPU reanalysis checks aggregation, bootstrap robustness and
+schedule dependence. The commit batch shrinks from 14 to 8 positions; mean
+coordinate TV does not show the same decrease as batch split probability.
+
+The contribution is an auditable separation of onset and conditional output
+discrepancy in this intervention. The observations establish neither a universal
+reverse-time law, persistent-quantization quality degradation, human preference,
+nor a validated precision-selection policy. Frozen source resolves per-output-channel quantization, including a documented
+deviation from the per-tensor plan; public compact evidence retains further
+reproducibility limits.
+\end{abstract}
+
+\noindent\fbox{\parbox{0.96\textwidth}{\small
+\textbf{Revision and evidence boundary.} This candidate corrects the interpretation
+of existing measurements and adds CPU reanalysis of public compact tables.
+The v1.0.0 PDF, source, preregistrations and frozen results remain historical
+records. No GPU inference, model training, new images or new perceptual measurements
+were performed. The DOI \href{https://doi.org/10.5281/zenodo.21965747}{10.5281/zenodo.21965747}
+identifies archived v1.0.0, not this unreleased revision.}}
+
+\section{Introduction}
+Local approximation diagnostics and endpoint metrics answer different questions.
+Logit total variation (TV) measures a change in a categorical law. A paired image
+distance measures discrepancy between two specified outputs. A coupling connects
+them by declaring a joint sampling experiment, including when the outputs remain
+equal and what happens after the first sampled-token mismatch.
+
+FDCA makes that joint experiment explicit for fixed monotone masked decoding.
+At a common anchor, the reference and approximate categorical laws produce a
+natural seed under coordinatewise maximal coupling. Both resulting states then
+use the same approximate kernel. This separates the probability of a batch split
+from the output consequence conditional on that split. Event-addressed random
+numbers, zero controls and block-level aggregation make the contract inspectable.
+The construction addresses a measurement question; it does not establish the
+optimal coupling for an image metric or the best deployment policy.
+
+First disagreement is a classical stopping-time construction
+\citep{lindvall2002coupling,vollering2016maximal,ernst2019mexit}.
+
+Single-point sensitivity interventions are also not unique to FDCA. In particular,
+Q-ARVD~\citep{tang2026qarvd} studies frame-specific quantization sensitivity
+followed by a full-precision suffix; FDCA's natural-seed panels instead use a common W8 suffix. The distinction
+lies in the declared discrete onset law, conditional consequence, natural seed,
+coupling and RNG audits, and paired block inference together, rather than in the
+general observation that an early error can propagate.
+
+The strongest empirical result is bounded but reproducible. Between target
+unresolved fractions $0.3$ and $0.5$, two CFG3 W8 checkpoint panels show
+$H\downarrow$, $\Meq\uparrow$, and $R\uparrow$, where $H$ is mean batch split
+probability, $\Meq$ is the equal-block conditional LPIPS, and $R$ is the mean
+blockwise product. Batch size, state, coordinates, remaining horizon and seed
+composition all vary across anchors. The result therefore motivates measuring
+incidence and consequence separately; it does not identify a unique cause or
+imply the pattern holds at every anchor.
+
+\paragraph{Contributions.}
+\begin{enumerate}[leftmargin=1.6em,itemsep=3pt]
+\item \textbf{A specified measurement framework.} A common anchor, one natural
+FP32-versus-W8 seed transition, common W8 propagation, coordinatewise coupling,
+semantic RNG and class--seed block inference define the measured discrepancy.
+\item \textbf{Finite monotone-decoder theory.} We give a pathwise stable-set
+bound, a first-divergence expectation identity and a clipped DAG envelope.
+The envelope requires global state classes containing both branches and the
+hybrids used in the proof. Its finite inverse uses nilpotency, not contraction.
+\item \textbf{Two checkpoint panels with a supported contrast.} In the stated
+CFG3 W8 intervention, lower batch split probability at target $0.5$ coexists
+with higher equal-block conditional and incidence-weighted LPIPS than at $0.3$.
+Matched timing, CFG1 and saturated W4 panels have distinct supporting roles.
+\item \textbf{An accuracy and reproducibility correction.} We distinguish
+$\Ex_b[hm]$, $\Ex_b[h]\Ex_b[m]$, and the split-weighted population conditional
+mean; reproduce legacy numerical checks; and provide labeled post-hoc diagnostics,
+input hashes, generated tables and figures, and a buildable revised manuscript.
+\end{enumerate}
+
+\section{Related Work}
+\label{sec:related}
+\subsection{Masked generation and schedule dependence}
+MaskGIT introduced iterative bidirectional visual-token generation
+\citep{chang2022maskgit}. Halton scheduling uses a spatially dispersed sequence
+\citep{halton1960efficiency,besnier2025halton}.
+Work on factorized masked-diffusion approximations and inference schedules
+analyzes bias caused by simultaneous unmasking
+\citep{park2025jump,lavenant2025error,chen2026optimal}.
+The MaskGIT sampler analysis of \citet{hayakawa2025demystifying} studies its
+implicit temperature and order-selection mechanism. These results make the
+schedule part of the model of the experiment, not a neutral time label.
+FDCA fixes a branch-independent schedule and studies the declared paired
+implementation intervention; changing the schedule requires a new contract.
+
+\subsection{Coupling and comparison arguments}
+Maximal agreement and MEXIT ask how long stochastic processes can remain equal
+\citep{vollering2016maximal,ernst2019mexit}.
+Coordinatewise maximal coupling minimizes one coordinate's mismatch probability.
+It does not generally maximize whole-batch agreement or minimize a terminal
+LPIPS distance. Dobrushin comparison arguments bound discrepancy through local
+conditional perturbations \citep{rebeschini2014comparison}. Our finite,
+time-ordered influence matrix follows this lineage. The monotone commit order
+makes it nilpotent; measured neural local profiles remain different from the
+global suprema required for a certificate.
+
+\subsection{Visual quantization and error propagation}
+Q-ARVD \citep{tang2026qarvd} quantizes one autoregressive video frame
+while keeping the prefix and subsequent frames full precision in its sensitivity
+experiment (Section 3.1, Equation 3). This is a close precedent for localized
+shock/propagation analysis. FDCA instead defines a categorical natural-seed
+split and propagates both branches using a common W8 suffix. Neither a
+one-time perturbation nor the observation of error propagation is an exclusive
+novelty claim here.
+
+For continuous diffusion, \citet{liu2026propagation} analyze accumulated
+quantization error through a first-order propagation decomposition and develop
+TCEC compensation. That local linearization and continuous denoising setting
+differ from FDCA's categorical split law and its monotone discrete-state
+contract. PTQ4ARVG \citep{liu2026ptq4arvg} develops quantization/calibration
+methods for autoregressive visual generation, and Shift-and-Sum
+\citep{moon2026shift} targets attention-value reconstruction and calibration
+across scales. Caching and mixed quantization also seek computational savings
+\citep{yan2025lazymar,wu2025quantcache}.
+
+FDCA's contribution is the combined onset/consequence measurement contract,
+not demonstrated superiority over these quantizers or sensitivity methods.
+The present data do not show that it predicts outcomes or selects precision
+better than logit TV, seed geometry, or simple early protection. Those comparisons
+require held-out policy tests (Section~\ref{sec:future}).
+
+\subsection{Output metrics}
+LPIPS \citep{zhang2018unreasonable} and DINOv2 embedding distance
+\citep{oquab2024dinov2} are paired output discrepancies. A ResNet-50 classifier
+\citep{he2016deep} supplies secondary diagnostics. A greater distance between
+the two specified outputs establishes neither a consistent quality loss from a
+reference distribution nor human detection or preference.
+
+\section{Setup, Estimands and Aggregation}
+\label{sec:setup}
+\subsection{Fixed monotone masked decoder}
+Let $I$ be a finite set of $N$ token positions, $V$ a finite codebook, and
+$\Mask\notin V$. A branch-independent schedule is an ordered partition
+$\mathcal C=(C_1,\ldots,C_K)$ of $I$, fixed independently of either branch's
+realized tokens. Positions in $C_{k+1}$ are committed at transition $k+1$.
+Committed token values are never revised. At a pre-transition state $x_k$,
+reference and approximate batch laws factorize as
+\[
+ P_k(\cdot\mid x_k)=\bigotimes_{u\in C_{k+1}}p_{k,u}(\cdot\mid x_k),\qquad
+ Q_k(\cdot\mid x_k)=\bigotimes_{u\in C_{k+1}}q_{k,u}(\cdot\mid x_k).
+\]
+This product assumption, with independent coordinate coupling events conditional
+on the state, is needed for the split-probability product formula. It is not
+needed for the stable-set argument. Any additional memory affecting transitions
+must be part of the state; token grids alone are insufficient for a model with
+branch-dependent hidden memory or caches.
+
+\begin{definition}[First divergence]
+For two coupled processes starting equal, let
+$\tau=\inf\{k\geq1:X_k\neq Y_k\}$, with $\tau=\dagger$ if no split occurs.
+We use $G_k=\{\tau>k\}$ for survival without a prior split, treating
+$\tau=\dagger$ as surviving every finite stage.
+\end{definition}
+The terminal Hamming cost is
+$d_\lambda(x,y)=\sum_u\lambda_u\Ind{x_u\neq y_u}$, where
+$\lambda_u\geq0$ and $\sum_u\lambda_u=1$.
+
+\subsection{Unresolved fraction and schedule}
+\label{sec:rho}
+The label $\rholabel$ is a \emph{target unresolved-token fraction}, not a
+quantization strength or a generation-step number. Larger fractions occur
+earlier in decoding. The nearest audited pre-transition state has attained
+fraction $\rhoatt$, which is generally different from the target.
+\begin{table}[tb]
+\centering\small
+\caption{Frozen 32-step, $16\times16$ Halton schedule. Transition numbers are
+one-indexed. The target $0.1$ anchor is the final flush of 41 remaining tokens.}
+\label{tab:anchors}
+\input{\revisiongenerated/schedule.tex}
+\end{table}
+
+\subsection{Block estimands and population conditional means}
+\label{sec:aggregation}
+A block $b$ denotes a class--generation-seed pair. Within one panel and anchor
+$r$, let $S$ denote a split of the single anchor transition and define
+\begin{align}
+ h_{b,r}&=1-\prod_{u\in C(r)}[1-\TV(p_u,q_u)],\label{eq:incidence}\\
+ m_{b,r}&=\Ex_\Gamma[d\mid S,b,r], & R_{b,r}&=h_{b,r}m_{b,r}.
+\end{align}
+The value $h_{b,r}$ is the conditional batch split probability under the specified
+coordinate-independent coupling at the common state. It is computed from the
+categorical laws (up to floating-point evaluation), not from a count of sampled
+split events. Its across-block
+uncertainty is therefore not a binomial Wilson interval. The conditional mean
+$m_{b,r}$ is estimated from repeated conditional rollouts and retains Monte Carlo
+error. For LPIPS, $d$ denotes the distance between the two decoded terminal grids.
+
+For the population that first chooses a block with equal weight, define
+\begin{equation}
+ H=\Ex_b h_{b,r},\qquad \Meq=\Ex_b m_{b,r},\qquad
+ R=\Ex_b[h_{b,r}m_{b,r}],\qquad \Msplit=R/H\quad(H>0).
+ \label{eq:aggregates}
+\end{equation}
+Here $\Meq$ is the \emph{equal-block} conditional mean. In contrast, $\Msplit$
+is the conditional mean after drawing an equal-weight block and conditioning
+that population on a split; this reweights blocks in proportion to $h$.
+The historical tables called $\Meq$ ``conditional LPIPS.'' Throughout this
+revision that phrase is qualified as equal-block conditional LPIPS.
+In general,
+\begin{equation}
+ R=H\Meq+\operatorname{Cov}_b(h,m),\qquad
+ \operatorname{Cov}_b(h,m)=n^{-1}\sum_b(h_b-H)(m_b-\Meq).
+ \label{eq:covariance}
+\end{equation}
+Thus multiplying printed panel means is not the published incidence-weighted
+estimator. The covariance uses population normalization $1/n$.
+
+If $h_{b,r}=0$, its contribution to $R$ is zero, but a conditional mean on that
+zero-probability event is unobserved, not an observed zero. An all-block
+$\Meq$ then requires an explicit domain convention and cannot be manufactured
+by zero filling; report the positive-$h$ domain instead. If $H=0$, $\Msplit$
+is undefined. All reported primary data have positive $h$.
+
+\subsection{One shock and persistent approximation are different estimands}
+\label{sec:estimands}
+The natural-seed panels use a common FP32 prefix state, one FP32-versus-W8
+transition, and a common W8 kernel on both subsequent branches. Equal branches
+remain equal under the shared self-coupling. Conditional on a seed split,
+the suffix measures state-mediated propagation without fresh same-state
+FP32-versus-W8 innovation. Persistent approximation would instead compare an
+FP32 branch and a W8 branch throughout the suffix and include further innovation.
+The current $h_{b,r}$ values do not condition on survival along those persistent
+paths. Summing them or multiplying their complements across anchors does not
+estimate a persistent first-divergence CDF or its total expected discrepancy.
+
+\section{Theory and Its Scope}
+\label{sec:theory}
+\subsection{Stable-set additive-cost bound}
+\begin{definition}[Future-stable set]
+At a common state $s$ before transition $k+1$, $F_k(s)$ contains coordinates equal
+in both branches that no allowed continuation of either branch revises.
+\end{definition}
+\begin{theorem}[Stable-set bound]
+\label{thm:stableset}
+Assume the finite common monotone schedule and equal initial states above.
+Let $d(x,y)=\sum_u\lambda_uc_u(x_u,y_u)$ with finite nonnegative
+$\lambda_u$, nonnegative coordinate costs, $c_u(a,a)=0$, and bounded
+$\diam(c_u)=\sup_{a,b}c_u(a,b)<\infty$ over the terminal domain.
+Then on $\{\tau\neq\dagger\}$,
+\[
+ d(X_K,Y_K)\leq \sum_{u\notin F_{\tau-1}(X_{\tau-1})}\lambda_u\diam(c_u),
+\]
+and the terminal cost is zero on $\{\tau=\dagger\}$. Taking expectations
+gives the corresponding expected-cost bound.
+\end{theorem}
+\begin{proof}
+Immediately before the first split both states agree. Every coordinate in the
+future-stable set remains equal through all allowed continuations, so its
+terminal cost is zero. Bound each remaining nonnegative coordinate cost by its
+finite diameter, multiply by its nonnegative weight, and sum. On no split,
+all terminal coordinates agree and every diagonal cost is zero.
+\end{proof}
+For uniform Hamming cost this is the fraction of positions still capable of
+changing. It is often loose early in decoding. Signed costs and negative weights
+are outside the stated theorem. LPIPS is not a coordinate-additive token cost;
+a decoder-to-metric bound with valid constants would be needed to transfer this
+bound to LPIPS, and none is established here.
+
+\subsection{Full-path expectation identity}
+\label{sec:decomp}
+For a specified coupled \emph{full-path} law, define
+\[
+ h_k(s)=\Prob(\tau=k+1\mid G_k,X_k=Y_k=s),\quad
+ m_k(s)=\Ex[d(X_K,Y_K)\mid G_k,X_k=Y_k=s,\tau=k+1].
+\]
+\begin{proposition}[Onset--consequence identity]
+\label{prop:decomp}
+For an integrable terminal cost with zero cost on $\{\tau=\dagger\}$,
+\[
+ \Ex[d(X_K,Y_K)]=\sum_{k=0}^{K-1}
+ \Ex[\Ind{G_k}h_k(X_k)m_k(X_k)].
+\]
+Zero-hazard terms contribute zero without assigning an observed conditional mean.
+\end{proposition}
+\begin{proof}
+The disjoint events $\{\tau=k+1\}$ partition the event of a split. Expand the
+expected cost over them and apply conditional expectation first on $G_k$ and the
+common state, then on the split event. The no-split contribution is zero by
+assumption.
+\end{proof}
+This is the law of total expectation. It implies no sign relationship between
+$h$ and $m$. The one-anchor single-shock identity $R_{b,r}=h_{b,r}m_{b,r}$
+is a different specialization: it has one allowed innovation transition,
+not a sequence of persistent hazards. Mixing the anchor interventions does not
+recover the survival-conditioned quantities of the proposition.
+
+\subsection{Clipped innovation--influence DAG envelope}
+At stage $k$, let $\mathcal S_k$ contain every possible state of both branches
+and every intermediate state obtained by changing previously committed
+coordinates one at a time between them. Unresolved coordinates and the stage
+are fixed consistently in this class. For $u\in C_{k+1}$, define global suprema
+\[
+ s_u=\sup_{x\in\mathcal S_k}\TV(p_{k,u}(\cdot\mid x),q_{k,u}(\cdot\mid x)),
+\qquad
+ M_{uv}=\sup_{\substack{x,y\in\mathcal S_k\\x\sim_v y}}
+ \TV(q_{k,u}(\cdot\mid x),q_{k,u}(\cdot\mid y)),
+\]
+where $v$ is in a strictly earlier commit block and $x\sim_v y$ means equality
+except at $v$. Set $M_{uv}=0$ for other pairs.
+\begin{theorem}[Clipped DAG envelope]
+\label{thm:dag}
+Assume the fixed branch-independent monotone schedule, batch laws determined
+by the token grid and stage, compatible product marginals, global hybrid-state
+coverage above, and conditional coordinatewise maximal
+coupling of $p_{k,u}(\cdot\mid X_k)$ with $q_{k,u}(\cdot\mid Y_k)$ at every
+commit. In commit order set
+\[
+ \bar r_u=\min\{1,s_u+\sum_{v\prec u}M_{uv}\bar r_v\}.
+\]
+Then $\Prob(X_K[u]\neq Y_K[u])\leq\bar r_u$ and
+$\Ex[d_\lambda(X_K,Y_K)]\leq\lambda^\top\bar r$.
+\end{theorem}
+\begin{proof}
+Write $\pi_u$ for terminal mismatch probability at $u$. Monotonicity makes it
+equal to mismatch probability at that coordinate's commit. Maximal coupling
+and the TV triangle inequality give a same-state term at most $s_u$ and a
+state-change term. Interpolate from $X_k$ to $Y_k$ through the assumed hybrids.
+Changing an earlier mismatched coordinate $v$ contributes at most $M_{uv}$;
+a coordinate that agrees contributes zero. Taking expectations bounds the
+state term by $\sum_{v\prec u}M_{uv}\pi_v$. Since probabilities are at most
+one, $\pi_u\leq\min\{1,s_u+\sum_{v\prec u}M_{uv}\pi_v\}$.
+Induction in commit order gives the asserted coordinate bounds. Sum with
+nonnegative Hamming weights to obtain the terminal bound.
+\end{proof}
+The matrix is strictly block-triangular with $K$ commit blocks, so $M^K=0$ and
+$(I-M)^{-1}=\sum_{j=0}^{K-1}M^j$. No contraction or spectral-radius assumption
+is required. This is a finite-horizon statement, not infinite-time stability.
+
+\begin{remark}[Measured profiles and metric transfer]
+\label{rem:notcert}
+Finite local measurements, q95 profiles and calibration maxima are not global
+supremum certificates. T0 enumerates the finite synthetic state classes; it
+does not validate these assumptions for arbitrary neural states. P05R's neural
+envelope was empirically vacuous and P1M found limited incremental within-anchor
+prediction. Neither these profiles nor observed LPIPS trends prove a neural
+LPIPS bound. Confidence samplers that rewrite token values, continuous diffusion,
+and new architectures require separate assumptions and definitions.
+\end{remark}
+
+\section{Implementation and Measurement Contract}
+\label{sec:contract}
+\subsection{Generator and state}
+The official Halton-MaskGIT source is pinned to
+\nolinkurl{f61b0a1314717004dc7487531fd16a8bb71e1888}
+\citep{besnier2025halton}. H-MaskGIT-T uses hidden width 384, depth 6 and six
+attention heads; H-MaskGIT-S uses width 512, depth 12 and six heads.
+Both have a $16\times16$ grid and use 32 Halton steps with
+\texttt{randomize=False}. The Small asset ledger pins
+\nolinkurl{ffc7fd4c5fc7b16010acc4aa342310484d7de62a},
+832,274,338 bytes and SHA-256
+\nolinkurl{760b9937d16157e7e518fbf405efe281552933242b552d5e8262cb10507fb0e2}.
+These are recorded provenance facts; the compact CPU analysis does not load
+or independently rehash that external checkpoint.
+The confidence sampler was inspected and excluded from the theorem because
+committed values can be rewritten even when mask occupancy is monotone.
+
+\subsection{Approximation provenance}
+\label{sec:quantizer}
+Frozen runner snapshots identify deterministic symmetric
+\emph{per-output-channel} round-to-nearest (RTN) quantization of eligible
+transformer linear weights. The imported \texttt{LinearWeightHomotopy} class
+constructs W4/W8 weights with \texttt{rtn\_per\_output\_channel}; the function
+reduces the weight maximum over input dimension 1 while retaining that dimension,
+so its scale tensor has shape $[\mathrm{out},1]$:
+\[
+ Q_b(W_{o,:})=\operatorname{clip}\!\left(
+ \operatorname{round}(W_{o,:}/\Delta_o),-q_{\max},q_{\max}\right)\Delta_o,
+ \qquad \Delta_o=\max_j|W_{o,j}|/q_{\max}.
+\]
+All-zero rows return zero directly. PyTorch deterministic \texttt{round}
+uses ties to even and the zero point is zero. W8 has $q_{\max}=127$.
+These are weight-only fake-quantized weights used in FP32 computation;
+activations, norms, embeddings, biases and the VQ decoder remain FP32.
+
+The historical P2P preregistration instead names
+\texttt{per\_tensor\_symmetric\_RTN}. This is a preserved plan-to-source
+deviation; its YAML is not silently rewritten. Matching frozen P2P/P3S runner
+imports and code-manifest hashes to the public quantizer source resolves the
+source-level granularity. This revision does not load models or independently
+regenerate historical runtime scale tensors or quantized-weight hashes. The
+sanitized receipt is \nolinkurl{docs/evidence/QUANTIZER_SOURCE_RECEIPT.json}.
+No packed-kernel runtime, speedup or VRAM saving is measured by this
+output-fidelity experiment. W4 is retained only as saturated stress evidence.
+
+\subsection{Coordinate coupling and split law}
+For categorical laws $p,q$, draw $x\sim p$, accept $y=x$ with probability
+$\min\{1,q(x)/p(x)\}$, and otherwise draw from $(q-p)_+/\TV(p,q)$.
+If $\TV(p,q)=0$, return $(x,x)$ without normalizing a zero residual.
+Then $X\sim p$, $Y\sim q$, and $\Prob(X\neq Y)=\TV(p,q)$.
+Independently addressed coordinate events yield Equation~\eqref{eq:incidence}
+for a factorized commit batch conditional on its common state. Coordinate
+maximality is not batch, path or LPIPS optimality. The coupling choice changes
+the paired estimand, even when both marginal laws are unchanged.
+
+\subsection{RNG and logging}
+Semantic keys identify experiment, cell, block, anchor, replicate, attempt,
+step, position, event kind and draw. Separate event kinds address reference
+proposals, accept/reject events, residual draws and suffix events. Registries
+classify intentional shared reference streams and reject unclassified duplicate
+or missing keys. P2B retains equal as well as mismatched selected-token pairs;
+the historical reports find no selected MASK or clamp-induced mismatch.
+Zero-seed controls check equal terminal grids, images and metrics. These are
+historical execution/audit findings, not newly rerun generation in this revision.
+
+LPIPS uses the AlexNet backbone, DINOv2 uses ViT-S/14 cosine distance, and
+secondary P2P diagnostics include classifier JSD, SSIM and pixel $L_1$.
+A smoke numerical audit selected scalar metric inference after a scalar-versus-
+batch tolerance failure. The compact data retain scores; they do not independently
+recreate checkpoint loading, image decoding, feature extraction or human ratings.
+
+\section{Experimental Design and Inference}
+\label{sec:design}
+\subsection{Panels and statistical unit}
+\begin{table}[tb]
+\centering\small
+\caption{Panel contracts. A block is one class--generation-seed pair. Conditional
+replicates, anchors, coordinates and output images are not additional independent
+samples. Overlap is assessed within a checkpoint, never by matching Tiny and
+Small numeric block identifiers.}
+\label{tab:panels}
+\begin{tabular}{@{}p{0.37\textwidth}cccc@{}}\toprule
+Panel & CFG & Blocks & Anchors & Replicates\\\midrule
+P2P Tiny W8 primary & 3 & 48 & 5 & 8\\
+P3S Small W8 primary & 3 & 40 & 2 & 8\\
+P3S Small W8 sensitivity & 1 & 16 & 2 & 4\\
+P2P Tiny W4 stress & 3 & 24 & 2 & 4\\
+P2P matched timing & 3 & 24 & 2 & 2\\
+P3S matched timing & 3 & 40 & 2 & 2\\\bottomrule
+\end{tabular}
+\end{table}
+Within each panel, target $0.3$ and $0.5$ use the same block identifiers.
+CFG1 uses a 16-block subset of the Small primary panel; W4 uses a 24-block
+subset of the Tiny W8 panel. They are sensitivity/stress comparisons, not
+independent extra replications. The compact files permit checking panel IDs,
+counts and matching. They omit a complete raw class-ID/base-seed manifest, so
+this reanalysis does not independently certify class--seed uniqueness or
+predecessor disjointness. P2P compact CSVs omit CFG metadata; CFG3 is sourced
+from the preserved protocol rather than independently filtered from those rows. Repeated seeds within a class are not automatically
+pseudoreplication; the block bootstrap assumes blocks are independent for the
+chosen class--seed population, with no separately assessed class-cluster effect.
+A class-cluster reanalysis is unavailable without the true class manifest.
+
+\subsection{Selection history and matched timing}
+P2P follows the P2N observations, after which the $0.5$ versus $0.3$ contrast was
+specified and the execution records describe new blocks. P3S records 40 new
+blocks and a conservative power plan using half the P2P paired effect, candidates
+32/40/48, and a 90\% target; the archived audit reports 40 as the first adequate
+candidate. These are preserved historical planning records. Public YAML and
+embedded timestamps alone do not provide independent external proof that the
+analysis was registered before outcome access.
+
+Matched timing retains the same seed coordinate and token substitution across
+two anchor contexts according to the original execution logs. Its purpose is
+control of seed identity. State, remaining horizon and coordinate context still
+vary, so it is not a pure causal time intervention. Public compact matched files
+lack the full token/coordinate identity needed to revalidate that construction
+independently. Its score contrast is reproducible, with $n=24$ for Tiny and
+$n=40$ for Small, and is kept separate from natural-shock results.
+
+\subsection{Legacy inference and post-hoc supplement}
+\label{sec:stats}
+The headline conditional-LPIPS and incidence-weighted-LPIPS intervals retain the
+original 20,000-resample paired block bootstrap, semantic SHA-256 label seeds,
+and NumPy \texttt{higher} quantiles. Existing gate intervals for DINOv2 and
+matched LPIPS use that same original rule. Each original contrast resamples
+paired block differences, preserving the two anchors. Its semantic seed is
+contrast-specific; the new supplement instead shares block indices across
+metrics within each panel. Legacy reaggregation
+checks the eight stored contrasts and two stored OOF MAE ratios; checking both
+CI endpoints is stronger than the previous public script's lower-only checks.
+
+A separately labeled \emph{post-hoc robustness supplement} uses 100,000 paired
+block resamples and \texttt{linear} quantiles. Stable SHA-256 label-to-seed
+mapping, RNG, resample count, input hashes, Python/NumPy/SciPy versions and
+exact outputs are stored in the generated audit. Seeds are not based on
+process-dependent Python \texttt{hash()}. Different seeds can shift Monte Carlo
+endpoints; no endpoint is forced to match a comparison report.
+Ratios and $\Msplit$ are recalculated inside each bootstrap sample.
+Paired t intervals, leave-one-block-out influence, trimmed means and blockwise
+signs are diagnostics, not randomized-treatment causal tests.
+
+The supplement also reports 99.1667\% marginal intervals for the six
+$H,\Meq,R$ contrasts in the \emph{two primary CFG3 W8 panels only}.
+Bonferroni accounting for this six-endpoint family does not correct all
+post-hoc hypothesis selection in the research program. CFG1, W4, matched timing
+and interactions are outside that family. Conditional rollout counts are only
+eight (primary), four (sensitivity/stress) or two (matched) per block/anchor;
+block intervals do not separately identify all within-block Monte Carlo error.
+
+\section{Results}
+\label{sec:results}
+\subsection{Primary contrast: lower batch incidence and higher discrepancy}
+\label{sec:primary}
+Table~\ref{tab:main_panels} gives the two primary panels. Both show
+$H\downarrow$, $\Meq\uparrow$, $R\uparrow$ from target $0.3$ to $0.5$.
+Legacy equal-block conditional LPIPS intervals are approximately
+$[0.01719,0.02287]$ for Tiny and $[0.01714,0.02381]$ for Small;
+incidence-weighted intervals are approximately $[0.001368,0.002066]$ and
+$[0.001499,0.002477]$. These are within-checkpoint paired contrasts.
+The exact source-linked values and sample counts are generated below.
+\begin{table}[tb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Primary CFG3 W8 block means and paired contrasts, $\Delta=.5-.3$.
+$\Meq$ is equal-block conditional LPIPS and $R=\operatorname{mean}_b(hm)$.
+Conditional-LPIPS and $R$ headline intervals use the original 20k/higher rule;
+$H$ inference is supplied only in the post-hoc supplement.}
+\label{tab:main_panels}
+\input{\revisiongenerated/main_panels.tex}
+\end{table}
+\begin{figure}[tb]
+\centering\includegraphics[width=\textwidth]{\revisiongenerated/main_panels.pdf}
+\caption{Separate axes for $H$, $\Meq$ and $R$ in the primary CFG3 W8 panels;
+block counts are panel-specific. Figure intervals use the labeled post-hoc
+100k/linear paired-block rule. Directions concern this one-shock intervention,
+not persistent approximation or image quality.}
+\label{fig:main}
+\end{figure}
+The three directions hold simultaneously in 43/48 Tiny and 39/40 Small blocks.
+This is a descriptive blockwise pattern, not a theorem. DINOv2 supports a
+positive equal-block conditional contrast in the original hypotheses, with
+absolute effects differing by checkpoint. Tiny's full five-anchor $R$ profile
+is not strictly monotone: the $0.1\rightarrow0.3$ contrast is about
+$-0.000054$ with a post-hoc interval spanning zero. The final-flush anchor must
+therefore remain visible in the full-anchor supplement.
+
+\subsection{Aggregation and attribution}
+\label{sec:attribution}
+The equal-block and split-population conditional means differ because $h$ and
+$m$ covary. Tiny $\Msplit$ is about $0.010378\rightarrow0.030267$;
+Small $\Msplit$ is about $0.010716\rightarrow0.032086$.
+In Small, $H\Meq$ is about 3.13\% below $R$ at target $0.3$ and 4.14\%
+below it at $0.5$. These are covariance effects, not a rounding discrepancy.
+\begin{table}[tb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Aggregation check from block data. Population covariance uses $1/n$.
+$\Msplit=R/H$ is not the historical equal-block conditional column.}
+\label{tab:aggregation}
+\input{\revisiongenerated/aggregation.tex}
+\end{table}
+For the $0.5-0.3$ contrast the exact symmetric arithmetic decomposition is
+\begin{align}
+ A_h&=\operatorname{mean}_b\left[(h_{b,.5}-h_{b,.3})
+                    \frac{m_{b,.5}+m_{b,.3}}2\right],\\
+ A_m&=\operatorname{mean}_b\left[(m_{b,.5}-m_{b,.3})
+                    \frac{h_{b,.5}+h_{b,.3}}2\right],
+ &\hspace{1em}\Delta R=A_h+A_m.
+\end{align}
+Apply the identity per block and then average. Replacing the block expressions
+by products of panel averages omits covariance terms. Tiny contributions are
+approximately $-0.001743$ and $+0.003457$; Small contributions are approximately
+$-0.001511$ and $+0.003477$. This accounting is not a causal mediation analysis.
+\begin{table}[tb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Blockwise symmetric attribution and simultaneous blockwise directions.
+The identity is checked in the generated audit; the components are descriptive,
+not independent causal effects.}
+\label{tab:attribution}
+\input{\revisiongenerated/attribution.tex}
+\end{table}
+
+\subsection{Schedule and local-TV diagnostics}
+\label{sec:schedule}
+The public expected seed count is $\sum_{u\in C}\TV(p_u,q_u)$, so mean
+coordinate TV equals expected seed count divided by commit batch size $c$.
+This average does not reconstruct the full coordinate TV distribution.
+For $0.3\rightarrow0.5$, $c$ decreases from 14 to 8. Tiny's mean coordinate
+TV is about $0.017015\rightarrow0.017232$ and its paired difference interval
+includes zero; this is not an equivalence result. Small's mean coordinate TV
+increases, approximately $0.015846\rightarrow0.016988$, with a positive
+paired difference interval. Batch $h$ nevertheless falls in both panels.
+\begin{table}[tb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Commit opportunities and mean coordinate TV, calculated from the public
+expected-seed-count field. Intervals are post-hoc 100k/linear paired-block
+intervals for $\Delta=.5-.3$.}
+\label{tab:schedule_tv}
+\input{\revisiongenerated/schedule_tv.tex}
+\end{table}
+\begin{figure}[tb]
+\centering\includegraphics[width=\textwidth]{\revisiongenerated/schedule_tv.pdf}
+\caption{Batch schedule and mean-coordinate TV displayed separately. Falling
+batch split probability does not establish falling local quantization error.
+Remaining horizon, state, positions and seed composition also change.}
+\label{fig:schedule}
+\end{figure}
+The product split law depends on how many coordinates can split as well as
+their TVs. Schedule/branching opportunity is therefore an explanation candidate,
+not an identified sole cause. The current observations do not isolate pure
+batch-size or time effects.
+
+\subsection{Matched timing, sensitivity and saturated stress}
+\label{sec:auxiliary}
+Matched timing gives a separate equal-block LPIPS contrast of about $0.025088$
+for Tiny ($n=24$) and $0.022235$ for Small ($n=40$).
+\begin{table}[tb]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Matched-timing score contrasts are separate from natural-shock $R$.
+Tiny has 24 paired blocks, Small 40; each has two conditional replicates.}
+\label{tab:matched}
+\input{\revisiongenerated/matched.tex}
+\end{table}
+The official CFG1 Small sensitivity panel has 16 overlapping blocks. Its
+$\Meq$ and $R$ contrasts have the same signs as CFG3; the paired CFG1-minus-CFG3
+interaction is computed only on their common subset. Directional consistency
+does not establish equal effect sizes. The Tiny W4 stress subset uses 24
+blocks overlapping W8. Its $R$ is about $0.029407\rightarrow0.051431$,
+while $H$ is near saturation ($0.9878\rightarrow0.9367$). It is an exploratory
+stress comparison; paired W4-versus-W8 comparisons use only their common subset.
+Neither subset is an independent non-saturated W8 replication.
+\begin{table}[tb]
+\centering\small\setlength{\tabcolsep}{3pt}
+\caption{Exploratory paired differences in $\Delta=.5-.3$, restricted to common
+within-checkpoint blocks. Same direction does not imply equal effect size.}
+\label{tab:interactions}
+\input{\revisiongenerated/interactions.tex}
+\end{table}
+
+
+\subsection{Prediction evidence and its reproducibility limit}
+\label{sec:prediction}
+The archived analyses fit leave-one-block-out ridge models. A seed-only model
+uses anchor category, count, severity, surprisal and seed topology; adding
+post-suffix descendant features yields stored OOF MAE ratios of approximately
+0.5166 (Tiny) and 0.5440 (Small). The CPU reproduction can reaggregate stored
+OOF errors. That is not an independent refit of the feature extraction and LOBO
+training pipeline. Descendant information is measured after propagation;
+it cannot be used as an online pre-terminal precision-selection feature.
+No current result establishes improvement over a strong prospective policy
+baseline at matched parameter bytes or measured cost.
+
+\section{Negative Findings and Limitations}
+\label{sec:limitations}
+P05R's finite-profile influence envelope was conservative but empirically
+vacuous in earlier regimes; P1M found little within-anchor incremental value.
+P2A remained incomplete at its historical stopping point; P2B subsequently
+closed the particular RNG/MASK/clamp audit questions in its own recorded stage.
+The revision preserves these outcomes and does not retroactively relabel P2A
+complete. Associations involving source age were unstable under adjustment,
+and no source-age causal claim is made. No discontinuous phase transition was
+fitted or tested.
+
+The two checkpoints share an architecture family, VQ decoder and scheduler.
+The public data do not establish architecture, scheduler or coupling universality.
+A split hazard for persistent paths is different from these anchor-conditioned
+batch probabilities. LPIPS and DINOv2 measure specified output discrepancies;
+no human similarity, preference or quality study is included. Weight-only fake
+quantization supplies no packed-kernel speed or memory measurements.
+
+The block bootstrap assumes independent class--seed blocks and addresses the
+empirical block population. Compact IDs do not reveal all class/seed provenance,
+predecessor overlap or potential class-level dependence. Repeating multiple seeds
+of a class is not by itself proof of pseudoreplication, and the original primary
+analysis already used block resampling. A class-cluster check needs the true
+manifest. Limited conditional rollout counts create additional Monte Carlo
+uncertainty. Historical audits are evidence about the runs they inspected;
+this CPU revision does not independently rerun their full model/metric pipeline,
+rehash excluded weights or validate every original token identity. Stored $h$
+and LPIPS/DINO scores are reaggregated, not independently reconstructed from
+per-coordinate categorical marginals or terminal images absent from these tables.
+
+The historical per-tensor plan differs from frozen per-channel implementation
+source (Section~\ref{sec:quantizer}); that deviation is now explicit. Exact
+historical runtime scale/weight tensor replay has not been performed. The theoretical influence
+envelope requires global coverage unavailable from finite neural local profiles,
+and no valid token-bound-to-LPIPS transfer constant is supplied.
+
+\section{Unexecuted Research Plan and Falsification Criteria}
+\label{sec:future}
+Every experiment in this section is a proposal. No new result or compute budget
+is implied by its inclusion.
+
+\paragraph{P1: schedule and split opportunities.}
+First test the same model in a $2\times2$ design: the existing batch sequence
+versus $c=8$ for each of 32 steps, and Halton order versus a fixed permutation.
+Changing the schedule also changes prefix states, so it is not a pure causal
+intervention on $c$. A complementary diagnostic uses one identical anchor
+state and nested sets of $c=1,4,8$ coordinates: compare $p$ with $q$ on those
+positions, use common $p$ on all others, and then common $q$ in the suffix.
+This is a diagnostic intervention distinct from the full natural quantization
+transition. Freeze comparisons before evaluation. If equal-$c$ removes the
+incidence reversal, narrow the interpretation to schedule-dependent opportunities;
+if conditional/weighted differences vanish after seed count and severity are
+controlled, do not claim residual timing sensitivity.
+
+\paragraph{P2: a different discrete generation structure.}
+A first candidate is single-token AR generation such as LlamaGen, subject to
+separate verification of official checkpoint, tokenizer and runtime feasibility;
+no GPU memory or time is guaranteed. Define the same shock/common-suffix contract
+with $c=1$. KV cache is part of state. A pure token-mediated arm must reconstruct
+a common-model cache from the canonical prefix and be distinguished from a
+persistent-cache arm. Report within-model paired effects rather than pooling
+raw LPIPS across models. Failure to repeat $H\downarrow$ would refute universal
+sign-pattern replication, even if incidence/consequence separation remains
+useful. Continuous diffusion or MAR with threshold-defined onset introduces a
+different estimand.
+
+\paragraph{P3: non-saturated precision and coupling robustness.}
+After establishing W8 granularity, select W6 or one alternative calibration
+method on development data and freeze it before held-out evaluation. W4
+saturation is not primary generalization evidence. For another coupling,
+validate marginals and self-cases and report how $h$ and paired discrepancy
+change. If effect signs or policy conclusions fail across predeclared valid
+couplings, report coupling dependence rather than universality.
+
+\paragraph{Separate practical-value test.}
+Retain any existing layer-by-time plan, but distinguish persistent W8 in one
+module, a one-time shock, and restoring one module to FP32 from an all-W8
+baseline. Do not assume quantizing one module and restoring one from all-W8 are
+symmetric or additive. Compare local MSE, logit KL/TV, $h$ alone, seed count and
+severity, simple early protection and same-cost random selection. Freeze a
+policy on development blocks, then evaluate actual restoration gain on entirely
+new class/seed blocks at matched parameter bytes or measured cost. Exclude
+post-hoc descendant features from online predictor inputs. If the method offers
+no added gain over these baselines, narrow the practical contribution.
+Separate cost/variance pilots from confirmation and choose sample size from
+effect size, power and multiplicity, without guaranteeing that a particular
+block count suffices. Any human study must distinguish blinded paired similarity
+from quality/preference and use representative samples; none is present here.
+
+\section{Conclusion}
+FDCA specifies how to join a natural approximation-induced token split to its
+conditional output discrepancy. Under a fixed Halton schedule, coordinatewise
+coupling and a one-step FP32-versus-W8/common-W8-suffix intervention, two CFG3
+checkpoint panels support lower batch incidence but higher equal-block
+conditional and incidence-weighted LPIPS at target $0.5$ than at $0.3$.
+The weighted result is an average of blockwise products, and batch incidence
+also depends on commit opportunities. The theory supplies finite monotone-decoder
+bounds and an expectation identity, not a universal trend or a perceptual quality
+guarantee. Prospective prediction, precision selection and new-architecture
+validation remain open experiments.
+
+\section*{Data, Code, Version and Citation}
+The public repository is
+\url{https://github.com/Munsik-Kim/fdca-visual-token}.
+Archived v1.0.0 remains associated with
+\href{https://doi.org/10.5281/zenodo.21965747}{10.5281/zenodo.21965747}.
+This GitHub revision candidate is not a new release or Zenodo deposit. The author,
+ORCID and license scopes are preserved: original code is MIT; paper, figures,
+tables and included audit documentation are CC BY 4.0. Third-party weights,
+data and upstream code retain their own rights and are not redistributed.
+
+The reanalysis script generates the numerical JSON/CSV, manuscript table inputs
+and vector/raster figures from the original compact tables. Its audit records
+input SHA-256 hashes, environment, RNG mapping and resampling rules. The
+version-aware paper build compiles this source with its updated bibliography;
+legacy frozen-paper verification remains distinct. Revision notes identify
+corrections, unresolved items and historical evidence boundaries.
+
+\appendix
+\section{Post-hoc Robustness Supplement}
+\label{app:robustness}
+These analyses were added after the original experiments. They are not the
+original preregistered analysis. All paired differences are $0.5-0.3$ within
+one panel. Table~\ref{tab:posthoc} uses 100,000 paired block bootstrap draws
+and linear quantiles, with ratio and split-population conditional means
+recalculated per resample. It is intentionally separate from the original
+20k/higher headline intervals.
+\begin{table}[p]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Post-hoc natural-shock contrasts, with panel-specific $n$. CFG1 and W4
+are overlapping sensitivity/stress subsets. The precise fixed RNG and input
+hashes are in the generated audit.}
+\label{tab:posthoc}
+\input{\revisiongenerated/posthoc_contrasts.tex}
+\end{table}
+\begin{table}[p]
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\caption{Robustness diagnostics and the explicitly limited six-contrast
+Bonferroni family where indicated. Paired t, leave-one-block-out and trimmed
+summaries are descriptive sensitivity checks, not randomized causal inference.}
+\label{tab:robustness}
+\input{\revisiongenerated/robustness.tex}
+\end{table}
+\begin{figure}[tbp]
+\centering\includegraphics[width=\textwidth]{\revisiongenerated/paired_contrasts.pdf}
+\caption{Post-hoc paired contrasts, $0.5-0.3$, resampling complete block bundles.
+The displayed interval rule is 100k/linear; axes and panel counts distinguish
+probability from LPIPS metrics.}
+\label{fig:contrasts}
+\end{figure}
+\begin{figure}[tbp]
+\centering\includegraphics[width=\textwidth]{\revisiongenerated/tiny_all_rho.pdf}
+\caption{Full Tiny CFG3 W8 anchor profile ($n=48$). All five target fractions
+are shown, including the final-flush $0.1$ anchor. The mean of blockwise
+products $R$ does not increase at every adjacent anchor. This full-anchor descriptive figure shows means without intervals; the
+selected $0.3/0.5$ region is shaded, and adjacent contrasts are supplied in the
+generated tables.}
+\label{fig:allrho}
+\end{figure}
+
+\FloatBarrier
+\section{Historical Evidence and Proof Ledger}
+The original program progressed through T0 exact finite-state checks, P0 sampler
+inspection, P05R influence measurement, P1L controlled shocks, P1M incremental
+analysis, P2N natural seeds, P2A's incomplete audit, P2B's targeted closure,
+P2P perceptual measurements and P3S second-checkpoint replication. This order
+matters for selection: the P2P contrast followed earlier P2N findings; later
+new-block records are not equivalent to an externally timestamped preregistration.
+
+The archived P3S report distinguishes 52 executed pytest categories from 60
+generated audit assertions. It reports 1,429 run-manifest files, whereas the
+Full package contains 1,431 entries including two bookkeeping files. Its 1,040
+paired-grid files include primary, matched, controls and the CFG1 subset; this
+count is not a count of independent blocks. The audit did not independently
+rehash excluded checkpoint bytes or rerun a Parquet pipeline in its environment.
+Likewise, current OOF MAE reaggregation is not independent model training.
+
+The proof ledger in \nolinkurl{docs/PROOF_LEDGER_v1.0.1.md} traces each theorem's
+assumptions and proof steps. The stable-set theorem is verified for its stated
+nonnegative bounded additive costs. The full-path decomposition is verified as
+a conditional-expectation identity with survival and zero no-split cost. The
+DAG result is verified conditional on the stated global hybrid closure and
+coordinate coupling; empirical local neural certificates and token-to-LPIPS
+transfer remain unproved. The ledger does not classify a familiar-looking
+statement as verified without those proof connections.
+
+\bibliography{references}
+\end{document}

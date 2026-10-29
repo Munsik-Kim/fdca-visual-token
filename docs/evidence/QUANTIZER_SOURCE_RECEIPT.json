@@ -1,0 +1,131 @@
+{
+  "schema": "FDCA_QUANTIZER_SOURCE_AUDIT_V1",
+  "review_date": "2026-10-29",
+  "analysis_kind": "read-only historical source inspection; no tensor replay",
+  "conclusion": "Frozen P2P/P3S runner source imports and instantiates LinearWeightHomotopy, whose frozen and public-identical implementation uses symmetric per-output-channel RTN for Linear.weight. P2P per_tensor preregistration is a plan-to-source deviation.",
+  "scale_shape_from_source": "[out_features, 1] for a 2D Linear weight; inferred from amax(dim=1, keepdim=True), not an observed runtime scale dump",
+  "runtime_limits": [
+    "No model checkpoint loaded or rehashed.",
+    "No GPU inference, quantized weight recomputation, or scale tensor inspection performed.",
+    "Source snapshots and matching archive manifest entries support implementation provenance; they do not independently attest every historical runtime tensor.",
+    "Only sanitized source identifiers, hashes, and relevant excerpts are included; complete private run archives are not published."
+  ],
+  "sources": [
+    {
+      "phase": "P2P",
+      "archive_run_name": "FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK_20260815_194342",
+      "source_path": "code_snapshot/fdca/analysis/p05_influence.py",
+      "sha256": "2805f27d72025b766da0ca257a7d95bc4c4ede8d79f7522b5073aa6488cfc05c",
+      "bytes": 16223,
+      "archive_file_manifest_entry_matches": true,
+      "excerpts": [
+        {
+          "line": 98,
+          "text": "def rtn_per_output_channel(weight: torch.Tensor, bit: int) -> torch.Tensor:"
+        },
+        {
+          "line": 105,
+          "text": "max_abs = source.abs().amax(dim=1, keepdim=True)"
+        },
+        {
+          "line": 106,
+          "text": "scale = max_abs / qmax"
+        },
+        {
+          "line": 149,
+          "text": "rtn4_cpu=rtn_per_output_channel(reference, 4),"
+        },
+        {
+          "line": 150,
+          "text": "rtn8_cpu=rtn_per_output_channel(reference, 8),"
+        }
+      ],
+      "public_source_path": "fdca/analysis/p05_influence.py",
+      "public_source_sha256": "2805f27d72025b766da0ca257a7d95bc4c4ede8d79f7522b5073aa6488cfc05c"
+    },
+    {
+      "phase": "P2P",
+      "archive_run_name": "FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK_20260815_194342",
+      "source_path": "code_snapshot/experiments/FDCA_VIS_P2P_PERCEPTUAL_NATURAL_SHOCK/run_p2p_generator.py",
+      "sha256": "a6becc24295b346845fcf2d981b6e3e538af0bfaf51043f07ad9e7f93ab41248",
+      "bytes": 20998,
+      "archive_file_manifest_entry_matches": true,
+      "excerpts": [
+        {
+          "line": 19,
+          "text": "from fdca.analysis.p05_influence import CODEBOOK_SIZE,MASK_VALUE,LinearWeightHomotopy"
+        },
+        {
+          "line": 96,
+          "text": "quant.apply(bit,1.0);model_eval(model,f'{phase}:{block.block_id}:{cell}',evalaudit);Q[cell]={}"
+        },
+        {
+          "line": 105,
+          "text": "quant.apply(bit,1.0);reps=2 if phase=='smoke' else (8 if cell=='W8_L1.00' else 4)"
+        },
+        {
+          "line": 129,
+          "text": "quant.apply(8,1.0);source=choose_source(traj,str(block.block_id),min(int(a['anchor_step']) for a in anchors))"
+        },
+        {
+          "line": 145,
+          "text": "numeric=numeric_profile();numeric['schema']='FDCA_VIS_P2P_SCALAR_NUMERIC_PROFILE_V1';write(run/'config/P2P_SCALAR_NUMERIC_PROFILE.json',numeric);torch.cuda.empty_cache();torch.cuda.reset_peak_memory_stats();rt=load_runtime(UPSTREAM,GENERATOR,VQ,'cuda');model=rt.trainer.vit.float().eval();rt.trainer.ae.eval();kernel=ScalarKernel();quant=LinearWeightHomotopy(model);ev=[];reg=DiskSemanticRegistry(run/f'raw/P2P_RNG_REGISTRY/{a.phase}')"
+        }
+      ]
+    },
+    {
+      "phase": "P3S",
+      "archive_run_name": "FDCA_VIS_P3S_SECOND_CHECKPOINT_REPLICATION_20260815_235946",
+      "source_path": "code_snapshot/fdca/analysis/p05_influence.py",
+      "sha256": "2805f27d72025b766da0ca257a7d95bc4c4ede8d79f7522b5073aa6488cfc05c",
+      "bytes": 16223,
+      "archive_file_manifest_entry_matches": true,
+      "excerpts": [
+        {
+          "line": 98,
+          "text": "def rtn_per_output_channel(weight: torch.Tensor, bit: int) -> torch.Tensor:"
+        },
+        {
+          "line": 105,
+          "text": "max_abs = source.abs().amax(dim=1, keepdim=True)"
+        },
+        {
+          "line": 106,
+          "text": "scale = max_abs / qmax"
+        },
+        {
+          "line": 149,
+          "text": "rtn4_cpu=rtn_per_output_channel(reference, 4),"
+        },
+        {
+          "line": 150,
+          "text": "rtn8_cpu=rtn_per_output_channel(reference, 8),"
+        }
+      ],
+      "public_source_path": "fdca/analysis/p05_influence.py",
+      "public_source_sha256": "2805f27d72025b766da0ca257a7d95bc4c4ede8d79f7522b5073aa6488cfc05c"
+    },
+    {
+      "phase": "P3S",
+      "archive_run_name": "FDCA_VIS_P3S_SECOND_CHECKPOINT_REPLICATION_20260815_235946",
+      "source_path": "code_snapshot/experiments/FDCA_VIS_P3S_SECOND_CHECKPOINT_REPLICATION/run_p3s_generator.py",
+      "sha256": "a3906a491aeb7a6ec3958be3ed2b8357be6fe109c06bbc0627e091b7fa78ec16",
+      "bytes": 15017,
+      "archive_file_manifest_entry_matches": true,
+      "excerpts": [
+        {
+          "line": 13,
+          "text": "from fdca.analysis.p05_influence import CODEBOOK_SIZE,MASK_VALUE,LinearWeightHomotopy"
+        },
+        {
+          "line": 58,
+          "text": "quant.apply(8,1.0);model_eval(model,f'{phase}:{block.block_id}:{panel}:W8',ev)"
+        },
+        {
+          "line": 90,
+          "text": "torch.set_float32_matmul_precision('highest');torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False;torch.backends.cudnn.benchmark=False;torch.cuda.empty_cache();torch.cuda.reset_peak_memory_stats();model,modelmeta=load_small();modules=import_upstream(UPSTREAM);batches,commit,order=halton_schedule(modules);quant=LinearWeightHomotopy(model);ev=[];reg=DiskSemanticRegistry(run/f'raw/P3S_RNG_REGISTRY/{a.phase}');frames={k:[] for k in ['anchors','laws','tokens','pairs','trajectories']};kernels={'primary_cfg3':Kernel(3.),'official_cfg1':Kernel(1.)};started=time.perf_counter()"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "checks": [
+    "unique complete block-anchor keys",
+    "stored block product identity",
+    "mean product/covariance identity",
+    "blockwise attribution identity",
+    "W4 and CFG1 subset keys",
+    "matched subset keys and n",
+    "both CI endpoints of eight frozen contrasts",
+    "two stored OOF ratios",
+    "six endpoint Bonferroni family",
+    "float32 adapter-equivalent schedule"
+  ],
+  "counts": {
+    "Small_CFG1_W8": {
+      "anchors": [
+        0.3,
+        0.5
+      ],
+      "blocks": 16,
+      "rows": 32
+    },
+    "Small_CFG3_W8": {
+      "anchors": [
+        0.3,
+        0.5
+      ],
+      "blocks": 40,
+      "rows": 80
+    },
+    "Tiny_CFG3_W4": {
+      "anchors": [
+        0.3,
+        0.5
+      ],
+      "blocks": 24,
+      "rows": 48
+    },
+    "Tiny_CFG3_W8": {
+      "anchors": [
+        0.1,
+        0.3,
+        0.5,
+        0.7,
+        0.9
+      ],
+      "blocks": 48,
+      "rows": 240
+    }
+  },
+  "environment": {
+    "matplotlib": "3.10.8",
+    "numpy": "2.2.6",
+    "pandas": "3.0.5",
+    "python": "3.12.12",
+    "scipy": "1.15.2"
+  },
+  "inputs_sha256": {
+    "configs/preregistrations/preregistration_fdca_vis_p2p_perceptual_natural_shock.yaml": "1b727fc2efec3055f0085dd96f00c289220d0060297e29fdad8feb22d85c4cb5",
+    "configs/preregistrations/preregistration_fdca_vis_p3s_second_checkpoint_replication.yaml": "6181240af57850f4f79f595b2cfadf0345e01b1f0fb7320324ef962518e3f053",
+    "fdca/adapters/halton_maskgit_contract.py": "abcfe3b1c108988f6e940b5e180737a876e7cea91442364c37ed0e1b2494e6ad",
+    "fdca/analysis/p2n_natural_shock.py": "c6bbf8ad2b1568e9b7f7cb91019f45edcb311601529130c1a0f0960e68c3c27f",
+    "fdca/analysis/p2p_perceptual.py": "ebd245f54aff34d498f6d1970aac88785f2fb34406783a3223e514efb4f4f1f5",
+    "fdca/analysis/p3s_replication.py": "fb2cd165b42da549c9791698476b5b7afc67f0bdaf17852409a1403dcec9c850",
+    "public_results/summaries/P2P_HYPOTHESIS_TESTS.json": "278078894a1d4e66574634a55f0f128d3cdb303574411a58044a3d08f93b7022",
+    "public_results/summaries/P2P_PERCEPTUAL_GATE.json": "650b20c72f3a3d3bf7904fda63e9676eb188ea8d1b53cc709eccb749a5e65706",
+    "public_results/summaries/P3S_REPLICATION_GATE.json": "da9c438b9d4392d2d666c304b7c0c3cd41cf18cd65a53b21c0365dc93ab30a9f",
+    "public_results/summaries/P3S_REPLICATION_TESTS.json": "e9ddd9dbc8096281c02d1f55df021e251ec48dc013f90f46a2ed7797ffa076b7",
+    "public_results/summaries/P3S_TOKEN_LINK_TEST.json": "b145e92810ec7ceb8f9dff6f0486611818865e5bcb3b2ca758ffbc9a1c85b516",
+    "public_results/tables/P2P_BLOCK_LEVEL.csv": "091151449d2b02745741c92d7307237d34b1f439af415f99af219cd4cbc0c46a",
+    "public_results/tables/P2P_MATCHED_BLOCK_LEVEL.csv": "e44304c6d31c20a90952d047b1900f5e1bb0bea453e8176dcf92bf34e2cef5ed",
+    "public_results/tables/P2P_PERCEPTUAL_SUMMARY.csv": "cfb62f0af7654d0956715de76bf8191ff2e5dd323fe9c542fcb9bd67f6d449fc",
+    "public_results/tables/P2P_TOKEN_OOF.csv": "5aecda3a05bf90f6830a16810abcc6a8aa176606a1ec64e6de9fbd736d403eaf",
+    "public_results/tables/P3S_BLOCK_LEVEL.csv": "0e595b018b1c7a029fda7eed94778bad4c8b1e1e076525bc0bbd73066317367a",
+    "public_results/tables/P3S_MATCHED_BLOCK_LEVEL.csv": "7abc14674609a2690d498eb9ae1e531521eea46ce1ed0744ae9d41acaba9a0f7",
+    "public_results/tables/P3S_REPLICATION_SUMMARY.csv": "6c9ac395d76a763130ad5edb2d74a30711781188061f2af533cf08a463c45c75",
+    "public_results/tables/P3S_TOKEN_OOF.csv": "39f91e2ea64c0bbd77e87b0c22019b9fd9e8f2ed8a6db3ce053b18274a669243",
+    "scripts/reanalyse_revision.py": "b20d6dc0dad97ba755b18a731c7c0f65576d6dbc0d90c6c635037355d0b717bd",
+    "scripts/reproduce_public_results.py": "53a72bf7ba12d91c4afe3cfb4436cbcb562aa93bd4441a9af23746b2d3cae2ee"
+  },
+  "seed_by_panel": {
+    "Small_CFG1_W8": 16169233173900402668,
+    "Small_CFG3_W8": 9017907727469582220,
+    "Tiny_CFG3_W4": 10779626582378995148,
+    "Tiny_CFG3_W8": 14595927517812269906
+  },
+  "source_boundaries": [
+    "Compact tables lack complete class_id/base_seed manifest: class-cluster inference and independent audit of class/seed or predecessor overlap are unavailable. Block IDs verify only within-panel subsets.",
+    "P2P compact tables identify W8/W4 cells but omit CFG metadata; CFG3 comes from the preserved protocol and audit rather than independent table filtering.",
+    "The compact tables do not contain all per-coordinate categorical marginals or terminal images: this analysis cannot independently recompute product-form h, LPIPS/DINO, or within-block rollout Monte Carlo error from first principles.",
+    "Block bootstrap assumes independent equally weighted class-seed blocks in these selected panels; it does not establish an ImageNet-wide or checkpoint-wide probability sample.",
+    "Conditional means have Monte Carlo error from 8 repeats in W8 primary, 4 in CFG1/W4, 2 in matched timing. Raw repeat-level variance is not recoverable from block means.",
+    "Matched compact files lack seed token and coordinate identity; execution-audit claims are not an independent raw identity verification.",
+    "Stored OOF MAE reaggregation does not retrain LOBO models or reconstruct original features. Descendant features are retrospective, not online inputs.",
+    "Coordinate TV is a mean of marginals, not the full coordinate distribution; fixed schedule, state, position, seed composition and remaining horizon co-vary.",
+    "Bonferroni family contains exactly six primary CFG3 W8 H/M_equal/R contrasts; it does not correct study-wide post-hoc selection."
+  ],
+  "status": "PASS"
+}

@@ -1,0 +1,120 @@
+{
+  "checks": [
+    "tables and equations readable at page scale",
+    "all four figures appear once with captions",
+    "no clipped tables or symbols",
+    "bibliography links wrap within margins",
+    "full-rho figure precedes historical appendix and references",
+    "compile log has zero undefined references/citations, missing glyphs or overfull boxes"
+  ],
+  "pages": [
+    {
+      "image": "page-01.png",
+      "page": 1,
+      "sha256": "e2e22379b838833718966ea01120adc1ddedafef903eeeeafdef553e76d99d11"
+    },
+    {
+      "image": "page-02.png",
+      "page": 2,
+      "sha256": "d937d131a95e4a1dce58dcc43b5d1c6563218058ee7cd8e5d652679c2867f029"
+    },
+    {
+      "image": "page-03.png",
+      "page": 3,
+      "sha256": "0c7a53cde72595547fb77559688120c4d75b1cb9fce919d4d045fb94a647c983"
+    },
+    {
+      "image": "page-04.png",
+      "page": 4,
+      "sha256": "7c946e25cbd1b249d3e112951f1bbc3d49e07ec59874f7a7fbf72b9d9cba5073"
+    },
+    {
+      "image": "page-05.png",
+      "page": 5,
+      "sha256": "3279143876b4f43349d47e49530d0f6d016b9ffa729a34b422b4959a368703c9"
+    },
+    {
+      "image": "page-06.png",
+      "page": 6,
+      "sha256": "69b98ae32f8071802ce287cee6cb28ed4e1ae7ff72740f97eea21877a4d42a86"
+    },
+    {
+      "image": "page-07.png",
+      "page": 7,
+      "sha256": "48aa7e14dd8cd1a9921510a8fb1957ab321b2c904f13a797da15a65f3d71aa8c"
+    },
+    {
+      "image": "page-08.png",
+      "page": 8,
+      "sha256": "3c4f3e5c3b51f5bc4ca1325bf44c4841972b567959e8fc6e5328aceb3dfb2498"
+    },
+    {
+      "image": "page-09.png",
+      "page": 9,
+      "sha256": "8b762f21355acad1d4355d75b1336672dd398e0e66413b629b477cd728b36e2c"
+    },
+    {
+      "image": "page-10.png",
+      "page": 10,
+      "sha256": "16fba4bc0a38d9643bd8ec728134bdc13fd724a16e420867f3a9b1690f1f9ad9"
+    },
+    {
+      "image": "page-11.png",
+      "page": 11,
+      "sha256": "fa5103a4c7eea11713baca26fe2e496bc5cccf4be1cc08b5851d2fbd819e8fc5"
+    },
+    {
+      "image": "page-12.png",
+      "page": 12,
+      "sha256": "1b4881ce1fe829b35637b71b6450db37603bc421898d57519130dd48da729440"
+    },
+    {
+      "image": "page-13.png",
+      "page": 13,
+      "sha256": "5912daabddeb7f5d1fef94fea0b428e648081ee4e053d020e0dd27175756008d"
+    },
+    {
+      "image": "page-14.png",
+      "page": 14,
+      "sha256": "313750bb7b81f7010b2fa0b8e74b13206932a032dfe9600c77cabe47269088c5"
+    },
+    {
+      "image": "page-15.png",
+      "page": 15,
+      "sha256": "7dba570e87633e4a95940d8dd75a0861e3fd69d00e44d69614148871d5d2fd2a"
+    },
+    {
+      "image": "page-16.png",
+      "page": 16,
+      "sha256": "5cbf39ecf79e3d1d25f9850277b74caaf4c72794ab2d834f06e0ade60bc01945"
+    },
+    {
+      "image": "page-17.png",
+      "page": 17,
+      "sha256": "ffaf8ff943b5978945efb5aad2f043440a2f80b2dafc99a8303a2ece58e570c4"
+    }
+  ],
+  "pdf_sha256": "99aa82981dec73d81a277cc9963edfb44a00e7cc41de14aa4a78cfea4fc5847b",
+  "render_dpi": 120,
+  "renderer": "PyMuPDF 1.27.2",
+  "reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+  ],
+  "visual_approval": "PASS: every page inspected; revised pages and float/bibliography placement rechecked after final compilation"
+}

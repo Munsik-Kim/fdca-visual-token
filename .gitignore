@@ -9,4 +9,6 @@ build/
 *.toc
 *.synctex.gz
 paper/source/FDCA_v1.0.0.pdf
+paper/source/v1.0.1/FDCA_v1.0.1.pdf
 release/FDCA_v1.0.0_Public_Research_Artifact.zip
+release/FDCA_v1.0.1_Unreleased_GitHub_Revision.zip

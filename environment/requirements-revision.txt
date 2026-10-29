@@ -1,0 +1,4 @@
+-r requirements-model-free.txt
+matplotlib==3.10.8
+# Optional PDF page rendering for the documented visual review.
+pymupdf==1.27.2
