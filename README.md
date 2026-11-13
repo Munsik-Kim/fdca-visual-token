@@ -1,5 +1,11 @@
 # First-Divergence Consequence Analysis for Masked Visual Generators
 
+**November 2026 research portfolio:** [Start here](research/followup_2026_11/README.md) · [Detailed Korean report](research/followup_2026_11/REPORT_KO.md) · [Failure analysis](research/followup_2026_11/FAILURE_ANALYSIS_KO.md) · [Next-research criteria](research/followup_2026_11/NEXT_RESEARCH_KO.md).
+
+The LT0–LT16 follow-up record separates replicated context/propagation findings from unsuccessful precision-restoration policy development. It includes the positive oracle exception, failed development gate, unstarted holdout evaluation, four source-linked figures and model-free numerical replay. It does not claim image-quality improvement or that restoration is universally impossible.
+
+**Version boundary:** the paper and results below are the archived `v1.0.0` record. [Scientific corrections in PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2) are a separate, unmerged revision as of this addendum. In particular, `M_equal`, `M_split` and `R=mean(h*m)` must be distinguished; `mean(h)*mean(m)` omits covariance. The follow-up addendum uses those distinctions and does not replace the archived paper, release or DOI.
+
 Built tools to locate the first token choice changed by low-bit weights in an image generator, then measure its effect on the final image. The project combines controlled comparisons, mathematical analysis and reproducible CPU checks.
 
 **Munsik Kim** · [ORCID 0009-0008-9350-2435](https://orcid.org/0009-0008-9350-2435)
@@ -33,6 +39,7 @@ make verify test reproduce
 
 ## Repository map
 
+- `research/followup_2026_11/`: LT0–LT16 portfolio, methods, failure analysis, research gates, original summary tables and selected scalar replay inputs
 - `fdca/`: theory, coupling, stable-set/first-divergence, RNG, adapters, perturbation and analysis
 - `experiments/`: T0 through P3S purpose, preregistration, gate and negative findings
 - `public_results/`: compact row/block evidence, tables and figures

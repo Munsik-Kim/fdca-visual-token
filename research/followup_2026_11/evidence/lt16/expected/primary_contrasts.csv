@@ -1,0 +1,4 @@
+contrast,definition,estimate,ci_low,ci_high,confidence,MCSE_fixed_parents,boundary,point_above_boundary,lower_above_boundary,status,n_class,n_original_trajectory,K,scope
+A,OLD_MAX,-0.0007233631301157099,-0.004643831654877633,0.0033003421203223657,0.9833333333333333,0.0015043250058796925,0.01,False,False,DIRECTION_UNRESOLVED,24,48,8,LT14 reused development classes; saved-state conditional redraw diagnostic
+B,OLD_MAX-ENTROPY_OOF,0.00050415486492561,-0.0043312131730322695,0.005505927554663181,0.9833333333333333,0.0021538785323441632,0.005,False,False,DIRECTION_UNRESOLVED,24,48,8,LT14 reused development classes; saved-state conditional redraw diagnostic
+C,PROPOSED_OOF-TIME_ONLY_FROZEN,0.00016179029427298985,-0.00025426338702949636,0.0010123217556004722,0.9833333333333333,0.0002825743577755468,0.005,False,False,DIRECTION_UNRESOLVED,24,48,8,LT14 reused development classes; saved-state conditional redraw diagnostic

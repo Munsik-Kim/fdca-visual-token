@@ -1,0 +1,50 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+FDCA LT2 — 상태 의존적 복원 진단과 단발 복원 후 전파
+
+무엇을 측정했는가
+H-MaskGIT-T의 전체 eligible W8에서 block2 또는3의 8개 weight만 한 단계 FP32로 복원했다. 나머지41개는 W8이며 last_norm도 W8이다. 이후 두 branch 모두 같은 W8 모델을 각자의 상태에 적용했다.
+Panel A는 원 LT1의 FP32 prefix X와 all-W8 prefix Y 각각에서, 동일한 입력에 P(전체FP32),Q(전체W8),R2/R3(해당block복원)를 비교했다. Panel B의 U는 새 all-W8 continuation이며, V만 shock 한 단계 복원한다. U는 FP32 reference가 아니다.
+기존 개발 8클래스 × parent2개를 재사용했다. anchors0/15/23/31, continuation8회, block2/3을 고정하여 A256개 진단과 B1,024개 pair(공유U512개, 논리적branch1,536개)를 모두 완료했다. 실패·누락 과학 group0, 통계 n은 class8이다. 31은 suffix 없는 대조이며 주 시간 평균은0/15/23 균등이다.
+
+실제 수치 — 20,000 paired-class bootstrap, linear quantile, seed20261029; 미보정 탐색적95%CI
+A1: 0.00058820354, CI [7.6792224e-05, 0.0010862401]. deltaTV3(Y)-deltaTV2(Y)
+A2: 0.00011013112, CI [-0.00017996926, 0.00043440733]. [deltaTV3-deltaTV2](Y)-[deltaTV3-deltaTV2](X)
+B1: 0.00019775374, CI [-0.0044157858, 0.0048685398]. R_pulse3-R_pulse2
+A1의 전체8개 class 삭제 민감도 범위: [0.0004139747, 0.00075089198]. class929도 주분석에서 유지했다.
+A2의 전체8개 class 삭제 민감도 범위: [-7.7598547e-06, 0.00017768065]. class929도 주분석에서 유지했다.
+B1의 전체8개 class 삭제 민감도 범위: [-0.0012775994, 0.0017706849]. class929도 주분석에서 유지했다.
+
+상태 의존성
+all-W8 parent 상태에서 block3의 국소 deltaTV 이득이 block2보다 평균 더 컸다(A1). 그러나 그 block 차이가 X와 Y 사이에서 달라진다는 A2의 CI는0을 포함했다. 이 설계에서는 상태 배경 상호작용의 부호·크기를 확정할 수 없으며 동등성도 입증하지 않았다.
+A2는 관측한 두 parent 상태 계열의 조건부 진단이다. 일반적 상태 교체의 인과효과나 이전 block2/5의 음의 persistent G의 충분한 원인을 식별한 결과가 아니다.
+주 시간 평균은 anchor 동일 가중이다. 좌표를 풀어 가중한 별도 보조 표는 analysis/pooled_coordinate_aux/pooled_summary.csv이며 주대비를 대체하지 않는다. 해당 보조 구현은 freeze 뒤 추가됐지만 가중 규칙은 사용자 시작 명세에 있었다.
+
+초기 분기와 이후 전파
+block2: R_pulse=0.0032090332; H_sample=0.046875 (18/384 splits, 7/8classes); mean h_exact=0.042717626; M_split=0.068459375, CI [0.030919767,0.13457023]; 평균 J_seed=0.046875, N_prop=1.3020833, terminalHamming=0.0052693685.
+block3: R_pulse=0.0034067869; H_sample=0.028645833 (11/384 splits, 7/8classes); mean h_exact=0.043273216; M_split=0.11892784, CI [0.034272452,0.18780886]; 평균 J_seed=0.03125, N_prop=1.2578125, terminalHamming=0.0050354004.
+두 block의 analytic h 점추정은 가까웠지만 실제 split 수·seed 수/위치·클래스 구성은 같지 않다. M_split 점추정 차이를 순수 증폭 효과로 해석하지 않는다. B1 CI가0을 포함해 최종 pulse 출력 차이의 block 우열도 미확정이다.
+주 시간 전체 split은 block2 18개, block3 11개뿐이다. anchor0은 각각1/128,2/128개이며 조건부 결과를 정밀하게 추정할 자료가 부족하다. 희소 행은 M 점추정과95%CI=NA를 구분한다. CI는 split≥8units, ≥5classes, undefined draw≤2.5% 때만 제시했다.
+전체1024pair 중88개가 shock에서 분기했고936개는 미분기였다. 미분기 pair는 끝까지 동일 grid/이미지/metric을 명시적으로 공유했다. step31의 N_prop는 모두0이었다. 모든 terminal mismatch=J_seed+N_prop를 확인했다.
+R=H_sample×M_split은 같은 가중 표본의 산술 항등식이다. analytic mean h_exact를 H_sample 대신 넣지 않았다. H=0인 조건부 값을0으로 채우지 않으며 퇴화된 bootstrap CI도 모집단 확률0/1의 증거가 아니다.
+
+기존 persistent G에 대해 설명한 범위와 못한 범위
+LT1-R의 G는 FP32 reference와의 discrepancy 감소량이고 이번 R_pulse는 새 U/V 두 출력 사이의 거리다. 개입 지속 시간·reference·RNG/coupling이 달라 두 수치를 빼거나 같은 복원 성능으로 비교하지 않는다.
+LT1-R에서 A(localTV),B(단일block민감도),F(deltaTV)가 모두 block3을 선택했다는 사실은 유지된다. 이번 기전 진단은 B/F가 A보다 좋은 holdout 선택 정책이라는 증거를 추가하지 않았다.
+LPIPS는 이 개입·coupling의 출력 차이다. 품질 저하/개선, 인간 선호, packed INT8 속도/VRAM 이득으로 해석하지 않는다. 별도 class 확인 실험이나 LT3·다른 precision/model은 실행하지 않았다.
+
+실행과 검증
+누적 GPU supervisor wall=296.973초 /2040초. 초기 실패 numerical preflight도 포함했고 예산을 재설정하지 않았다. initial capability probe/자원 대기는 모델0회로 별도 기록했다.
+과학 physical forward=8005 (A=392,B=7613); logical requests=23168; decode=600; 실제 pair LPIPS=88. 과학 peak torch allocated=568323584bytes이며 driver/context와 packed 성능을 뜻하지 않는다.
+독립 CPU 감사 292,495 checks 및 CI166끝점 통과. 저장 A법칙16좌표/B법칙24pair좌표만 full categorical law를 재계산했고 full batch h는 모든 좌표의 scalar TV로 재계산했다. 전체 categorical law를 재추론했다는 뜻이 아니다.
+별도 독립 raw 감사: historical composite2880개, B153600좌표/15104step-pair/저장endpoint600개의 state·clamp·metric-input·PNG 연결 PASS. CPU는 모델/decoder/LPIPS를 새로 실행하지 않았다. 실제 GPU 자기비교/역순/재개 검증은 별도 technical panel에서 PASS했다.
+기존 CPU환경39tests PASS/6Torch의존tests SKIP, 기존 GPU환경에서 CPU-only runner18tests PASS로45고유검사를 커버했다. 추가 좌표 pooled 보조2tests PASS. 테스트 실패 초안과 초기 thread-setting 실패는 보존했다.
+첫 wrapper에서 OMP/MKL4를 빠뜨려 weight_mse23개 요약의 마지막 자리만 달랐다. CPU-only진단에서49개 원본/재구성/scale 해시는 모두 같았고, 기존wrapper 복원 뒤 전체receipt가 일치했다. 실패smoker1은 그대로 두고 r2에서 검증했다. 기존GPU작업은 자연종료를 기다렸으며 강제종료하지 않았다.
+
+후속 실험 하나 — 제안이며 미실행
+같은 모형에서 block2/3의 초기 seed 크기·위치를 맞춘 별도 진단 개입을 사전 고정하여, J=1 등 동등한 seed 조건 아래 common-W8 suffix의 전파를 비교하는 것을 권한다. 이는 자연 pulse와 다른 조건부 estimand다. pilot의 class별 분산·희소 split 수를 사용해 필요한 절대 효과/표본/비용을 먼저 설계하고, 고정된 새 자료에서 평가한다. 현재 표본 확대나 LT3 실행을 승인한 뜻이 아니다.
+
+보존·재현·전달
+원자료/코드의 새 D 위치: [private execution path omitted]
+실제 보존 성공과 D CPU replay/staging cleanup은 PRESERVATION_VERIFIED.json 및 delivery/D_REPLAY_VERIFIED.json,STAGING_CLEANUP.json으로 확인한다. 이 경로 안내 자체를 보존 receipt로 대체하지 않는다.
+Drive는 기존 비공개 부모 아래 LT2_STATE_PULSE_20261102_r1이다. 실제 URL/업로드 크기·부모·권한 readback은 HANDOFF와 delivery/GOOGLE_DRIVE_DELIVERY.json을 확인한다. 원격 checksum을 노출하지 않는 connector에서는 원격SHA일치를 주장하지 않는다.

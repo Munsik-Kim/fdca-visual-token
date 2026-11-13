@@ -1,0 +1,22 @@
+contrast,estimate,ci_low,ci_high,confidence,n_class,scope
+PROPOSED_OOF-ENTROPY_OOF,0.002180803935819616,-0.00047756831639465716,0.004627641927193811,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+OLD_MAX-FIXED_OOF,-0.0002894237956449312,-0.004126671017199138,0.004022737389974887,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+OLD_MAX,-0.0007233631301157099,-0.003942818193581842,0.0024573008602601348,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+OLD_MAX_NEW_MINUS_OLD,-0.058786158444490866,-0.07836029980547513,-0.042286060968035596,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PROPOSED_OOF,0.000953285940778296,-0.0009364346120835402,0.0025652658722548206,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PROPOSED_OOF_NEW_MINUS_OLD,-0.0049310523265244655,-0.010829981023373625,8.584094322657306e-05,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+ENTROPY_OOF,-0.00122751799504132,-0.003853657580289246,0.0015568900619980528,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+ENTROPY_OOF_NEW_MINUS_OLD,-0.00649344509249102,-0.011722956331976894,-0.0017032510033802887,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+TIME_ONLY_FROZEN,0.0007914956465053061,-0.0010353592838024876,0.002336546068060366,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+TIME_ONLY_FROZEN_NEW_MINUS_OLD,-0.004900954780168831,-0.01058962893973027,-0.00023053624778792095,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+FIXED_OOF,-0.0004339393344707787,-0.0044064725700688236,0.0031249309564979435,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+FIXED_OOF_NEW_MINUS_OLD,-0.0031970140019742153,-0.014630133043586587,0.012870109751141437,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+SPLIT_HALF_SELF_VALUE,0.009127246388743515,0.006128520295684818,0.012697001740571057,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+SPLIT_HALF_TRANSFER_VALUE,-0.0012946556962560862,-0.003998386311104695,0.001329208234528769,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+SPLIT_HALF_SELECTION_OPTIMISM,0.010421902084999601,0.00696333687119477,0.014301405183414316,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_old_state_MSE,0.0032229708628813756,0.0012031850542616569,0.00604610597049851,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_old_time_MSE,0.0031856441510699184,0.0011603274242840572,0.006009415152290687,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_old_state_minus_time_MSE,3.732671181145684e-05,-2.3686298929367316e-05,0.00013682885022500284,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_new_state_MSE,0.00022686865088606724,0.0001280196655134968,0.0003496955711437018,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_new_time_MSE,0.00017483357193510065,0.00010025886699691263,0.0002646976493904174,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+PREDICTION_new_state_minus_time_MSE,5.203507895096658e-05,2.596308262919993e-06,0.00014341463981616873,0.95,24,LT14 reused development classes; saved-state conditional redraw diagnostic

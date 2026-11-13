@@ -1,0 +1,5 @@
+predictor,target,weighted_MSE,weighted_correlation,scope
+old_prediction,old_G,0.003222970862881375,-0.15994499774109322,"descriptive, selected unique times only; unit-equal weighting"
+old_prediction,mu_hat,0.0002268686508860672,0.005629561388999753,"descriptive, selected unique times only; unit-equal weighting"
+m_t,old_G,0.003185644151069919,-0.3272767124607271,"descriptive, selected unique times only; unit-equal weighting"
+m_t,mu_hat,0.00017483357193510065,0.015373014548846469,"descriptive, selected unique times only; unit-equal weighting"

@@ -1,0 +1,10 @@
+{
+  "all_development_best_fixed_mean_G": 0.01107388703773419,
+  "all_development_best_fixed_step": 7,
+  "largest_observed_single_cell_G": 0.4019833579659462,
+  "mean_max_minus_full_development_fixed": 0.04698890827664096,
+  "mean_max_minus_outer_oof_fixed": 0.05529972064687172,
+  "outer_oof_fixed_mean_G": 0.0027630746675034366,
+  "per_unit_max_mean_G": 0.05806279531437516,
+  "scope": "Post hoc observed upper bound over all 32 action outcomes per unit, not deployed policy"
+}

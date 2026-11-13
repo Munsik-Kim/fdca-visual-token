@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "source_files_sha256": 68,
+  "M_confirm": {
+    "classes": 32,
+    "paired_units": 256,
+    "contrasts": 6,
+    "CI_endpoints": 12,
+    "bootstrap_index_sha256": "520bb8d5e9ce6582b99ce5f0c52dccd4340a6765be072ba427a291e024c55994"
+  },
+  "R_test_and_LT10": {
+    "classes": 320,
+    "units": 640,
+    "endpoints": 5760,
+    "R_test_primary_contrasts": 6,
+    "LT10_contrasts": 13,
+    "CI_endpoints": 64,
+    "bootstrap_index_sha256": "e9e0a24994671a8ed744f364087ea421bb599bb3536094326b745e374ee90031"
+  },
+  "LT16": {
+    "tables_byte_identical": 16,
+    "numerical_JSON": "MATCH",
+    "bootstrap_arrays": 2,
+    "independent_values": 4653,
+    "counts": {
+      "classes": 24,
+      "original_trajectories": 48,
+      "unique_states": 158,
+      "unique_state_draws": 1264,
+      "selector_rows": 240,
+      "selector_draw_rows": 1920
+    }
+  },
+  "scope": "Published scalar values, paired aggregation, bootstrap draws and intervals only.",
+  "exclusions": [
+    "no model/decoder/LPIPS execution",
+    "no full raw-law audit",
+    "no new experiments",
+    "no reserved holdout access"
+  ]
+}

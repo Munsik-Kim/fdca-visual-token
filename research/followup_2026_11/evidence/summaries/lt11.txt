@@ -1,0 +1,13 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+LT11 문맥 출처 상호 교환
+감사 가능한 과거 노출 647개를 제외한 뒤 사전 해시 순서로 뽑은 새 64개 클래스의 32쌍을 동일 가중했다.
+각 시작에는 정확히 한 토큰 차이가 있고, 같은 수신 클래스 내의 네 조건에서 후속 난수를 공유한다.
+주결과는 후속 32좌표의 추가 불일치 감소량이며 쌍 bootstrap 20,000회와 양측 보정 97.5% CI를 썼다.
+C_shared +6.972656개/32 [+5.957031, +8.101562], POSITIVE_BEYOND_THRESHOLD.
+C_match +1.720703개/32 [+1.349609, +2.121094], POSITIVE_BEYOND_THRESHOLD.
+
+C_shared는 다른 클래스에서 온 공통 문맥을 제공하는 대비다.
+C_match는 같은 공통 위치에서 수신 클래스와 문맥 출처를 맞추는 추가 대비다. 개별 수신자의 토큰 값 분포도 바뀐다.
+완료 512/512, Q 부모 128개, 실제 GPU 감독 571.181초, raw 34,661,891,878바이트.
+전체 저장 law와 난수·상태 전이의 독립 CPU 검산, 원 기술 단위와 고정 평가 단위의 실제 모델 재생을 통과했다.

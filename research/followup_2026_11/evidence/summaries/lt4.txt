@@ -1,0 +1,65 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+LT4-OP5 결과 요약 / 2026-11-03 KST
+
+한 단계에서 동일 상태의 block 복원 출력 law를 적용받는 좌표 수를 5개로 맞춘 뒤에도 초기 step0의 자연 pulse 기대 LPIPS 거리 R이 step15/23 평균보다 큰지 검사했다. block2의 C5는 +0.004805776, 97.5% CI [+0.004098028, +0.005503347], block3은 +0.005936567, 97.5% CI [+0.005048292, +0.007000959]였다. 같은 LT3 패널의 FULL보다 초기 대비가 각각 +0.000684405, 95% CI [+0.000457978, +0.000908822], +0.000936147, 95% CI [+0.000646130, +0.001250623] 커졌다. 두 공동 주 CI 하한이 모두 양수이므로, 재사용한 32클래스 패널에서 5좌표 개입 뒤에도 두 block의 초기 방향이 유지됐다.
+
+이번 자료는 LT3에서 결과를 이미 본 32클래스·64부모를 재사용한 후속 기전 진단이다. 새로운 독립 표본의 확인 결과로 세지 않는다. R은 지정한 U/V 결합에서 얻는 출력 차이다. 이 값은 FP32 reference에 대한 지속 복원 gain, 이미지 품질, 사람 선호 또는 packed INT8 성능을 측정하지 않는다.
+
+실행과 법칙
+원 commit 수 5/6/8, Halton 순서, 32단계 schedule은 유지했다. 한 shock에서 크기5 부분집합 S 하나를 자연적으로 균등 선택하고, 노출 밖 좌표는 양쪽 모두 Q의 같은 token으로 commit하는 개입이다. 분기 E에 조건화한 실행에서는 S를 hS/sum(hS)로 선택한 뒤 계승 conditional sampler로 전체 commit 좌표의 token을 새로 추출했다. 자연 기대값에는 선택한 hS 대신 모든 부분집합을 평균한 h5를 곱했다. 증명은 OP5_SAMPLER_PROOF_KO.txt, 정확한 법칙은 OP5_SAMPLER_CONTRACT.json에 있다.
+
+step0은 가능한 부분집합이 하나여서 FULL과 같은 법칙이다. 기존 128strata/512쌍을 원래 ID·값·해시로 재사용했고 이 부분의 신규 forward/decode/LPIPS는0이다. step15/23의 256strata·1,024쌍을 실제 새 GPU 실행했다. 합계384strata·1,536조건부쌍, class n32·parent2·K4이다. 신규 실패/누락/구조적 h0 생략은 모두0이다. 서로 다른 block과 새 OP5/FULL 뒤 시점은 독립된 conditional event streams다.
+
+H=동일가중 h의 평균, M_equal=동일가중 stratum 조건부 평균, R=mean(h*m), M_split=R/H이다. 아래 m은 M_equal이며 pooled M_split과 구분한다. 시점마다 parent 평균 후 class 동일가중을 적용했다.
+condition block step H M_equal R
+OP5 2 0 0.018072922 0.415283987 0.007397317
+OP5 3 0 0.020109469 0.426596330 0.008437336
+OP5 2 15 0.042345375 0.086515560 0.003717542
+OP5 3 15 0.043298974 0.081601044 0.003556497
+OP5 2 23 0.039115019 0.036201250 0.001465540
+OP5 3 23 0.040109254 0.034903199 0.001445040
+FULL 2 0 0.018072922 0.415283987 0.007397317
+FULL 3 0 0.020109469 0.426596330 0.008437336
+FULL 2 15 0.050587047 0.082608785 0.004271843
+FULL 3 15 0.051721832 0.087712367 0.004633798
+FULL 2 23 0.061825513 0.035652056 0.002280049
+FULL 3 23 0.063371432 0.034331480 0.002240033
+
+step0의 FULL/OP5 차이와 차이의 Monte Carlo 분산은 정확0이다. 뒤 시점의 mean(H5)/mean(Hfull)은 step15에서 두 block 모두 약.837, step23에서 약.633이었다. 모든 stratum에서 h5≤hfull을 확인했다. 조건부 m은 block/시점에 따라 늘거나 줄었다. 노출 수를 줄이면 조건부 seed 사건의 구성도 바뀌므로 m 차이를 순수한 증폭 인과효과로 해석하지 않는다.
+
+Delta=C5−Cfull=mean_late(Rfull−R5)의 두 식이 일치했다. 양의 Delta는 이 개입에서 초기 대비가 커졌다는 뜻이다. FULL의 초기 신호 중 기회 수가 설명한 인과적 비율로 환산하지 않는다. 5개 노출을 맞춰도 상태, 좌표 정체성, 좌표 TV 분포, 남은 horizon은 다르다.
+
+집계·추론·민감도
+block2: H=0.033177772, M_equal=0.179333599, M_split=0.126393840, R=0.004193466; H*M_equal=0.005949889, Cov_ddof0=-0.001756423.
+block3: H=0.034505899, M_equal=0.181033525, M_split=0.129821982, R=0.004479624; H*M_equal=0.006246725, Cov_ddof0=-0.001767100.
+
+R=H*M_equal+population covariance 및 R=H*M_split을 검증했다. block별 조건부 평균을 풀어서 자연 split 평균이라고 부르지 않는다. h0의 m을0으로 채우지 않는다.
+
+20,000회 paired class-cluster bootstrap, 숫자순 class32, PCG64 seed20261103, linear quantile을 사용했다. 공동 주 C5 두 개에는 .0125/.9875, 보조 Delta에는 .025/.975를 적용했다. 모든 조건·ratio에 동일 draw를 공유했다. draw SHA256=f0159f2ccad797273d9b0c7b10de2d0a79c3193aaefa8224c46d7c290250e90a.
+
+두 block의 class별 C5는 각각32/32에서 양수였다. 전체 class 삭제 민감도의 C5 범위는 block2 [.004691712,.004956289], block3 [.005642244,.006047782]였다. 주 분석에서 어떤 class도 제외하지 않았다. Delta 양수 class는27/32와29/32였다.
+
+고정 부모에서 conditional 추출만의 plug-in MCSE는 C5_2=0.000149179, C5_3=0.000167060; Delta_2=0.000102133, Delta_3=0.000098978. C5에는 공유한 초기 표본의 분산을 포함했고 Delta에서는 정확히 소거했다. class CI와 MCSE를 합치지 않았다. K4의 stratum 분산 추정 자체도 불확실하다.
+
+첫32 후속 좌표
+shock batch 전체를 제외하고 실제 Halton 순서의 후속 commit에서 정확32개를 취했다. 각 trial 원 좌표로 재검산했다. OP5의 동일stratum 조건부 불일치 비율은 block2에서 .375854→.075928→.052490, block3에서 .397095→.073730→.052734였다. h 가중 자연 기대 비율은 block2 .006981818→.003269972→.002136997, block3 .008160860→.003208812→.002217167이었다. 조건부 곡선과 자연 기대 곡선을 구분한다. 이 공통 길이 진단도 시점별 seed 내용·상태 차이를 모두 제거하지는 않는다.
+
+기술 검증과 비용
+실제 GPU preflight, 노출 class195의 pause/resume·역순 실행·Q/Q self-control·상태 충분성 대조가 PASS였다. 신규 1,024쌍에서 총J_seed=1043으로 여러 seed를 허용했다. 저장한 모든 mask/h5/conditional draw·155,136coordinate rows·32,768first32 좌표·2,048endpoints를 독립 model-free CPU로 검산했다. 사전 지정 sparse suffix law32좌표쌍도 검산했다. 독립 통계 경로가 CI 양끝점592개와 집계/MCSE를 확인했다. 이 CPU 검산은 신경망·decoder·LPIPS를 다시 실행하지 않았다.
+
+누적 GPU supervisor 637.120초/2040초. 과학 worker supervisor569.940초, preflight/기술/probe는 별도이며 모두 위 누적에 포함된다. 자원 대기889.184초는 worker0으로 별도 기록했다. 신규 과학 suffix forward24,576회, decode2,048회, LPIPS1,024회, 재사용 초기 신규호출0회다. 측정 시 전체 신규 run 4,269,449,234bytes/6GiB였다. 원래 timer의 미분해 잔차는 RNG·직렬화·I/O를 함께 포함하므로 독립 I/O wall로 부르지 않는다. 기존 conda와 원 모델을 보존했고 새 모델 다운로드·학습·다른 precision·추가 표본은 실행하지 않았다.
+
+사후 보고 도구 정정
+원 비용 감사기가 초기 환경 probe의 실제 schema를 인식하지 못했다. 원 ledger와 동결 감사기는 보존하고 verify_op5_cost_v2.py가 명시적0modelworker/성공종료 schema만 추가로 허용했다. 별도3 CPU tests가 통과했다. 수치/표본/RNG/추론 규칙과 GPU 실행은 바뀌지 않았다. named CSV view의 compact 재생을 위한 호환 정정도 PACKAGING_AMENDMENT receipt에 분리한다.
+
+보존·정리·전달
+이 전달용 완료 요약을 작성한 시점에는 전체 D 보존·D-only CPU 재생·소유 staging 정리가 PASS했다. D 보존 20,321파일/4,349,592,272bytes, index SHA256=1bb6b81cf94ed36324bbbd168f43fcf8b4581e6983339299182f18c36597ee6e. D 재생에서 16개 수치 CSV가 byte-identical이고 CI·sampler/path replay를 확인했다. protected original 삭제0, 이번소유4파일만 정리했다. compact 검증·Drive 실제 전달은 별도 영수증으로 구분하며 이 문서는 그 직전의 실험/보존 완료 기록이다. Drive 대상은 기존 비공개 부모 아래 LT4_OP5_20261103_r1 ([private delivery URL omitted])이다. 원격 업로드·권한 readback의 최종 상태는 별도 FINAL_STATE/DRIVE_DELIVERY_VERIFIED receipt를 참조한다.
+
+후속 한 가지
+이 결과만으로 추가 실험을 실행하지 않는다. 다음 설계를 한다면 새로 고정한 별도 class/parent에서 OP5 초기 대비를 확인하는 한 가지를 우선 검토한다. 설계 시 여기의 class 분산·K4 MCSE·실측 비용을 사용하고 사전 고정 후에만 모집한다. OP5의 동일노출만으로 시간 자체의 보편적 인과효과나 selector 추가 가치를 주장하지 않는다.
+
+부모 출처 설명 정정: 동결 ARM_CONTRACT.json의 parent 짧은 설명에 LT3 당시의 “new Q-only” 표현이 남아 있다. Q-only 직접 생성은 원 LT3 부모의 출처이며 OP5에서는 그 동일64부모 상태를 재사용했다. 새 부모 생성/forward는0이다. 동결 문서를 덮어쓰지 않고 evidence/ARM_PARENT_CLARIFICATION.json에서 실제manifest·파일SHA·호출기록과 연결했다. 표본·법칙·실행은 바뀌지 않았다.
+
+완료 요약 기록 UTC: 2026-11-03T03:58:21.482063+00:00
+최신 보고 commit: e260e7d760408c77fd987c5cfd69f08b83790d5e

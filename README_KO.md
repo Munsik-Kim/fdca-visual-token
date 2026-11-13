@@ -1,5 +1,11 @@
 # 마스킹 비주얼 생성기를 위한 FDCA
 
+**2026년 11월 추가 연구 포트폴리오:** [전체 연구 보고서](research/followup_2026_11/REPORT_KO.md) · [모델 구조·비교군](research/followup_2026_11/METHODS_KO.md) · [실패 원인 분석](research/followup_2026_11/FAILURE_ANALYSIS_KO.md) · [다음 연구 기준](research/followup_2026_11/NEXT_RESEARCH_KO.md).
+
+LT0–LT16의 목표, 전파·문맥 결과, 복원 정책의 미확정 결과와 개발 기준 실패, LT15 미실행 결정을 함께 정리했습니다. 참조 정보를 쓴 LT12의 양의 복원 결과도 보존했습니다. 원표에 연결된 그래프 4개와 주요 결과의 모델 없는 수치 재생 코드를 제공합니다. 이미지 품질 개선이나 복원 전체의 불가능성을 주장하지 않습니다.
+
+**버전 구분:** 아래 논문과 표는 기존 `v1.0.0` 기록입니다. [과학적 정정 PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2)는 이 추가 보고서 작성 당시 별도의 미병합 수정안입니다. `M_equal`, `M_split`, `R=mean(h*m)`을 구분하며 평균의 곱에는 covariance가 빠진다는 점에 주의해야 합니다. 추가 보고서는 이 정의를 적용하고 기존 논문·release·DOI를 보존합니다.
+
 이미지 생성 모델의 가중치를 적은 비트로 바꿨을 때, 처음 달라지는 선택과 최종 이미지의 변화를 추적하는 도구를 구현했습니다. 같은 조건의 비교 실험, 수학적 분석, CPU 검산 코드를 함께 제공합니다.
 
 **Munsik Kim** · [ORCID](https://orcid.org/0009-0008-9350-2435)

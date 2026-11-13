@@ -1,0 +1,3 @@
+# Historical evidence hashes and CSV byte comparisons include original line endings.
+evidence/** -text whitespace=cr-at-eol
+data/*.csv -text whitespace=cr-at-eol
