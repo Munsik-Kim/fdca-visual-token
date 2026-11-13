@@ -57,18 +57,23 @@
     },
     {
       "path": "README.md",
-      "sha256": "06f7cf22bb6b4ebfdace9f35253b00e18f00698ee9b7bd4278d565456593d652",
-      "size": 4937
+      "sha256": "d0457160513acbf08ff422af0a78320b449c96bc9347196c58d2e89a8d32eef7",
+      "size": 10812
     },
     {
       "path": "README_KO.md",
-      "sha256": "9fd09653eb86dd6ec417c0ad55eb53bbe6497b0fd4e168fa5a4cdd3c66b14d17",
-      "size": 3305
+      "sha256": "14e922fb0372f38bb1dfcf5703ca541bbbfd77e7f481825b7ce9aa1efad14209",
+      "size": 9438
     },
     {
       "path": "SECURITY.md",
       "sha256": "31556fe4a1ab6f18f8fe5934cbd56c6034b67c757301b6de152f9f3805c4e4f4",
       "size": 234
+    },
+    {
+      "path": "START_HERE_KO.md",
+      "sha256": "40325043de66b9ca2ef4fa8cc928a107867f5803ac198e5892129463fe948c44",
+      "size": 26406
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -144,6 +149,11 @@
       "path": "docs/EXTERNAL_ASSET_REGISTRY.md",
       "sha256": "cb50499c8f01e9d88e07766b2f704d026230ecac6dbef83773522cc1aae438a8",
       "size": 2029
+    },
+    {
+      "path": "docs/PORTFOLIO_KO.md",
+      "sha256": "c9b8fb959ffab12c8050323ed9c0f00e9ba857fb17b009c82acd0465b03e6ba4",
+      "size": 9680
     },
     {
       "path": "docs/PRIVACY_AND_PUBLICATION_SCOPE.md",
@@ -692,18 +702,18 @@
     },
     {
       "path": "research/followup_2026_11/EVIDENCE_AND_VALIDATION.md",
-      "sha256": "6c45d057ad8edd9d1fef8efceffd24a410bcaf148f43f369363d5fc488e40be9",
-      "size": 11172
+      "sha256": "cadcc2eea3284eceef5c975e523141b4fb1e7e0e0517fa67af463fd519222753",
+      "size": 13312
     },
     {
       "path": "research/followup_2026_11/FAILURE_ANALYSIS_KO.md",
-      "sha256": "610a79a2d456dd8e368af948e81008d18864b77460c3c64620cb300e34f616bd",
-      "size": 11111
+      "sha256": "94ffd7a3f8f2a566e0e0851f912565a35ceb7293f54440300f0e5e491b40b530",
+      "size": 11823
     },
     {
       "path": "research/followup_2026_11/METHODS_KO.md",
-      "sha256": "82670b2f624f40ff22543923e2405a9df914a7d036585446d878be2e10c5c3a4",
-      "size": 13080
+      "sha256": "94449a8f334e3f8ecbe1eadddf2a3159c832e95d7830b14f5cea3c169248db58",
+      "size": 13285
     },
     {
       "path": "research/followup_2026_11/NEXT_RESEARCH_KO.md",
@@ -712,13 +722,13 @@
     },
     {
       "path": "research/followup_2026_11/README.md",
-      "sha256": "b5751fc2b78ac3841fbdd5ead78d2822fefb4920cc39621969f65135252bf85b",
-      "size": 5492
+      "sha256": "090d68f7fbf32395756db30f28e42fd4c5aa7dc7974214a2fe893ba580c3a749",
+      "size": 6373
     },
     {
       "path": "research/followup_2026_11/REPORT_KO.md",
-      "sha256": "fbd2b2e7ed272383956b1f9e4f2b0882bf926b66f77159a8c91810d6da52507d",
-      "size": 27375
+      "sha256": "2ccd2546a4014d9c8d177f9ed20e43fda0b3f7e19ff04066233233def9457c57",
+      "size": 28168
     },
     {
       "path": "research/followup_2026_11/data/PUBLIC_VALIDATION.json",
@@ -1091,6 +1101,76 @@
       "size": 17201
     },
     {
+      "path": "research/followup_2026_11/figures/explainer/context_conditions_en.png",
+      "sha256": "796c4e40026773b421e6ab7dc326ca12e87e37a16052b23284ae1fc74e9fb5c0",
+      "size": 148145
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/context_conditions_en.svg",
+      "sha256": "641b8cc36c3223312c41ba710f2e6ddba6b93ee8e8a210da741efb1d8e24cbd6",
+      "size": 77066
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/context_conditions_ko.png",
+      "sha256": "d0dc2cf5b992c0361eca3e3c9a8b74ba66f36c37bcdac620c862d138360d680f",
+      "size": 124221
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/context_conditions_ko.svg",
+      "sha256": "7f66e94032bf04577bcbfa75bccde2c48de12e4fbc293b8533059dfa978d3922",
+      "size": 94470
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/plotted_values.csv",
+      "sha256": "7cb8009837750f5aa0cf6f54598078bbc3be828d3687165d50e9ff740bcbe444",
+      "size": 3401
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/selection_recheck_en.png",
+      "sha256": "b8eb7a1d55a399d1a5e310b4e911711eb6f8953cd9e0b6ea68cdce529f1ba827",
+      "size": 196992
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/selection_recheck_en.svg",
+      "sha256": "72a514dffbddd2f75f32e7a560b7b0537ccc29e08012ba26533713abfff1baab",
+      "size": 97903
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/selection_recheck_ko.png",
+      "sha256": "c243960c584270270fd62fb55c1b418bb9ea24d8f9585383f44b0a4797796728",
+      "size": 168627
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/selection_recheck_ko.svg",
+      "sha256": "c32fcc2b95caa2136ba69561ed9206c4bedbab36fb5b2eaf7fe63988c547a0b6",
+      "size": 115158
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/signed_outcomes_en.png",
+      "sha256": "6b03995f0e80ae305bfbecc8311a72fe0f55536d0c752d4d2a67ced8fd2fac19",
+      "size": 217113
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/signed_outcomes_en.svg",
+      "sha256": "6f52d08d73e59455575b28ea016b3c38d438960bd2e3b6d2c2ed08adc01d92e0",
+      "size": 102803
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/signed_outcomes_ko.png",
+      "sha256": "5c1ff989adee2e47e97e23776d4db17d99e06fa7a087dccfb8b1a87a5c812f94",
+      "size": 189628
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/signed_outcomes_ko.svg",
+      "sha256": "749530d1e72ae541248098c081ecd864b47901aaaf532b5fe5ace74f657cd2a6",
+      "size": 128923
+    },
+    {
+      "path": "research/followup_2026_11/figures/explainer/sources.json",
+      "sha256": "38dba643323d580814195d637798c0bf52c151839194845b04b7bb731953c9cd",
+      "size": 1390
+    },
+    {
       "path": "research/followup_2026_11/figures/pulse_timing.png",
       "sha256": "abe2b1e0f698b59b4786bcb6298a6f83a0b0f5507f397bde327797165546adbc",
       "size": 90550
@@ -1119,6 +1199,11 @@
       "path": "research/followup_2026_11/figures/selection_optimism.svg",
       "sha256": "c270d84cfbc74cade1d53af46b8e3a33f788c546d971a0593cb51b1b8fc617e4",
       "size": 17523
+    },
+    {
+      "path": "research/followup_2026_11/scripts/build_explainer_figures.py",
+      "sha256": "ae9616ec66dd187cdead5b7b0c8227db592ff3a9c2a8db6aa99dc1b372bcd09e",
+      "size": 18194
     },
     {
       "path": "research/followup_2026_11/scripts/build_figures.py",

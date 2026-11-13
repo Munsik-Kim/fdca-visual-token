@@ -71,6 +71,24 @@ LT16's projected state manifest has a new public file hash because private raw p
 
 For figures, install matplotlib in addition to the model-free requirements and run `scripts/build_figures.py` from this directory, or its full repository-relative path. [figure_data.csv](data/figure_data.csv) records each plotted value, source row key, unit and CI level. Figures are descriptive presentations of existing evidence, not new statistical analyses.
 
+### Plain-language presentation added on 13 November 2026
+
+The repository now includes a [Korean introductory explanation](../../START_HERE_KO.md), a [contribution and code map](../../docs/PORTFOLIO_KO.md), and three additional figures in Korean and English. These presentation changes do not alter the frozen evidence, comparison definitions, historical intervals or stopping decisions.
+
+| Explanation figure | Source and aggregation | Statistical scope |
+|---|---|---|
+| Five M-confirm condition means | Counts rechecked against bit strings and rates; mean within each class, then equal mean over 32 classes | Descriptive condition means; no new condition-mean intervals. They recover the three original primary contrast estimates. |
+| LT16 signed outcomes | OLD_MAX rows: 48 parents × 8 draws; positive/negative/zero counts and each group's sum divided by all 384 draws | Descriptive decomposition on reused development classes; matches the original signed-contribution table. Zero distance gain is not asserted to mean every internal value is unchanged. |
+| Selection and evaluation randomness | Original selected maximum, primary contrast A, and original split-half auxiliary rows | Original primary 98.3333% and auxiliary 95% intervals remain distinct; no interval is assigned to the retrospective original maximum. |
+
+[plotted_values.csv](figures/explainer/plotted_values.csv) records the plotted quantities, sources and aggregations; [sources.json](figures/explainer/sources.json) binds the input files by SHA-256. [build_explainer_figures.py](scripts/build_explainer_figures.py) produces both languages from the same values. SVG glyphs are stored as paths for portable Korean display. Rebuild with Matplotlib 3.10.8 and a Noto Sans CJK system font:
+
+```bash
+python -B research/followup_2026_11/scripts/build_explainer_figures.py --output build/explainer
+```
+
+This command makes descriptive figures only. It does not rerun the model, fit a policy, expose the reserved classes or compute new hypothesis tests. The introductory decimal values are rounded presentations; original full-precision CSV/JSON values remain authoritative.
+
 ## Preserved boundaries and remaining gaps
 
 - The archived v1.0.0 paper, source, DOI metadata, release and original data are not replaced. The root README links this addendum and the separate correction PR.

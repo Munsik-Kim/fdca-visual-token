@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "M-confirm bit strings/counts/rates and equal class aggregation",
+    "M-confirm means recover original three primary contrasts",
+    "LT16 OLD_MAX 48 parents x 8 draws; signed contributions recover original table"
+  ],
+  "kind": "Descriptive presentation of existing evidence; no new inference",
+  "languages": [
+    "ko",
+    "en"
+  ],
+  "logical_figures": 3,
+  "matplotlib": "3.10.8",
+  "plotted_quantities": 16,
+  "scope": "Stored scalar values only. No GPU/model/decoder/metric run or reserved holdout access.",
+  "source_sha256": {
+    "evidence/lt16/expected/auxiliary_contrasts.csv": "b0478e8203db26d44159799ff00f8cf5a8202127b2a0e69ed39f53a39b137cac",
+    "evidence/lt16/expected/primary_contrasts.csv": "de1a1ece7e452f6b3c9f615520d8236b65e66707b1ff0bd09a91cfbf7b3bdcbc",
+    "evidence/lt16/expected/selector_draws.csv": "426ea8bc19b1c29717c3befe903b58133661f0476f792ed35f6a7c5391da674c",
+    "evidence/lt16/expected/selector_summary.csv": "de2ebb121854bedbe0b9d25ddb9cc898e1c3c329a18114085ce408fe5b896319",
+    "evidence/lt16/expected/signed_contributions.csv": "e2597f13b60d7623b7fed1b07e17a93ea5c1709e59e86bba73742fdc63aa0149",
+    "evidence/tables/m_confirm_contrasts.csv": "c55be6624060a36503518a33101b436302e4ae82387c2d8aa1195f65956f15f6",
+    "evidence/tables/m_confirm_units.csv": "8d2fc2e1a1f1a1dc250d9e1856dff2292c4ef5e422ac010b8ef3d4f9fa37d261"
+  }
+}

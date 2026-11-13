@@ -2,6 +2,10 @@
 
 **FDCA follow-up research portfolio · Munsik Kim · 13 November 2026**
 
+**First visit:** [Illustrated explanation in Korean](../../START_HERE_KO.md) · [Korean overview](../../README_KO.md) · [English overview](../../README.md) · [Implementation and contribution](../../docs/PORTFOLIO_KO.md).
+
+The introductory pages explain visual tokens, reference distance, paired comparisons and uncertainty before using the experiment identifiers. This page is the index to the detailed research record.
+
 Retrospective synthesis of LT0–LT16 and the intervening paper-evidence experiments. This is a research record, not a peer-reviewed algorithm claim or a new preregistration.
 
 **The useful result is a separation:** controlled experiments support context-dependent propagation of token differences, but the tested reference-free precision-restoration policies did not establish reliable gains over the specified baselines. A diagnostic that measures how much a perturbation matters is not automatically a controller that knows how to improve an output.
@@ -22,6 +26,8 @@ Retrospective synthesis of LT0–LT16 and the intervening paper-evidence experim
 - **[Next-research decision plan](NEXT_RESEARCH_KO.md)** — proposed controls, independent randomness, stop/go criteria and protected holdout handling. Not executed.
 - **[Evidence and validation boundaries](EVIDENCE_AND_VALIDATION.md)** — original-source provenance, reuse, missing artifacts, and what the public replay actually checks.
 - [Experiment ledger](data/experiment_ledger.csv) · [Source manifest](data/source_manifest.json) · [Original numerical tables](evidence/tables/) · [Historical completion summaries](evidence/summaries/).
+
+Three additional explanation figures show the five M-confirm condition means, LT16's signed outcomes, and selection versus evaluation randomness. Each is available in Korean and English. [Plotted numbers and aggregation](figures/explainer/plotted_values.csv) · [Source hashes](figures/explainer/sources.json) · [Figure builder](scripts/build_explainer_figures.py). The four original comparison figures below retain their original statistical definitions.
 
 ![Context interventions](figures/context_effects.png)
 

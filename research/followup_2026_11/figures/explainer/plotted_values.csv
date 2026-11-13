@@ -1,0 +1,17 @@
+figure,quantity,estimate,lower,upper,confidence,unit,source,source_key,aggregation
+context_conditions,SPARSE,11.87890625,,,,mismatches per 32 coordinates,evidence/tables/m_confirm_units.csv,N_SPARSE,"Within-class mean, then equal mean over 32 classes; 8 pairs/class"
+context_conditions,REAL_H,3.234375,,,,mismatches per 32 coordinates,evidence/tables/m_confirm_units.csv,N_REAL_H,"Within-class mean, then equal mean over 32 classes; 8 pairs/class"
+context_conditions,SHUF_H,4.47265625,,,,mismatches per 32 coordinates,evidence/tables/m_confirm_units.csv,N_SHUF_H,"Within-class mean, then equal mean over 32 classes; 8 pairs/class"
+context_conditions,REAL_L,5.13671875,,,,mismatches per 32 coordinates,evidence/tables/m_confirm_units.csv,N_REAL_L,"Within-class mean, then equal mean over 32 classes; 8 pairs/class"
+context_conditions,SHUF_L,6.5234375,,,,mismatches per 32 coordinates,evidence/tables/m_confirm_units.csv,N_SHUF_L,"Within-class mean, then equal mean over 32 classes; 8 pairs/class"
+signed_outcomes,positive_count,51.0,,,,draws,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;G_new sign=positive,Count within 48 parents x 8 draws; not independent classes
+signed_outcomes,negative_count,61.0,,,,draws,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;G_new sign=negative,Count within 48 parents x 8 draws; not independent classes
+signed_outcomes,zero_count,272.0,,,,draws,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;G_new sign=zero,Count within 48 parents x 8 draws; not independent classes
+signed_outcomes,positive_contribution,0.004050798218789471,,,,signed LPIPS reduction,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;positive,Sum of group signed G divided by all 384 draws
+signed_outcomes,negative_contribution,-0.0047741613489051815,,,,signed LPIPS reduction,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;negative,Sum of group signed G divided by all 384 draws
+signed_outcomes,net_contribution,-0.0007233631301157099,,,,signed LPIPS reduction,evidence/lt16/expected/selector_draws.csv,selector=OLD_MAX;net,Sum of group signed G divided by all 384 draws
+selection_recheck,original_selected_maximum,0.05806279531437516,,,,signed LPIPS reduction,evidence/lt16/expected/selector_summary.csv,selector=OLD_MAX;old_G,Original pathwise selected maximum; descriptive; no CI claimed
+selection_recheck,fresh_draws_at_selected_states,-0.0007233631301157099,-0.004643831654877633,0.0033003421203223657,0.9833333333333333,signed LPIPS reduction,evidence/lt16/expected/primary_contrasts.csv,contrast=A,Historical primary class-bootstrap interval
+selection_recheck,SPLIT_HALF_SELF_VALUE,0.009127246388743515,0.006128520295684818,0.012697001740571057,0.95,signed LPIPS reduction,evidence/lt16/expected/auxiliary_contrasts.csv,contrast=SPLIT_HALF_SELF_VALUE,Historical auxiliary class-bootstrap interval
+selection_recheck,SPLIT_HALF_TRANSFER_VALUE,-0.0012946556962560862,-0.003998386311104695,0.001329208234528769,0.95,signed LPIPS reduction,evidence/lt16/expected/auxiliary_contrasts.csv,contrast=SPLIT_HALF_TRANSFER_VALUE,Historical auxiliary class-bootstrap interval
+selection_recheck,SPLIT_HALF_SELECTION_OPTIMISM,0.010421902084999601,0.00696333687119477,0.014301405183414316,0.95,signed LPIPS reduction,evidence/lt16/expected/auxiliary_contrasts.csv,contrast=SPLIT_HALF_SELECTION_OPTIMISM,Historical auxiliary class-bootstrap interval
