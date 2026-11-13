@@ -1,0 +1,7 @@
+contrast,replicate_id,estimate,n_class,scope
+A,0,0.0005063014104962349,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+A,1,-0.0019530276707276546,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+B,0,0.0006853679612201328,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+B,1,0.0003229417686310872,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+C,0,0.00037374555055672926,24,LT14 reused development classes; saved-state conditional redraw diagnostic
+C,1,-5.016496201074953e-05,24,LT14 reused development classes; saved-state conditional redraw diagnostic

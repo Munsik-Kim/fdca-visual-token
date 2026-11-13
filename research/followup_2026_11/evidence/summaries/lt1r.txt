@@ -1,0 +1,66 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+FDCA LT1-R — 실제 복원 개입 결과
+
+전체 eligible W8에서 한 block의 8개 eligible tensors를 FP32로 복원하고 나머지 41개는 W8로 유지하는 32-step persistent 개입을 실행했다.
+과거 LT1의 사전 지정 8개 개발 class × 2 joint paths × 6 arms = 96 units. 기술 검증 PASS와 과학적 해석은 구분한다.
+관측 최대는 block 3: G=0.0512075, paired 95% CI [-0.0264682, 0.159815]. 모든 6개 absolute G CI는 0을 포함하며, block2와5의 음의 점추정도 보존했다.
+A(local TV), B(단일층 민감도 R), F(delta-TV)는 모두 block3을 선택했다. uniform 대비 +0.0471047, CI [0.0143832, 0.080723]이나 A보다 B/F가 더 나은 선택을 했다는 증거는 없다.
+LPIPS는 해당 reference/coupling의 출력 차이다. 품질·사람 선호·packed INT8 속도/VRAM 이득으로 해석하지 않는다.
+새 phase 전체 supervisor 시간 204.548초 / hard cap 2040초, 초과=False. smoke·stop/resume·order replay와 preflight까지 포함한다.
+
+동일 8-class baseline과 16-class 문맥:
+이번 paired baseline은 같은 8 classes/16 paths의 all-W8: R=0.137451, H=1, Hamming=0.225342.
+기존 전체16-class/32-path all-W8 R=0.15319, Hamming=0.237671는 별도 문맥이다. 이번 gain/CI 계산에 전체16 평균을 섞지 않았다.
+추론 단위는 class이며 96 units를 독립 표본으로 세지 않는다. class 내부 seed/replicate 평균 후 class 동일 가중. 20,000 paired class draws, linear quantile, seed=20261029를 모든 endpoint·정책·gain 차이에 공유했다.
+G는 각 경로의 old all-W8 LPIPS − restoration LPIPS를 먼저 계산한 평균이다. R/H의 H=0은 미추정이며 class-conditional 값을 0으로 채우지 않는다.
+
+층별 결과 — G CI는 unadjusted exploratory paired-class 95% CI:
+block 0: R=0.0978921; G=0.0395592 [-0.0219618, 0.110878]; H=0.9375; M_split,path=0.104418; Hamming=0.151855; split=15/16 (8 classes).
+block 1: R=0.128885; G=0.00856679 [-0.0257433, 0.0483308]; H=1; M_split,path=0.128885; Hamming=0.202637; split=16/16 (8 classes).
+block 2: R=0.173604; G=-0.036153 [-0.108385, 0.0629263]; H=1; M_split,path=0.173604; Hamming=0.310791; split=16/16 (8 classes).
+block 3: R=0.0862438; G=0.0512075 [-0.0264682, 0.159815]; H=0.9375; M_split,path=0.0919934; Hamming=0.150146; split=15/16 (8 classes).
+block 4: R=0.134484; G=0.00296731 [-0.10507, 0.128256]; H=0.9375; M_split,path=0.14345; Hamming=0.242676; split=15/16 (8 classes).
+block 5: R=0.178982; G=-0.0415312 [-0.100375, 0.0381401]; H=0.9375; M_split,path=0.190915; Hamming=0.305664; split=15/16 (8 classes).
+
+정책 결과와 불확실성:
+A: blocks=[3]; expected G=0.0512075; uniform 대비=0.0471047 [0.0143832, 0.080723].
+B: blocks=[3]; expected G=0.0512075; uniform 대비=0.0471047 [0.0143832, 0.080723].
+C: blocks=[4]; expected G=0.00296731; uniform 대비=-0.00113547 [-0.0610664, 0.0595282].
+D: blocks=[0]; expected G=0.0395592; uniform 대비=0.0354564 [-0.00319995, 0.0753738].
+E: blocks=[0, 1, 2, 3, 4, 5]; expected G=0.00410279; uniform 대비=0 [0, 0].
+F: blocks=[3]; expected G=0.0512075; uniform 대비=0.0471047 [0.0143832, 0.080723].
+관측 development best (사후): blocks=[3]; expected G=0.0512075; uniform 대비=0.0471047 [0.0143832, 0.080723].
+A/B/C는 같은 8-class 과거 점수로 새 restoration outcome 전에 동결했다. exact-equality 동점은 모든 maximizer를 균등 선택하며 outcome으로 동점을 깨지 않았다. D=block0, E는 6개 gain의 정확한 균등 기대값이다.
+F는 과거 all-W8 local TV − 새 restoration local TV를 같은 reference-state/좌표 가중으로 집계했다. F의 규칙은 미리 고정했지만 새 진단 비용이 필요하며 LPIPS outcome으로 방향이나 점수를 조정하지 않았다.
+A=B=F의 같은 선택은 서로 독립적인 성공 3건이 아니다. 특히 F의 추가 진단이 local-TV 정책 A 이상의 gain을 주었다고 주장할 수 없다.
+각 absolute G CI가 0을 포함해도 block3 대 uniform의 paired CI가 양수일 수 있다. 같은 class와 baseline을 공유한 차이에서 공분산/공통 baseline이 상쇄되므로 marginal CI를 빼는 계산과 다르다. reused development 탐색 결과이며 held-out 정책 검증이 아니다.
+정책 CI는 선택된 weight vector에 조건화한다. F/관측 best의 선택 불확실성 및 새 class 일반화는 다루지 않는다. 관측 best는 사후 기술 benchmark다.
+15개 gain 차이를 모두 제시했다. 예: G2−G3=-0.0873605, CI [-0.14948, -0.0361327]. 이는 15개 unadjusted 개발 대비 중 하나이며 확증 winner 선언이 아니다.
+
+점수 순위와 class/replicate 변동:
+A: 6-block 기술적 Spearman=0.485714; 확증 p-value 없음.
+B: 6-block 기술적 Spearman=0.714286; 확증 p-value 없음.
+C: 6-block 기술적 Spearman=-0.151794; 확증 p-value 없음.
+F: 6-block 기술적 Spearman=0.142857; 확증 p-value 없음.
+block3의 leave-one-class-out G 범위=[0.00295123, 0.0682164], positive classes=4/8, negative=4/8. 두 replicate gain의 class별 평균 절대 차이=0.136949이다.
+이 변동은 두 반복만으로 안정적인 class-conditional 효과나 확정 순위를 말하기 어렵다는 근거다. class_restoration_gains, leave_one_class_out, class_replicate_differences 및 variation_summary 표를 함께 읽는다.
+first-split CDF/hazard는 실제 nullable 최초 step과 직전 생존 경로에서 집계했다. 분기 후 same-state local TV는 reference-state 진단이며 persistent hazard가 아니다.
+Hamming/first split은 raw pre-clamp dynamic tokens, LPIPS는 공식 decoder-grid/RGB clamp 뒤 출력이다. persistent 후속 mismatch에는 새 innovation과 상태 전파가 섞이며 단일층 민감도와 복원 효과의 대칭·가산성을 가정하지 않는다.
+
+실제 비용과 검증 범위:
+과학 panel: physical reference forward 512, candidate 3072, diagnostic 1810; 새 reference decode=0.
+candidate forward=28.610초, diagnostic=15.746초, decode=3.080초, metric=0.495초, I/O=17.128초. phase supervised wall과 unit 합산 비용은 범위가 다르다.
+측정 peak torch allocated=567,537,152bytes. driver/context/다른 프로세스 예약량이나 packed-kernel 이득은 포함하지 않는다.
+한 block의 2,654,208 parameters를 W8 대신 FP32로 저장한다는 nominal proxy는 7,962,624bytes(7.59375MiB)다. packing/scales를 제외하며 실제 실행은 모든 reconstructed weights가 FP32여서 이 수치를 실제 VRAM 절감으로 해석하지 않는다.
+독립 저장-law replay는 사전 지정 audit subset에 한정한다. 전체 원 categorical distributions나 decoder/LPIPS를 CPU에서 재추론했다고 주장하지 않는다. BASELINE_REUSE/VALIDATION/SOURCE receipts와 COST_SUMMARY.json에 범위를 기록했다.
+
+다음 실험 한 개 — LT2 제안, 미실행:
+block2와3에 한정하여 동일 common anchor state에서 한 단계 FP32-vs-해당 단일 block W8 shock을 만들고, 이후 양 branch를 common all-W8 suffix로 진행하는 진단을 제안한다. anchor·seed/좌표 조건을 사전 고정해 초기 innovation과 상태 전파의 연결을 조사한다.
+이는 이번 persistent all-W8→FP32 restoration gain과 다른 estimand다. 같은 실험의 추가 replication이나 품질 개선 검증으로 부르지 않는다. sample N, delta_min 및 power는 미정이며 현재 effect/variance/cost를 바탕으로 별도 실행 전에 정한다. 지금 LT2/LT3, 새 class confirmation, W4/W6나 추가 GPU 실험을 실행하지 않는다.
+
+파일 안내:
+run/analysis: [private execution path omitted] / [private execution path omitted]
+restoration_summary.csv, class_restoration_gains.csv, policy_comparison.csv, rank_comparison.csv, paired_gain_contrasts.csv, first_split.csv, mismatch_curves.csv, replicate_difference_summary.csv, variation_summary.csv.
+figures/에는 gain CI, 점수-vs-gain(A/B/C/F), rank, policy-vs-uniform, 실제 CDF/mismatch, 선택 규칙을 명시한 작은 montage의 PDF/SVG/PNG가 있다.
+입력/source/환경/hash·원자료 경로는 analysis.json, frozen snapshots, PREDICTION_FREEZE, VALIDATION_LT1R, HANDOFF_LT1R_KO를 확인한다. 원초안과 presentation-only R1 수정 이유는 postprocessing_revisions/에 보존했다.

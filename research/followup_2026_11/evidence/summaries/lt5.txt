@@ -1,0 +1,72 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+FDCA LT5 — 같은 복원 예산의 고정 정책 평가
+run_id: LT5_BUDGETED_RESTORATION_HOLDOUT_20261103_r1
+
+새32클래스에서 A(FDCA의 all-W8 대비 절대 거리 감소)는 -0.004160862, 97.5% CI [-0.025651317, +0.018337985]이고, B(국소 TV 정책 대비 추가 감소)는 -0.004572767, 97.5% CI [-0.026641855, +0.018361919]다. 두 구간 모두0을 포함해 사전 판정은 A/B 모두 미확정이며 공동 주장은 확인되지 않았다. 음수 점추정을 보존한다. 이를 유의한 악화, 효과 없음 또는 동등성으로 쓰지 않는다.
+
+무엇을 평가했는가
+H-MaskGIT-T, CFG3, Halton32,256tokens에서 all-MASK부터 각자 실제 상태로 진행하는 자연 전체 경로다. 새32클래스마다 base_seed1개·rep2개, reference64개·candidate320개를 모두 완료했다. 누락/실패 과학 단위0개, 통계 n=32class다. 384개의 논리적 branch를 독립 표본으로 세지 않는다.
+과거 outcome 노출263labels를 근거 ledger로 제외하고737eligible labels에서 고정 SHA256 순서로32개를 선택했다. 새label은 감사한 FDCA 계보에 미노출이라는 뜻이며 모델 사전학습 OOD가 아니다.
+선택 순서: [599, 812, 904, 321, 261, 151, 780, 600, 122, 434, 46, 546, 314, 209, 565, 186, 965, 97, 323, 339, 681, 81, 242, 892, 718, 567, 914, 514, 298, 471, 975, 360]
+
+고정 정책과 동일 예산
+개발자료는 LT2-C의 기존8클래스·16parents·96strata·768조건부 pair만 사용했다. 개발 단일 anchor 점수를 길이8구간으로 확장한 정적 heuristic이며 구간 전체 평균 점수를 직접 측정한 것은 아니다.
+FDCA: block2, steps0–7. LOCAL_TV: block3, steps12–19.
+EARLY: block3, steps0–7. UNIFORM: block3, steps[0,4,8,12,16,20,24,28].
+국소 A는 mean-coordinate TV, F는 mean(h*m)이다. 개발6후보의 원점수·hash·H/M/covariance는 development_scores.csv와 POLICY_FREEZE.json을 따른다. 평가자료로 정책을 재선택하지 않았다.
+각 block의 eligible8 tensors는2,654,208parameters이며 정책당8block-step=21,233,664parameter-step이다. 나머지41개와 last_norm.mlp.1.weight는W8재구성이다. 실제가중치는 모두 FP32 reconstruction으로 실행했다. 예산은 수치개입량 proxy이며 실제 VRAM/FLOPs/latency 동등성이나 packed INT8 이득의 증명이 아니다. online 선택 진단 추가forward0회. 네 정책은 전역 action alias가 없다.
+
+실제 출력 차이와 이득
+D는 지정 star coupling의 FP32 reference와 candidate 최종 metric input의 LPIPS다. G=D_Q−D_policy이며 양수가 reference 차이 감소다.
+Q: D=0.188029261; G=+0.000000000; G의95% CI=[+0.000000000, +0.000000000]; raw Hamming=0.309753418
+EARLY: D=0.182105649; G=+0.005923613; G의95% CI=[-0.021220603, +0.034378150]; raw Hamming=0.305175781
+UNIFORM: D=0.186523163; G=+0.001506098; G의95% CI=[-0.022357835, +0.027355313]; raw Hamming=0.307067871
+LOCAL_TV: D=0.187617357; G=+0.000411905; G의95% CI=[-0.005964445, +0.007174779]; raw Hamming=0.307495117
+FDCA: D=0.192190124; G=-0.004160862; G의97.5% CI=[-0.025651317, +0.018337985]; raw Hamming=0.308898926
+Q의 G=0은 같은 baseline을 뺀 항등식이다. FDCA 절대G의 권위 구간은97.5% 하나다. 나머지 정책G와 D/Hamming의95% 구간은 보조다.
+T=G_EARLY−G_UNIFORM=+0.004417515, 미보정 탐색95% CI [-0.008596496, +0.017742854]다. EARLY와 UNIFORM 절대G도 모두0을 포함한다. T의 양수 점추정만으로 초기 보호의 우월성을 선언하지 않는다.
+
+불확실성과 민감도
+class 내부 rep2개 평균 후32class를 동일 가중했다. PCG64 seed20261103,20,000 paired class bootstrap,linear quantile이다. 공동주결과는 각각[.0125,.9875]의97.5% Bonferroni 규칙, 보조는[.025,.975]의95%다. 유한표본 percentile의 정확한 coverage를 증명한 것은 아니다.
+공통 draw SHA256: f0159f2ccad797273d9b0c7b10de2d0a79c3193aaefa8224c46d7c290250e90a
+A_FDCA_ABSOLUTE: 양/음/0 class=12/14/6; LOCO 평균=[-0.008384460, -0.001113280].
+B_FDCA_MINUS_LOCAL_TV: 양/음/0 class=14/18/0; LOCO 평균=[-0.009071519, -0.001180311].
+T_EARLY_MINUS_UNIFORM: 양/음/0 class=17/14/1; LOCO 평균=[+0.001774980, +0.006929313].
+FDCA rep0/rep1 G 점추정=-0.011427246/+0.003105522.
+EARLY rep0/rep1 G 점추정=-0.020411203/+0.032258429.
+UNIFORM rep0/rep1 G 점추정=-0.015212069/+0.018224265.
+LOCAL_TV rep0/rep1 G 점추정=+0.001779892/-0.000956082.
+모든 class를 primary에 유지했다. LOCO/rep 비교는 기술적 민감도이며 CI와 임의로 합치지 않았다. 상대 감소율은 meanG/meanD_Q를 매draw 재계산했고 네 정책 모두 undefined draw0이다. N32·rep2의 작은 효과 검출력을 보장하지 않는다.
+
+해석
+개발 pulse R 점수가 높으면8단계 지속 복원 이득G도 클 것이라는 가설은 이번 고정 평가에서 확인되지 않았다. FDCA의 음수 점추정에도 신뢰구간이 넓어 방향은 미확정이다. 국소TV 대비 추가 선택 가치도 미확인이다. 후보6개·모델1개·8block-step·이 star coupling에서의 결과다. 최적 정책 또는 보편적 FDCA 무효를 뜻하지 않는다.
+이번 평가는 과거 E조건부 pulse R/h 가중이 아닌 자연 전체 경로 G다. 과거 G·oldparent를 이번 baseline으로 재사용하지 않았다. FP32 출력과의 근접도를 이미지 품질·인간 선호·배포 속도로 표현하지 않는다.
+
+실행과 검증
+누적GPU supervisor wall=491.238830초/2,040초, 실패25.121772초 포함, cap초기화0회다. 새raw 측정=4,928,907,308bytes/6GiB다. 과학 logical laws12,288회·exact cache3,219회·producer physical semantic laws9,069회다. 논리적decode384개 대비 실제308개, 논리적LPIPS320쌍 대비 실제245쌍이다.
+중단 시도467semantic laws는 봉인된3단위에서 복구했다. 정상 재개 invocation의 실제 hook 측정은8,602회다. 중단 시도의 실제 hook/global kernel·weight·restore·seal counters는 미확인이다. semantic 수를 측정hook으로 이름만 바꾸지 않는다.
+사전 CPU69검사,resource3검사,cost보고4검사,Boolean표현20검사를 통과했다. 별도 독립 CPU는 전체64단위·9,069full float64 laws·49,152사건·모든토큰/상태/first split/terminal/clamp·308endpoint를 재생했다. 별도 통계감사는12CSV의CI끝점1,110개와JSON끝점70개를 대조했다. 감사기는 generator/analyzer 함수를 import하지 않았다. CPU에서 모델·decoder·LPIPS 자체를 재실행한 것은0회이며 저장metric입력/hash와생성LPIPS 연결을 검증한 범위다.
+4그림군 PNG/PDF/SVG 총12개를 시각 검토했고 잘림/누락glyph를 확인하지 않았다.
+
+실패/수정과 운영상태
+동결 전 저장형식 개선은 정확한 무손실 압축이었다. 동결 뒤 resource scanner의 봉인/삭제 경합으로 자체worker가 중단돼 별도adapter로 동일run을 재개했다. 원generator/정책/표본/RNG/분석과162동결파일은 유지했다. 독립 통계 감사기의 True/False CSV 표현 오류는 원v1·실패v2·수정v3와 로그를 보존했다. PROTOCOL_DEVIATIONS.json과 개별amendment를 따른다.
+과학판정은 JOINT_CLAIM_NOT_ESTABLISHED, 기술/독립CPU는PASS다. D보존·D재생·이번소유staging4파일정리·ZIP·비공개Drive전달은 각 실제 운영 영수증으로 구분한다.
+D archive: [private execution path omitted]
+최종운영상태: 로컬 [private execution path omitted]; D [private execution path omitted]
+GitHub push/PR/merge/tag/release/Zenodo·다른모델/precision/학습·후속실험은 실행하지 않았다. 결과를 보고 표본·예산·후보를 확장하지 않았다.
+
+실측 MASK/clamp: evidence/MASK_CLAMP_COUNTS.json에reference64개와candidate320개의terminal rawMASK·clamp변경수를각각집계했다. 모두0이다. step별선택MASK도실제저장row에서0임을확인했다.
+
+실제생성된소유자전용Drive결과폴더: [private delivery URL omitted]
+이코어문서작성시업로드는아직완료되지않았으며, 실제3파일전달/권한readback은 delivery/FINAL_STATE.json과 DRIVE_DELIVERY_VERIFIED.json을따른다.
+
+운영 완료 추가 기록 (실제 영수증 확인 후 작성)
+작성UTC: 2026-11-03T06:03:06.717508+00:00
+최종 로컬 보고commit: 7c190430fd0444637d7db091bf9e3524d363a3f6; branch=lt5-budgeted-restoration; nonignored clean.
+D보존 PASS: 632files/4938222113bytes, indexSHA256=9f3795f59a703978f7a47f505dd55aedc4278b153f6a9fd3d1d66ccf8011604b.
+D읽기전용 전체CPU재생 PASS:64reference/320candidate,12CSV byte-identical/21JSON sections exact, 독립 raw·통계감사 PASS, 모델/decoder/LPIPS재실행0.
+이번소유 staging4파일정리 PASS, 원본삭제0.
+Darchive: [private execution path omitted]
+Drive 폴더: [private delivery URL omitted]
+이 완료요약은 업로드 전에 제작됐다. 실제3파일 전달/크기/부모/소유자전용권한 readback은 같은 로컬/D delivery의 DRIVE_DELIVERY_VERIFIED.json과 FINAL_STATE.json을 따른다. 원격 SHA가 제공되지 않아 원격 SHA 검증을 주장하지 않는다.

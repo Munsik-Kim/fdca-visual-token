@@ -1,0 +1,71 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+FDCA LT0–LT1 실제 실행 결과
+
+LT1 공통 완료 panel은 16 classes, arm당 32 joint paths, 8 arms로 총 256개 unit이다. 이 unit들을 독립 표본으로 세지 않고 16개 class를 재표집한다.
+기술 검증: PASS; 예상 panel 완전성=True; 제외 trajectory=0; 실패 기록=0.
+실제 전체 실행 비용=272.335초, 동결 hard cap=2040초 (전체 supervisor wall 기준).
+LPIPS는 FP32 reference와의 출력 차이이며 품질 저하·사람 선호·packed INT8 속도 이득을 뜻하지 않는다.
+전체 eligible W8: R_path=0.15319, 95% CI [0.111082, 0.201793]; split=32/32; Hamming=0.237671.
+6개 단일 block에서 same-state local TV와 R 순위의 기술적 Spearman=0.942857. 이번 pilot에서는 두 순위가 대체로 일치하며 추가 선택 가치가 입증되지 않았다.
+
+조건과 해석 단위:
+H-MaskGIT-T, 실제 L=6, CFG3, 256 tokens, fixed Halton 32단계, FP32 실행, per-output-channel W8 reconstructed weights. 한 block의 W8 개입은 전체 32단계 동안 지속된다.
+token Hamming/first split은 pre-clamp sampler state 기준이고 LPIPS는 공식 decoder-grid 및 RGB clamp 이후 이미지 기준이다. selected-MASK/clamp 기록은 원자료와 NUMERICAL_RECEIPT에 남는다.
+R_path는 미분기 경로를 포함한 최종 LPIPS 평균, H_path는 실제 ever_split 평균, M_split,path=R_path/H_path다. seed 안 반복 → class 안 seed → class 동일 가중을 쓴다.
+20,000회 paired class-cluster bootstrap, linear quantile, seed=20261029. 같은 class draw를 모든 arm과 metric에 공유했다. 탐색 CI이며 확증 p-value를 계산하지 않았다.
+REF_FP32는 동일 모델 기술 대조군이다. token/image/LPIPS의 정확한 0은 SELF_CASE_PASS로 기록하며 H=0의 조건부 M은 미추정이다.
+candidate에서 분기를 관측하지 못했을 때의 [0,0] bootstrap을 true no-effect의 증거로 쓰지 않는다. 실패·누락을 0으로 채우지 않았다.
+
+층별 결과 — R / H / M_split,path / Hamming (괄호는 95% CI):
+REF_FP32: R=0 [0, 0]; H=0 [0, 0]; M=미추정 미추정; Hamming=0 [0, 0].
+  split=0/32 (0 classes), 미분기=32; 최초 step(0-based): 없음; ratio undefined draws=100.000%; SELF_CASE_PASS.
+ALL_ELIGIBLE_W8: R=0.15319 [0.111082, 0.201793]; H=1 [1, 1]; M=0.15319 [0.111082, 0.201793]; Hamming=0.237671 [0.186279, 0.296875].
+  split=32/32 (16 classes), 미분기=0; 최초 step(0-based): min=0, 관측 split에 조건화한 class-weighted median=8, max=30; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_0: R=0.0886336 [0.0467464, 0.134885]; H=0.6875 [0.5625, 0.8125]; M=0.128922 [0.0715223, 0.193651]; Hamming=0.123291 [0.064209, 0.189453].
+  split=22/32 (16 classes), 미분기=10; 최초 step(0-based): min=0, 관측 split에 조건화한 class-weighted median=15, max=31; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_1: R=0.0919195 [0.0532062, 0.136602]; H=0.75 [0.59375, 0.90625]; M=0.122559 [0.0778033, 0.173713]; Hamming=0.14856 [0.0874023, 0.216309].
+  split=24/32 (15 classes), 미분기=8; 최초 step(0-based): min=1, 관측 split에 조건화한 class-weighted median=12, max=29; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_2: R=0.119147 [0.0668574, 0.176754]; H=0.78125 [0.625, 0.90625]; M=0.152508 [0.0941154, 0.213508]; Hamming=0.192017 [0.104614, 0.288208].
+  split=25/32 (15 classes), 미분기=7; 최초 step(0-based): min=0, 관측 split에 조건화한 class-weighted median=9, max=28; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_3: R=0.115044 [0.0710444, 0.163061]; H=0.84375 [0.71875, 0.9375]; M=0.136349 [0.0844167, 0.196568]; Hamming=0.172485 [0.106934, 0.246094].
+  split=27/32 (16 classes), 미분기=5; 최초 step(0-based): min=1, 관측 split에 조건화한 class-weighted median=17, max=31; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_4: R=0.0740716 [0.0474691, 0.102944]; H=0.84375 [0.71875, 0.9375]; M=0.0877886 [0.0590881, 0.116413]; Hamming=0.114014 [0.0772705, 0.154175].
+  split=27/32 (16 classes), 미분기=5; 최초 step(0-based): min=3, 관측 split에 조건화한 class-weighted median=17, max=28; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+ONE_BLOCK_W8_5: R=0.0793764 [0.0438676, 0.117815]; H=0.78125 [0.625, 0.90625]; M=0.101602 [0.0593082, 0.150757]; Hamming=0.115479 [0.0646942, 0.169678].
+  split=25/32 (15 classes), 미분기=7; 최초 step(0-based): min=4, 관측 split에 조건화한 class-weighted median=17, max=31; ratio undefined draws=0.000%; EXPLORATORY_PATTERN.
+
+local 진단과 순위의 의미:
+R 점추정 내림차순: ONE_BLOCK_W8_2 > ONE_BLOCK_W8_3 > ONE_BLOCK_W8_1 > ONE_BLOCK_W8_0 > ONE_BLOCK_W8_5 > ONE_BLOCK_W8_4
+이는 점추정 순위다. CI 중첩과 class별 변동을 무시한 확정 순위가 아니다.
+local_tv_same_state_mean 대 R: 기술적 Spearman=0.942857 (L=6); 확증 p-value 없음.
+local_mse_same_state_mean 대 R: 기술적 Spearman=0.714286 (L=6); 확증 p-value 없음.
+MSE는 normalized categorical probability 차이의 평균제곱이다. logit/weight MSE가 아니며 작은 수치 자체가 수치 바닥이나 무효과를 뜻하지 않는다.
+최초 분기 후에는 새로운 양자화 innovation과 기존 상태 차이의 전파가 섞인다. 이를 전부 최초 seed의 순수 후손으로 해석하지 않는다.
+CDF와 empirical hazard는 실제 nullable first_split_step과 직전까지 생존한 경로 분모에서 계산했다. 분기 후 reference-state analytic h는 persistent-path hazard가 아니다.
+R/H로 같은 R ranking을 재표현하는 것은 추가 selection 정보가 아니다. prospective policy/restoration gain은 아직 미검증이다.
+
+불확실성과 대표 사례:
+ONE_BLOCK_W8_2: leave-one-class-out R 범위 [0.101524, 0.12709]; 최대 한 class의 R 기여=20.12%.
+ONE_BLOCK_W8_3: leave-one-class-out R 범위 [0.100818, 0.122698]; 최대 한 class의 R 기여=17.84%.
+ONE_BLOCK_W8_1: leave-one-class-out R 범위 [0.0760911, 0.0980474]; 최대 한 class의 R 기여=22.39%.
+ONE_BLOCK_W8_0: leave-one-class-out R 범위 [0.0764429, 0.0944775]; 최대 한 class의 R 기여=19.14%.
+ONE_BLOCK_W8_5: leave-one-class-out R 범위 [0.0688084, 0.0846682]; 최대 한 class의 R 기여=18.73%.
+ONE_BLOCK_W8_4: leave-one-class-out R 범위 [0.0670057, 0.0782179]; 최대 한 class의 R 기여=15.19%.
+각 class의 두 반복은 class별 conditional effect를 안정적으로 추정하기에 적다. 큰 aggregate split 수가 이 반복 수 한계를 없애지 않는다.
+representative_montage는 결과와 무관하게 먼저 정한 첫 class 및 사후 all-W8 median class의 rep0을 보인다. block은 local-TV/R rank gap으로 사후 선택했다. 선택 규칙·파일 hash는 representative_montage_selection.csv에 있고 모집단 대표성이나 품질 우열의 근거가 아니다.
+
+실제 비용과 다음 실험 하나:
+공통 reference 물리 실행 32회, forward 1024회, 생성 9.615초를 한 번씩 집계했다.
+candidate/diagnostic forward, decode, metric, I/O와 peak PyTorch allocated VRAM은 cost_summary.csv에 분리했다. driver/context 전체 VRAM이나 packed-kernel 성능 측정이 아니다.
+LT1-R 제안(미실행): 사전 고정 개발 subset classes [929, 505, 219, 745, 606, 836, 618, 193]에서 2경로씩, 실제 6개 block 각각을 all-W8에서 FP32로 복원한다. 새 restoration candidate는 96개다.
+동일 key/source/config/schedule/metric이 확인된 reference 및 all-W8만 재사용한다. LT1 single-block W8의 반대·합으로 restoration gain을 가정하지 않는다.
+측정 LT1 unit wall 기반 proxy는 [77.4854, 83.483]초다. all-W8 restoration 경로·추가 진단·초기 로딩은 다를 수 있어 시간/VRAM 보장이 아니다.
+이 8개 class는 개발 subset 재사용이며 독립 확증 표본이 아니다. 별도 승인 전 LT1-R/LT2/LT3, W4 변경, 표본 확장, 원격 게시를 실행하지 않는다.
+
+읽을 파일:
+run: runs/LT1_PILOT_20261102_r2
+analysis: runs/LT1_PILOT_20261102_r2/analysis
+arm_summary.csv / class_results.csv / first_split.csv / mismatch_curves.csv / local_rank.csv / paired_contrasts.csv / cost_summary.csv
+figures/: first_split_cdf, mismatch_curves, path_endpoints, conditional_consequence, local_vs_path, representative_montage (PDF/SVG/PNG)
+입력 hash·환경·세부 source/weight/RNG·수치 범위는 analysis.json, NUMERICAL_RECEIPT.json, SAMPLE_MANIFEST.json, HANDOFF_KO.txt를 확인한다.

@@ -1,0 +1,19 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+LT12 | 최초 불일치에서 참조 토큰 맞춤
+
+기존 R-test를 재사용한 해시순 64클래스·128단위의 oracle-trigger 후속 진단입니다.
+트리거 127, 트리거 없음 1, ALT 가능 127단위/64클래스입니다.
+양수는 동일 FP32 참조에 대한 LPIPS 감소입니다. A 세 대비에는 트리거가 없는 0 이득 단위도 들어갑니다.
+B_dir는 ALT 가능 반복만 클래스 안에서 평균한 뒤 클래스 동일 가중을 적용합니다.
+
+- A_ref 첫 불일치 배치의 첫 다른 토큰 하나를 FP32 참조 토큰으로 맞춤 대 원 Q · +0.080290 · 보정 98.75% CI [+0.058796, +0.103802] · POSITIVE_GT_PRACTICAL
+- A_b2 τ 한 단계 block 2의 8개 행렬 FP32 복원 대 원 Q · +0.017311 · 보정 98.75% CI [+0.000361, +0.035429] · POSITIVE_DIRECTION_ONLY
+- A_b3 τ 한 단계 block 3의 8개 행렬 FP32 복원 대 원 Q · +0.008156 · 보정 98.75% CI [-0.005976, +0.022815] · INCONCLUSIVE
+- B_dir 같은 좌표를 참조 토큰으로 맞춤 대 두 대체 토큰 편집의 평균 · +0.079728 · 보정 98.75% CI [+0.060338, +0.099947] · POSITIVE_GT_PRACTICAL
+
+원 R-test의 FP32 참조 128경로는 4,096 forward에 해당합니다. 이 비용은 기존 실행에서 발생했습니다.
+새 과학 forward 11,771, VQ decode 524, LPIPS 524.
+기술 검증과 모형 재생을 포함한 새 GPU 감독 시간은 910.123초입니다.
+독립 CPU 감사에서 저장 full law, 원 사건 주소, 경로와 지표 입력 바인딩을 검산했습니다.
+기존 노출 기술 단위와 결과와 무관하게 고정한 한 과학 단위를 실제 생성기·VQ·LPIPS로 재생했습니다.

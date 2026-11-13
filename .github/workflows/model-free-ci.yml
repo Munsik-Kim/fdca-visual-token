@@ -18,3 +18,5 @@ jobs:
       - run: make verify
       - run: make test
       - run: make reproduce
+      - name: Replay follow-up research evidence
+        run: python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay

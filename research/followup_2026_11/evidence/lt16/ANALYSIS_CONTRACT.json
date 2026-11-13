@@ -1,0 +1,135 @@
+{
+  "phase_id": "LT16_STATE_REPEATS_20261111_r1",
+  "role": "post-development saved-state diagnostic; no holdout confirmation",
+  "expected": {
+    "classes": 24,
+    "original_trajectories": 48,
+    "selector_rows": 240,
+    "unique_states": 158,
+    "redraws_per_state": 8,
+    "unique_state_draws": 1264,
+    "selector_draw_rows": 1920,
+    "reserved_unexposed_classes": 265,
+    "reserved_model_evaluations": 0
+  },
+  "selectors": [
+    "OLD_MAX",
+    "PROPOSED_OOF",
+    "ENTROPY_OOF",
+    "TIME_ONLY_FROZEN",
+    "FIXED_OOF"
+  ],
+  "unit_key": [
+    "class_id",
+    "base_seed",
+    "replicate_id"
+  ],
+  "state_key": [
+    "trajectory_id",
+    "step"
+  ],
+  "draw_key": [
+    "state_id",
+    "redraw_id"
+  ],
+  "gain": "lpips_pq-lpips_pr using newly drawn P and Q per state/draw",
+  "weighting": "average 8 draws within state, 2 original trajectories within class, equal 24 classes",
+  "class_order": "numeric ascending",
+  "primary": {
+    "A": "OLD_MAX",
+    "B": "OLD_MAX-ENTROPY_OOF",
+    "C": "PROPOSED_OOF-TIME_ONLY_FROZEN",
+    "seed": 2026111601,
+    "rng": "NumPy Generator(PCG64(seed))",
+    "draws": 20000,
+    "index_dtype": "int64",
+    "quantile_method": "linear",
+    "quantiles": [
+      0.008333333333333333,
+      0.9916666666666667
+    ],
+    "interval_level": 0.9833333333333333,
+    "boundary": {
+      "A": 0.01,
+      "B": 0.005,
+      "C": 0.005
+    }
+  },
+  "auxiliary": {
+    "seed": 2026111602,
+    "draws": 20000,
+    "quantiles": [
+      0.025,
+      0.975
+    ],
+    "multiplicity": "unadjusted exploratory",
+    "endpoints": [
+      "PROPOSED_OOF-ENTROPY_OOF",
+      "OLD_MAX-FIXED_OOF",
+      "each selector absolute",
+      "each selector new-old",
+      "split-half transfer/self/gap",
+      "prediction MSE paired differences"
+    ]
+  },
+  "fixed_parent_mcse": "sqrt(sum_u sample_var_r(Z_u,r,ddof=1)/(48^2*8)), paired across selectors at same r; class uncertainty excluded",
+  "state_variance": "sample variance ddof=1; state MCSE=sqrt(var/8)",
+  "decomposition": {
+    "I": "Q/R full post-shock state differs",
+    "h": "mean(I)",
+    "m": "mean(G|I=1), defined as 0 when no observed change per explicit user instruction",
+    "identity": "mean(G)=h*m; nonchanged G must equal zero",
+    "selector": "mean(h*m)=mean(h)*mean(m)+population_cov(h,m), ddof=0",
+    "m_split": "mean(G)/mean(h) if mean(h)>0, else NA"
+  },
+  "split_half": {
+    "A": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "B": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "candidates": "unique selected times per original trajectory",
+    "tie": "earliest time, exact equality",
+    "transfer": "0.5*(mean_B G at A winner + mean_A G at B winner)",
+    "self": "0.5*(max_A mean + max_B mean)",
+    "fixed_selector_MCSE": "not applied"
+  },
+  "prediction": {
+    "predictors": [
+      "old_prediction",
+      "m_t"
+    ],
+    "targets": [
+      "old_G",
+      "mu_hat"
+    ],
+    "weighting": "original trajectory equally weighted, within trajectory unique times equally weighted",
+    "bins_edges": [
+      "-inf",
+      -0.01,
+      0,
+      0.005,
+      0.01,
+      0.02,
+      "inf"
+    ],
+    "bins_rule": "left closed, right open except final; pre-outcome fixed absolute LPIPS prediction intervals",
+    "MSE_difference": "MSE(old_prediction)-MSE(m_t); negative favors state predictor",
+    "correlation": "weighted selected-set descriptive, not compared directly with original full bank"
+  },
+  "precision": {
+    "metric_and_analysis": "float64 inputs and NumPy double; source LPIPS values preserved",
+    "audit_atol": 2e-14,
+    "audit_rtol": 2e-12
+  },
+  "missing": "fail completeness; no zero fill or inner-join reduction",
+  "status_rule": "primary PENDING until every expected state/draw complete and validated",
+  "LT15": "NOT_STARTED_DEV_CRITERIA preserved"
+}

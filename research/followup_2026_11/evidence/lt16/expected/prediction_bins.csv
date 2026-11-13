@@ -1,0 +1,13 @@
+predictor,bin_index,lower,upper,states,trajectory_equal_weight_mass,prediction_mean,old_G_mean,new_G_mean,scope
+old_prediction,0,-inf,-0.01,7,0.04513888888888889,-0.025819958397174485,0.007461801171302795,-9.58038963158987e-05,LT14 reused development classes; saved-state conditional redraw diagnostic
+old_prediction,1,-0.01,0.0,14,0.08819444444444445,-0.0034424466375775355,0.08297729954915488,-0.005889510846326465,LT14 reused development classes; saved-state conditional redraw diagnostic
+old_prediction,2,0.0,0.005,64,0.4059027777777778,0.0019928937433382164,0.01623530059947709,-1.2394607264685494e-05,LT14 reused development classes; saved-state conditional redraw diagnostic
+old_prediction,3,0.005,0.01,29,0.17916666666666667,0.007838433458395723,0.0264337685389188,0.00388189109607217,LT14 reused development classes; saved-state conditional redraw diagnostic
+old_prediction,4,0.01,0.02,44,0.2815972222222221,0.012494534345717345,0.003281579211666611,-0.0020027890153752896,LT14 reused development classes; saved-state conditional redraw diagnostic
+old_prediction,5,0.02,inf,0,0.0,,,,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,0,-inf,-0.01,0,0.0,,,,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,1,-0.01,0.0,22,0.13333333333333333,-0.004100567943640743,0.06543810067038673,-0.003497582351580301,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,2,0.0,0.005,67,0.4326388888888888,0.0018852804470206035,0.017695670813638986,-0.0002906232274557132,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,3,0.005,0.01,29,0.15625000000000003,0.007965066106415087,0.017006212300362266,0.004274348799760143,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,4,0.01,0.02,40,0.2777777777777778,0.012051279994193463,0.0031208598986268033,-0.0017029430484399193,LT14 reused development classes; saved-state conditional redraw diagnostic
+m_t,5,0.02,inf,0,0.0,,,,LT14 reused development classes; saved-state conditional redraw diagnostic

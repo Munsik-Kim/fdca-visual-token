@@ -1,0 +1,33 @@
+{
+  "Bstar_family": "ENTROPY",
+  "LT15_state": "NOT_STARTED_DEV_CRITERIA",
+  "criteria": {
+    "paired_difference_at_least_0_005": false,
+    "positive_folds_at_least_3": true,
+    "positive_proposed": true
+  },
+  "fold_differences": [
+    0.000716197614868482,
+    -0.006243662831063072,
+    0.005510568308333556,
+    0.0024905415872732797
+  ],
+  "paired_proposed_minus_Bstar": 0.0006184111698530614,
+  "planned_LT15": {
+    "approximation_power_per_contrast": 0.8,
+    "available_unexposed_candidates": 265,
+    "class_sd_absolute": 0.013912191606813494,
+    "class_sd_paired": 0.01158306778541138,
+    "limited_precision": false,
+    "n": 0,
+    "n_if_opened": 256,
+    "n_raw": 238,
+    "n_required": 256,
+    "normal_approximation_detectable_effect": 0.01926889975736163,
+    "sigma": 0.1,
+    "simultaneous_power_claim": false
+  },
+  "policy_freeze_sha256": "2f527eb73db08132c46f4a047ddeb92adabe7b8869c5c477a6adb381095d3a37",
+  "proposed_mean_G": 0.005884338267302762,
+  "status": "DEV_CRITERIA_NOT_MET"
+}

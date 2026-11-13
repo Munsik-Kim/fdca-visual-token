@@ -1,0 +1,470 @@
+{
+  "status": "COMPLETE_NUMERIC",
+  "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic",
+  "numerical": {
+    "primary": [
+      {
+        "contrast": "A",
+        "definition": "OLD_MAX",
+        "estimate": -0.0007233631301157099,
+        "ci_low": -0.004643831654877633,
+        "ci_high": 0.0033003421203223657,
+        "confidence": 0.9833333333333333,
+        "MCSE_fixed_parents": 0.0015043250058796925,
+        "boundary": 0.01,
+        "point_above_boundary": false,
+        "lower_above_boundary": false,
+        "status": "DIRECTION_UNRESOLVED",
+        "n_class": 24,
+        "n_original_trajectory": 48,
+        "K": 8,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "B",
+        "definition": "OLD_MAX-ENTROPY_OOF",
+        "estimate": 0.00050415486492561,
+        "ci_low": -0.0043312131730322695,
+        "ci_high": 0.005505927554663181,
+        "confidence": 0.9833333333333333,
+        "MCSE_fixed_parents": 0.0021538785323441632,
+        "boundary": 0.005,
+        "point_above_boundary": false,
+        "lower_above_boundary": false,
+        "status": "DIRECTION_UNRESOLVED",
+        "n_class": 24,
+        "n_original_trajectory": 48,
+        "K": 8,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "C",
+        "definition": "PROPOSED_OOF-TIME_ONLY_FROZEN",
+        "estimate": 0.00016179029427298985,
+        "ci_low": -0.00025426338702949636,
+        "ci_high": 0.0010123217556004722,
+        "confidence": 0.9833333333333333,
+        "MCSE_fixed_parents": 0.0002825743577755468,
+        "boundary": 0.005,
+        "point_above_boundary": false,
+        "lower_above_boundary": false,
+        "status": "DIRECTION_UNRESOLVED",
+        "n_class": 24,
+        "n_original_trajectory": 48,
+        "K": 8,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      }
+    ],
+    "selector_summary": [
+      {
+        "selector": "OLD_MAX",
+        "old_G": 0.05806279531437516,
+        "new_G": -0.0007233631301157099,
+        "ci_low": -0.003942818193581842,
+        "ci_high": 0.0024573008602601348,
+        "confidence": 0.95,
+        "new_minus_old": -0.058786158444490866,
+        "change_ci_low": -0.07836029980547513,
+        "change_ci_high": -0.042286060968035596,
+        "MCSE_fixed_parents": 0.0015043250058796925,
+        "H_observed_change": 0.2916666666666667,
+        "M_equal_sample": 0.006388475806641741,
+        "covariance_ddof0": -0.002586668573719551,
+        "H_times_Mequal": 0.0018633054436038412,
+        "H_Mequal_plus_cov": -0.0007233631301157097,
+        "M_pooled_changed": -0.0024801021603967194,
+        "changed_count": 112,
+        "logical_selector_draws": 384,
+        "zero_change_states": 16,
+        "all_change_states": 2,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "selector": "PROPOSED_OOF",
+        "old_G": 0.005884338267302762,
+        "new_G": 0.000953285940778296,
+        "ci_low": -0.0009364346120835402,
+        "ci_high": 0.0025652658722548206,
+        "confidence": 0.95,
+        "new_minus_old": -0.0049310523265244655,
+        "change_ci_low": -0.010829981023373625,
+        "change_ci_high": 8.584094322657306e-05,
+        "MCSE_fixed_parents": 0.0008899745810329756,
+        "H_observed_change": 0.5963541666666666,
+        "M_equal_sample": 0.0042110031442835144,
+        "covariance_ddof0": -0.0015579633301616126,
+        "H_times_Mequal": 0.002511249270939908,
+        "H_Mequal_plus_cov": 0.0009532859407782957,
+        "M_pooled_changed": 0.0015985231496020336,
+        "changed_count": 229,
+        "logical_selector_draws": 384,
+        "zero_change_states": 8,
+        "all_change_states": 16,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "selector": "ENTROPY_OOF",
+        "old_G": 0.0052659270974497,
+        "new_G": -0.00122751799504132,
+        "ci_low": -0.003853657580289246,
+        "ci_high": 0.0015568900619980528,
+        "confidence": 0.95,
+        "new_minus_old": -0.00649344509249102,
+        "change_ci_low": -0.011722956331976894,
+        "change_ci_high": -0.0017032510033802887,
+        "MCSE_fixed_parents": 0.0015741248452387597,
+        "H_observed_change": 0.5104166666666666,
+        "M_equal_sample": 0.0018994306473213134,
+        "covariance_ddof0": -0.0021970190546115737,
+        "H_times_Mequal": 0.0009695010595702537,
+        "H_Mequal_plus_cov": -0.00122751799504132,
+        "M_pooled_changed": -0.0024049332147748313,
+        "changed_count": 196,
+        "logical_selector_draws": 384,
+        "zero_change_states": 9,
+        "all_change_states": 14,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "selector": "TIME_ONLY_FROZEN",
+        "old_G": 0.005692450426674138,
+        "new_G": 0.0007914956465053061,
+        "ci_low": -0.0010353592838024876,
+        "ci_high": 0.002336546068060366,
+        "confidence": 0.95,
+        "new_minus_old": -0.004900954780168831,
+        "change_ci_low": -0.01058962893973027,
+        "change_ci_high": -0.00023053624778792095,
+        "MCSE_fixed_parents": 0.0008525629060293022,
+        "H_observed_change": 0.6432291666666666,
+        "M_equal_sample": 0.0031243953092526346,
+        "covariance_ddof0": -0.0012182065446025084,
+        "H_times_Mequal": 0.0020097021911078144,
+        "H_Mequal_plus_cov": 0.000791495646505306,
+        "M_pooled_changed": 0.0012305033532714071,
+        "changed_count": 247,
+        "logical_selector_draws": 384,
+        "zero_change_states": 8,
+        "all_change_states": 21,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "selector": "FIXED_OOF",
+        "old_G": 0.0027630746675034366,
+        "new_G": -0.0004339393344707787,
+        "ci_low": -0.0044064725700688236,
+        "ci_high": 0.0031249309564979435,
+        "confidence": 0.95,
+        "new_minus_old": -0.0031970140019742153,
+        "change_ci_low": -0.014630133043586587,
+        "change_ci_high": 0.012870109751141437,
+        "MCSE_fixed_parents": 0.00188584687539246,
+        "H_observed_change": 0.2734375,
+        "M_equal_sample": -0.003969312260030872,
+        "covariance_ddof0": 0.0006514194866314131,
+        "H_times_Mequal": -0.0010853588211021915,
+        "H_Mequal_plus_cov": -0.0004339393344707784,
+        "M_pooled_changed": -0.0015869781374931336,
+        "changed_count": 105,
+        "logical_selector_draws": 384,
+        "zero_change_states": 16,
+        "all_change_states": 0,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      }
+    ],
+    "auxiliary": [
+      {
+        "contrast": "PROPOSED_OOF-ENTROPY_OOF",
+        "estimate": 0.002180803935819616,
+        "ci_low": -0.00047756831639465716,
+        "ci_high": 0.004627641927193811,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "OLD_MAX-FIXED_OOF",
+        "estimate": -0.0002894237956449312,
+        "ci_low": -0.004126671017199138,
+        "ci_high": 0.004022737389974887,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "OLD_MAX",
+        "estimate": -0.0007233631301157099,
+        "ci_low": -0.003942818193581842,
+        "ci_high": 0.0024573008602601348,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "OLD_MAX_NEW_MINUS_OLD",
+        "estimate": -0.058786158444490866,
+        "ci_low": -0.07836029980547513,
+        "ci_high": -0.042286060968035596,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PROPOSED_OOF",
+        "estimate": 0.000953285940778296,
+        "ci_low": -0.0009364346120835402,
+        "ci_high": 0.0025652658722548206,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PROPOSED_OOF_NEW_MINUS_OLD",
+        "estimate": -0.0049310523265244655,
+        "ci_low": -0.010829981023373625,
+        "ci_high": 8.584094322657306e-05,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "ENTROPY_OOF",
+        "estimate": -0.00122751799504132,
+        "ci_low": -0.003853657580289246,
+        "ci_high": 0.0015568900619980528,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "ENTROPY_OOF_NEW_MINUS_OLD",
+        "estimate": -0.00649344509249102,
+        "ci_low": -0.011722956331976894,
+        "ci_high": -0.0017032510033802887,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "TIME_ONLY_FROZEN",
+        "estimate": 0.0007914956465053061,
+        "ci_low": -0.0010353592838024876,
+        "ci_high": 0.002336546068060366,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "TIME_ONLY_FROZEN_NEW_MINUS_OLD",
+        "estimate": -0.004900954780168831,
+        "ci_low": -0.01058962893973027,
+        "ci_high": -0.00023053624778792095,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "FIXED_OOF",
+        "estimate": -0.0004339393344707787,
+        "ci_low": -0.0044064725700688236,
+        "ci_high": 0.0031249309564979435,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "FIXED_OOF_NEW_MINUS_OLD",
+        "estimate": -0.0031970140019742153,
+        "ci_low": -0.014630133043586587,
+        "ci_high": 0.012870109751141437,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "SPLIT_HALF_SELF_VALUE",
+        "estimate": 0.009127246388743515,
+        "ci_low": 0.006128520295684818,
+        "ci_high": 0.012697001740571057,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "SPLIT_HALF_TRANSFER_VALUE",
+        "estimate": -0.0012946556962560862,
+        "ci_low": -0.003998386311104695,
+        "ci_high": 0.001329208234528769,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "SPLIT_HALF_SELECTION_OPTIMISM",
+        "estimate": 0.010421902084999601,
+        "ci_low": 0.00696333687119477,
+        "ci_high": 0.014301405183414316,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_old_state_MSE",
+        "estimate": 0.0032229708628813756,
+        "ci_low": 0.0012031850542616569,
+        "ci_high": 0.00604610597049851,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_old_time_MSE",
+        "estimate": 0.0031856441510699184,
+        "ci_low": 0.0011603274242840572,
+        "ci_high": 0.006009415152290687,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_old_state_minus_time_MSE",
+        "estimate": 3.732671181145684e-05,
+        "ci_low": -2.3686298929367316e-05,
+        "ci_high": 0.00013682885022500284,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_new_state_MSE",
+        "estimate": 0.00022686865088606724,
+        "ci_low": 0.0001280196655134968,
+        "ci_high": 0.0003496955711437018,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_new_time_MSE",
+        "estimate": 0.00017483357193510065,
+        "ci_low": 0.00010025886699691263,
+        "ci_high": 0.0002646976493904174,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      },
+      {
+        "contrast": "PREDICTION_new_state_minus_time_MSE",
+        "estimate": 5.203507895096658e-05,
+        "ci_low": 2.596308262919993e-06,
+        "ci_high": 0.00014341463981616873,
+        "confidence": 0.95,
+        "n_class": 24,
+        "scope": "LT14 reused development classes; saved-state conditional redraw diagnostic"
+      }
+    ],
+    "split_half": {
+      "self_mean": 0.009127246388743515,
+      "transfer_mean": -0.0012946556962560862,
+      "same_winner_units": 13,
+      "all_A_equal_units": 1,
+      "all_B_equal_units": 0,
+      "all_both_equal_units": 0,
+      "candidate_count_distribution": {
+        "2": 4,
+        "3": 28,
+        "4": 14,
+        "5": 2
+      }
+    },
+    "calibration": [
+      {
+        "predictor": "old_prediction",
+        "target": "old_G",
+        "weighted_MSE": 0.003222970862881375,
+        "weighted_correlation": -0.15994499774109322,
+        "scope": "descriptive, selected unique times only; unit-equal weighting"
+      },
+      {
+        "predictor": "old_prediction",
+        "target": "mu_hat",
+        "weighted_MSE": 0.0002268686508860672,
+        "weighted_correlation": 0.005629561388999753,
+        "scope": "descriptive, selected unique times only; unit-equal weighting"
+      },
+      {
+        "predictor": "m_t",
+        "target": "old_G",
+        "weighted_MSE": 0.003185644151069919,
+        "weighted_correlation": -0.3272767124607271,
+        "scope": "descriptive, selected unique times only; unit-equal weighting"
+      },
+      {
+        "predictor": "m_t",
+        "target": "mu_hat",
+        "weighted_MSE": 0.00017483357193510065,
+        "weighted_correlation": 0.015373014548846469,
+        "scope": "descriptive, selected unique times only; unit-equal weighting"
+      }
+    ],
+    "counts": {
+      "classes": 24,
+      "original_trajectories": 48,
+      "unique_states": 158,
+      "unique_state_draws": 1264,
+      "selector_rows": 240,
+      "selector_draw_rows": 1920
+    },
+    "bootstrap": {
+      "class_order": [
+        83,
+        108,
+        218,
+        227,
+        328,
+        440,
+        468,
+        473,
+        480,
+        492,
+        502,
+        526,
+        568,
+        609,
+        634,
+        656,
+        790,
+        799,
+        808,
+        837,
+        890,
+        926,
+        927,
+        942
+      ],
+      "primary_seed": 2026111601,
+      "auxiliary_seed": 2026111602,
+      "shape": [
+        20000,
+        24
+      ],
+      "primary_index_bytes_sha256": "4ee7f161bb933eef415343114261f1e8848a2182b9193714dc379f9fa3931f9c",
+      "auxiliary_index_bytes_sha256": "77696238e5b4b57d43d9c47d76164fbb930413f8f3287c87eb4b9c334ccd0c33"
+    }
+  },
+  "input_hashes": {
+    "inputs/SELECTOR_MANIFEST.csv": "d62cc0717083fbf58d29cbe21e23ff706f444b18f9129bd57b5d3944be916656",
+    "inputs/UNIQUE_STATE_MANIFEST.csv": "8866e1f3015179b462d142453773e8890c288a282a580483ada3c7f6979e49e8",
+    "runs/LT16_STATE_REPEATS_20261111_r1/numeric/STATE_DRAWS.csv": "455fb012f01ea61984a2d97457cee32bd53221f932f2842e567dd5c997ae1d06"
+  },
+  "scope_exclusions": [
+    "no model/decoder/LPIPS rerun",
+    "no independent raw-law audit",
+    "no unseen-class evaluation"
+  ]
+}

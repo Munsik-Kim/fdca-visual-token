@@ -1,0 +1,50 @@
+HISTORICAL COMPLETION SUMMARY — path/URL redaction only. Plans and status refer to the original phase.
+
+FDCA LT13–LT15 한 단계 정밀도 복원 시점 선택
+
+LT13에서 block 2를 자기 최초 불일치 시점에 복원했을 때와 다른 클래스에서 교환한 시점에 복원했을 때의 차이를 짝으로 계산했다.
+  원 draw  +0.01485817 [+0.00322433, +0.02718634] LPIPS, 탐색적 95% CI, 32 클래스 쌍.
+  새 suffix draw  -0.01260251 [-0.03877873, +0.00808301] LPIPS, 탐색적 95% CI, 8 클래스 쌍.
+  원 최초 불일치 좌표의 FP32 토큰은 실제 R2 표집에서 36/127회 선택됐다.
+
+LT14 개발 24클래스·48경로에서 제안 정책의 outer OOF 평균 G는 +0.00588434 LPIPS였다.
+가장 높은 평균 G를 기록한 동일 행동 대조는 ENTROPY였다. 제안−대조 차이는 +0.00061841 LPIPS이고, 양의 차이는 3/4개 fold에서 관측됐다.
+fold별 차이  +0.00071620  -0.00624366  +0.00551057  +0.00249054
+개발 판정 DEV_CRITERIA_NOT_MET
+
+정책별 outer OOF 평균 G, 양·음·0인 단위 수, 발동 시점 중앙값
+  PROPOSED           +0.00588434 16/14/18 t=7.0
+  FIXED              +0.00276307 10/3/35 t=7.0
+  UNIFORM            +0.00200423 12/11/25 t=18.0
+  HISTOGRAM          +0.00388673 8/6/34 t=5.5
+  MARGIN             +0.00150977 7/3/38 t=3.0
+  ENTROPY            +0.00526593 16/6/26 t=14.5
+  DRIFT              -0.00123234 7/6/35 t=2.0
+  RIDGE_3_FEATURES   +0.00250811 20/18/10 t=31.0
+  RIDGE_ABS_G        +0.00042111 8/6/34 t=1.5
+  Bstar              +0.00526593 16/6/26 t=14.5
+
+토큰 수정 보조 대조에서 각 adapter의 개발 G 평균이 가장 높았던 시점
+  CoRe-style one-probe adapter t=24  G -0.00346694 LPIPS
+  CoDR-style one-probe adapter t=24  G -0.00019808 LPIPS
+
+32개 시점의 결과를 모두 본 뒤 경로별 최대를 고른 평균과 outer OOF FIXED의 차이는 +0.05529972 LPIPS였다. 관측된 사후 선택 폭이다.
+
+LT15 상태 NOT_STARTED_DEV_CRITERIA. 새 확인 결과는 0단위다. 동결한 미노출 후보 265개를 보존했다.
+
+정책은 현재 Q의 margin과 entropy, 직전과 현재의 같은 좌표에서 계산한 TV·argmax 변화를 사용한다. R2를 발동하면 현재 격자를 한 번 더 평가한다. block 2의 8개 원 가중치 행렬에 해당하는 스칼라는 2,654,208개다.
+LT14 과학 실행은 generator 16,806회, 논리 요청 32,880회, decode 1,072회와 LPIPS 1,024회를 기록했다.
+누적 GPU 감독 시간은 LT13 355.29초, LT14 423.61초였다. 기술 검증과 모델 재실행을 포함한다.
+G는 지정한 결합에서 all-W8과 후보의 FP32 참조 LPIPS 거리 차이다. LT13은 기존 노출 집단의 시점 진단이며 LT14는 미노출 개발 집단의 평가다.
+
+
+FP32 재구성 W8의 참조 없는 기술 입력, warm-up 1회 뒤 동기화 측정 5회
+  Bstar            NFE 33  중앙값 0.2937초 [0.2346, 0.4814]초
+  FIXED_OPTIMIZED  NFE 32  중앙값 0.2840초 [0.2248, 0.4382]초
+  PROPOSED         NFE 33  중앙값 0.3393초 [0.2830, 0.3966]초
+  W8               NFE 32  중앙값 0.3295초 [0.2627, 0.3459]초
+
+D 파일 크기·SHA256과 읽기 전용 재생
+  LT13 COMPLETE  563파일 2,609,265,966바이트  재생 PASS
+  LT14 COMPLETE  363파일 26,217,748,474바이트  재생 PASS
+  LT15 NOT_STARTED_DEV_CRITERIA  37파일 907,106바이트  재생 PASS
