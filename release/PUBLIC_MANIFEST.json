@@ -57,8 +57,8 @@
     },
     {
       "path": "README.md",
-      "sha256": "d0457160513acbf08ff422af0a78320b449c96bc9347196c58d2e89a8d32eef7",
-      "size": 10812
+      "sha256": "23d4509e369f74987dec51055173a8118076fd9ee3f3698ac03ae206f7837ed8",
+      "size": 11076
     },
     {
       "path": "README_KO.md",
@@ -152,8 +152,8 @@
     },
     {
       "path": "docs/PORTFOLIO_KO.md",
-      "sha256": "c9b8fb959ffab12c8050323ed9c0f00e9ba857fb17b009c82acd0465b03e6ba4",
-      "size": 9680
+      "sha256": "fccf5d99e3696fb3d066e0377264c3d7e0de6bf7d6428b54c89269d9e998a9b5",
+      "size": 9716
     },
     {
       "path": "docs/PRIVACY_AND_PUBLICATION_SCOPE.md",
@@ -702,8 +702,8 @@
     },
     {
       "path": "research/followup_2026_11/EVIDENCE_AND_VALIDATION.md",
-      "sha256": "cadcc2eea3284eceef5c975e523141b4fb1e7e0e0517fa67af463fd519222753",
-      "size": 13312
+      "sha256": "d4ab27722efa1af609b51767c1ec2f2e68341ee8fc927444f0326e89c336eaf0",
+      "size": 14317
     },
     {
       "path": "research/followup_2026_11/FAILURE_ANALYSIS_KO.md",
@@ -1212,8 +1212,8 @@
     },
     {
       "path": "research/followup_2026_11/scripts/replay_public_evidence.py",
-      "sha256": "dfab1e411d099b02fdf98cb250d619ed8f8c834cd782c3267c0967dcdd38ed49",
-      "size": 9274
+      "sha256": "1d64f0fbc408a1c76fca9933f1113e5bf30624deebe0a7149b20a324fa1040b9",
+      "size": 11047
     },
     {
       "path": "scripts/build_paper.py",
@@ -1274,6 +1274,11 @@
       "path": "tests/model_free/test_transport.py",
       "sha256": "c553daaff870fd9cc8940d8a31c2c3dd06ad02d8de1ae86d726f659b61de35de",
       "size": 1727
+    },
+    {
+      "path": "tests/public_contract/test_followup_calibration_replay.py",
+      "sha256": "379e4936648e00508e4ed9e0fdc3671a70e45d5f72c6f190c46c0d6f720a8b6b",
+      "size": 2080
     },
     {
       "path": "tests/public_contract/test_public_contract.py",

@@ -79,7 +79,7 @@ make verify test reproduce
 python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay
 ~~~
 
-Read **build/followup-replay/PUBLIC_REPLAY.json**. The publication replay checks 68 source hashes, M-confirm contrasts, R-test/LT10 intervals, 16 byte-identical LT16 CSVs and 4,653 independently recomputed scalar values. It needs no model weights or GPU. Replaying saved measurements does not rerun the generator, decoder or LPIPS network. [Exact boundaries and missing evidence](research/followup_2026_11/EVIDENCE_AND_VALIDATION.md).
+Read **build/followup-replay/PUBLIC_REPLAY.json**. The publication replay checks 68 source hashes, M-confirm contrasts, R-test/LT10 intervals, 16 LT16 tables and 4,653 independently recomputed scalar values. Fifteen tables require exact bytes; one descriptive calibration table compares its eight floating-point values within the existing scalar-audit tolerances, with exact identifiers and structure. The report records the actual byte-match count and maximum calibration difference. It needs no model weights or GPU. Replaying saved measurements does not rerun the generator, decoder or LPIPS network. [Exact boundaries and missing evidence](research/followup_2026_11/EVIDENCE_AND_VALIDATION.md).
 
 For optional figure regeneration, install Matplotlib and a Noto Sans CJK system font for Korean:
 
