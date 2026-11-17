@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from pathlib import Path
 import hashlib,json,subprocess,zipfile
-ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'release/FDCA_v1.0.0_Public_Research_Artifact.zip'
+ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'release/FDCA_v1.0.1_Unreleased_GitHub_Revision.zip'
 def sha(p):
  h=hashlib.sha256();h.update(p.read_bytes());return h.hexdigest()
 def main():

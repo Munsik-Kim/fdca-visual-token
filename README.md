@@ -69,22 +69,24 @@ The pretrained generator, image decoder, LPIPS metric and numerical libraries ar
 
 ## Recalculate the published evidence on CPU
 
-From the repository root, use Python 3.11 or 3.12 with the declared environment:
+From the repository root, use Python 3.11 or 3.12. Create the virtual environment outside the checkout because manifest verification scans the repository files.
 
 ~~~bash
-python -m venv .venv
-. .venv/bin/activate
-pip install -r environment/requirements-model-free.txt
+fdca_venv=$(mktemp -d)
+python -m venv "$fdca_venv"
+. "$fdca_venv/bin/activate"
+python -m pip install -r environment/requirements-revision.txt
 make verify test reproduce
+python scripts/reanalyse_revision.py --check
+python scripts/update_revision_docs.py --check
 python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay
 ~~~
 
 Read **build/followup-replay/PUBLIC_REPLAY.json**. The publication replay checks 68 source hashes, M-confirm contrasts, R-test/LT10 intervals, 16 LT16 tables and 4,653 independently recomputed scalar values. Fifteen tables require exact bytes; one descriptive calibration table compares its eight floating-point values within the existing scalar-audit tolerances, with exact identifiers and structure. The report records the actual byte-match count and maximum calibration difference. It needs no model weights or GPU. Replaying saved measurements does not rerun the generator, decoder or LPIPS network. [Exact boundaries and missing evidence](research/followup_2026_11/EVIDENCE_AND_VALIDATION.md).
 
-For optional figure regeneration, install Matplotlib and a Noto Sans CJK system font for Korean:
+To regenerate the explanation figures, install a Noto Sans CJK system font for Korean and run the figure builder.
 
 ~~~bash
-pip install matplotlib==3.10.8
 python -B research/followup_2026_11/scripts/build_explainer_figures.py --output build/explainer
 ~~~
 
@@ -92,13 +94,17 @@ The [plotted values](research/followup_2026_11/figures/explainer/plotted_values.
 
 ## Original paper and version history
 
-**Technical preprint; not peer reviewed.** [v1.0.0 PDF](paper/FDCA_v1.0.0.pdf) · [Zenodo record](https://zenodo.org/records/21965747) · [Scientific correction PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2).
+**Unreviewed technical preprint.**
 
-The original paper studies two H-MaskGIT checkpoints. The November follow-up is centered on H-MaskGIT-T and has a different design. The archived PDF and DOI remain unchanged. PR #2 is a separate, unmerged correction candidate as of 13 November 2026. The follow-up uses the corrected distinction between equal-block and split-weighted consequences and R = mean(h × m); the product of the two means omits their covariance.
+- **Archived v1.0.0.** [Original PDF](paper/FDCA_v1.0.0.pdf) · [Zenodo version DOI](https://doi.org/10.5281/zenodo.21965747).
+- **Unreleased v1.0.1 correction candidate.** [Revised PDF](paper/FDCA_v1.0.1.pdf) · [Scientific corrections](docs/REVISION_NOTES_v1.0.1.md) · [Corrected results](docs/RESULTS_AT_A_GLANCE.md) · [Source PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2).
+- **November 2026 follow-up.** [LT0–LT16 research and evidence](research/followup_2026_11/README.md) · [Publication PR #3](https://github.com/Munsik-Kim/fdca-visual-token/pull/3).
 
-[Historical results at a glance](docs/RESULTS_AT_A_GLANCE.md) · [Full GPU asset requirements](docs/EXTERNAL_ASSET_REGISTRY.md) · [Research publication PR #3](https://github.com/Munsik-Kim/fdca-visual-token/pull/3).
+The correction documents the original two-checkpoint study and defines `R = mean(h * m)` at the block level. It reports equal-block and split-conditioned means separately. The November follow-up focuses on H-MaskGIT-T and uses its own interventions, samples and uncertainty estimates. [Reproducibility and paper builds](docs/REPRODUCIBILITY_TIERS.md) · [Full GPU asset requirements](docs/EXTERNAL_ASSET_REGISTRY.md).
 
 ## Citation and licenses
+
+Use the DOI below for the archived v1.0.0 paper. To cite the v1.0.1 candidate, give the revised manuscript's title, version and Git commit.
 
 ~~~bibtex
 @article{kim2026fdca, title={First-Divergence Consequence Analysis: From Quantization Onset to Perceptual Impact in Masked Visual Generators}, author={Kim, Munsik}, year={2026}, doi={10.5281/zenodo.21965747}}
