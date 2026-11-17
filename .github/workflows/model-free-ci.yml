@@ -14,9 +14,12 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           cache: pip
-      - run: pip install -r environment/requirements-model-free.txt
+      - run: pip install -r environment/requirements-revision.txt
       - run: make verify
+      - run: sha256sum --strict --check --quiet release/SHA256SUMS.txt
       - run: make test
       - run: make reproduce
+      - run: python scripts/reanalyse_revision.py --check
+      - run: python scripts/update_revision_docs.py --check
       - name: Replay follow-up research evidence
         run: python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay

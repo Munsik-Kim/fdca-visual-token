@@ -43,7 +43,8 @@ def main() -> None:
             )
     manifest = {
         "schema": "FDCA_PUBLIC_MANIFEST_V1",
-        "version": "v1.0.0",
+        "version": "v1.0.1-unreleased",
+        "archived_release": "v1.0.0",
         "non_self_referential": True,
         "files": files,
     }

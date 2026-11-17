@@ -28,5 +28,10 @@ def main():
   if rel in {'release/PUBLIC_MANIFEST.json','release/SHA256SUMS.txt'}:continue
   actual.append({'path':rel,'size':p.stat().st_size,'sha256':sha(p)})
  if actual!=m['files']:findings.append({'file':'release/PUBLIC_MANIFEST.json','kind':'manifest_mismatch'})
+ preservation=ROOT/'docs/evidence/HISTORICAL_ASSETS_v1.0.0.json'
+ if not preservation.is_file():findings.append({'file':str(preservation.relative_to(ROOT)),'kind':'missing_preservation_receipt'})
+ else:
+  for rel,expected in json.loads(preservation.read_text())['sha256'].items():
+   if not (ROOT/rel).is_file() or sha(ROOT/rel)!=expected:findings.append({'file':rel,'kind':'historical_asset_changed'})
  result={'schema':'FDCA_PUBLIC_VERIFY_V1','files_scanned':len(fs),'findings':findings,'escaping_symlinks':0,'tracked_over_25mb':sum(x['kind']=='size' for x in findings),'pass':not findings};print(json.dumps(result,indent=2,sort_keys=True));sys.exit(0 if result['pass'] else 2)
 if __name__=='__main__':main()

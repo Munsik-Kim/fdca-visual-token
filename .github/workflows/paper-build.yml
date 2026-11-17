@@ -11,13 +11,25 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install pypdf==5.9.0
+      - name: Check the revision compile receipt
+        run: python scripts/build_paper.py --version 1.0.1 --check
       - uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b
         with:
-          root_file: FDCA_v1.0.0.tex
-          working_directory: paper/source
+          root_file: |
+            paper/source/FDCA_v1.0.0.tex
+            paper/source/v1.0.1/FDCA_v1.0.1.tex
+          work_in_root_file_dir: true
           latexmk_use_xelatex: false
+          # Only the new candidate's bibliography is regenerated; archival bytes stay frozen.
+          pre_compile: rm -f paper/source/v1.0.1/FDCA_v1.0.1.bbl
       - run: python scripts/check_paper_pages.py paper/FDCA_v1.0.0.pdf paper/source/FDCA_v1.0.0.pdf
+      - name: Validate and save the fresh revision build
+        run: python scripts/build_paper.py --version 1.0.1 --compiled paper/source/v1.0.1/FDCA_v1.0.1.pdf
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: FDCA-v1.0.0-paper
-          path: paper/source/FDCA_v1.0.0.pdf
+          name: FDCA-paper-builds
+          path: |
+            paper/source/FDCA_v1.0.0.pdf
+            paper/FDCA_v1.0.1.pdf
+            paper/source/v1.0.1/FDCA_v1.0.1.bbl
+            paper/build_v1.0.1.json

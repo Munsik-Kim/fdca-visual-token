@@ -70,13 +70,16 @@ M-confirm의 새 실험 클래스 32개·짝지은 비교 256개에서, 이후 3
 
 최초 분기와 조건부 결과 계산, 실험용 결합 추출과 난수 관리, 클래스 단위 통계, 수치 재생과 그림 생성을 공개했습니다. 사용한 사전학습 모델·이미지 디코더·LPIPS는 기존 구성요소입니다. [구현과 재사용 구분](docs/PORTFOLIO_KO.md).
 
-Python 3.11 또는 3.12에서 저장소 루트 기준으로 실행합니다.
+Python 3.11 또는 3.12에서 저장소 루트 기준으로 실행합니다. manifest 검증은 저장소 안의 파일을 검사하므로 가상환경을 저장소 밖에 만듭니다.
 
 ~~~bash
-python -m venv .venv
-. .venv/bin/activate
-pip install -r environment/requirements-model-free.txt
+fdca_venv=$(mktemp -d)
+python -m venv "$fdca_venv"
+. "$fdca_venv/bin/activate"
+python -m pip install -r environment/requirements-revision.txt
 make verify test reproduce
+python scripts/reanalyse_revision.py --check
+python scripts/update_revision_docs.py --check
 python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay
 ~~~
 
@@ -84,8 +87,12 @@ GPU나 모델 가중치 없이 저장된 측정값을 다시 계산합니다. �
 
 ## 논문·공개판·권리
 
-[기존 v1.0.0 논문](paper/FDCA_v1.0.0.pdf) · [Zenodo / DOI 10.5281/zenodo.21965747](https://zenodo.org/records/21965747) · [과학적 정정 PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2) · [후속 연구 공개 PR #3](https://github.com/Munsik-Kim/fdca-visual-token/pull/3).
+논문은 동료평가 전 기술 프리프린트입니다.
 
-논문은 동료평가 전 기술 프리프린트입니다. 기존 논문은 두 H-MaskGIT 체크포인트를 다루며, 11월 후속 실험은 주로 Tiny 모델을 다룹니다. 두 범위의 표본과 수치를 합치지 않습니다. 원 논문·DOI는 보존했고, 정정 PR #2는 2026-11-13 현재 별도 미병합 수정안입니다.
+- **v1.0.0 보관판.** [원 논문 PDF](paper/FDCA_v1.0.0.pdf) · [Zenodo 버전 DOI 10.5281/zenodo.21965747](https://doi.org/10.5281/zenodo.21965747).
+- **v1.0.1 정정 후보, 정식 릴리스 전.** [정정 PDF](paper/FDCA_v1.0.1.pdf) · [정정 이유와 근거](docs/REVISION_NOTES_v1.0.1.md) · [정정 결과표](docs/RESULTS_AT_A_GLANCE.md) · [출처 PR #2](https://github.com/Munsik-Kim/fdca-visual-token/pull/2).
+- **2026년 11월 후속 연구.** [LT0–LT16 연구 보고서](research/followup_2026_11/REPORT_KO.md) · [공개 PR #3](https://github.com/Munsik-Kim/fdca-visual-token/pull/3).
+
+정정 원고는 두 H-MaskGIT 체크포인트의 기존 실험을 다룹니다. `R = mean(h * m)`처럼 블록별로 곱한 뒤 평균하고, 블록을 동일하게 가중한 조건부 평균과 분기 확률로 가중한 평균을 구분합니다. 11월 후속 실험은 주로 Tiny 모델을 대상으로 별도 개입과 표본을 사용했습니다. v1.0.0은 위 DOI로 인용하고, v1.0.1 후보를 인용할 때는 정정 원고의 제목과 버전, Git 커밋을 적습니다. [재현과 논문 빌드](docs/REPRODUCIBILITY_TIERS.md).
 
 독립 작성 코드는 MIT, 논문·보고서·그림·표는 CC BY 4.0입니다. 외부 모델과 자료의 권리는 별도로 적용됩니다. [라이선스 범위](LICENSE_SCOPE.md) · [외부 구성요소](THIRD_PARTY_NOTICES.md).
