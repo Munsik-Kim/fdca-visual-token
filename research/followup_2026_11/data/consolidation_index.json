@@ -1,0 +1,94 @@
+{
+  "publication_date": "2026-11-20",
+  "scope": "Re-indexing stored results, not a new experiment or new statistical family",
+  "normalized_rows": 70,
+  "source_files": [
+    {
+      "path": "data/experiment_ledger.csv",
+      "sha256": "92562a42cbbd4ab1cff0afddfb5502a8bf5a11da22cad8d962c76f7779f712b6"
+    },
+    {
+      "path": "evidence/lt16/expected/auxiliary_contrasts.csv",
+      "sha256": "b0478e8203db26d44159799ff00f8cf5a8202127b2a0e69ed39f53a39b137cac"
+    },
+    {
+      "path": "evidence/lt16/expected/primary_contrasts.csv",
+      "sha256": "de1a1ece7e452f6b3c9f615520d8236b65e66707b1ff0bd09a91cfbf7b3bdcbc"
+    },
+    {
+      "path": "evidence/lt16/expected/selector_summary.csv",
+      "sha256": "de2ebb121854bedbe0b9d25ddb9cc898e1c3c329a18114085ce408fe5b896319"
+    },
+    {
+      "path": "evidence/tables/lt10_13_contrasts.csv",
+      "sha256": "0febda56951543cc65297159832aca262ff8c42950412de6130b21d3ed99b159"
+    },
+    {
+      "path": "evidence/tables/lt11_contrasts.csv",
+      "sha256": "ea9e754ce31bcdf88670a2919dd056891514d812f591201142116c58f448b1e8"
+    },
+    {
+      "path": "evidence/tables/lt12_primary.csv",
+      "sha256": "ecfdef40bef80224bba55bc32853d7267cfd5e13c8c01a3c62e61a1bb332b258"
+    },
+    {
+      "path": "evidence/tables/lt13_contrasts.csv",
+      "sha256": "7a2e08814f6a9e74e8058064a04338bfe1f25db98712a5235d9dbea70555226c"
+    },
+    {
+      "path": "evidence/tables/lt14_dev_gate.json",
+      "sha256": "36c9cf182be75704b1bf1dcddfc7086cf61420d081e11e26ff0ae310f861185e"
+    },
+    {
+      "path": "evidence/tables/lt14_observed_maximum.json",
+      "sha256": "72c12e5f88504b8444ee3b3f40b1bb06d1bf842e618da46198b467eb8bbf0615"
+    },
+    {
+      "path": "evidence/tables/lt14_policy_summary.csv",
+      "sha256": "0a49f5036f0aadacb27446b58e98446816f8eff8d373d68b1b36738eff99d5aa"
+    },
+    {
+      "path": "evidence/tables/lt1_arms.csv",
+      "sha256": "8b0154f75030dd42b7bacf443a4e68c6aac9f43c1a30288daa997c5e28b342d2"
+    },
+    {
+      "path": "evidence/tables/lt1r_restoration.csv",
+      "sha256": "fed379dc2a54a22d8a573fc05f0ca424cb524fcdc548f438209076f2b86e02b8"
+    },
+    {
+      "path": "evidence/tables/lt2_contrasts.csv",
+      "sha256": "86251be4483f067d807d0bd18407b9104925b0fe480531e1ae04251d8dab5641"
+    },
+    {
+      "path": "evidence/tables/lt2c_contrasts.csv",
+      "sha256": "fe95da64ca302d56d7a04cc94d731365e5c03b3999ebe383313fe7645e4eaae8"
+    },
+    {
+      "path": "evidence/tables/lt3_contrasts.csv",
+      "sha256": "829bdf98e99428b050f9f120232e5c0cb005a7f204fd995ec90157c37d8052e2"
+    },
+    {
+      "path": "evidence/tables/lt4_contrasts.csv",
+      "sha256": "3c57aadc4b293bafc9580aa5594478b70fdbd61d9f7db2691403a3bf590e9d51"
+    },
+    {
+      "path": "evidence/tables/lt5_primary.csv",
+      "sha256": "5daa3da01f1ba3b15fd09452e9cece6a38399d009a008136c799c8ef31cb031d"
+    },
+    {
+      "path": "evidence/tables/lt6_primary_20261120.csv",
+      "sha256": "8f27674a2de37b881a98120916b9d0e8bd6e64b8c0f21b887dade6728e390ab3"
+    },
+    {
+      "path": "evidence/tables/m_confirm_contrasts.csv",
+      "sha256": "c55be6624060a36503518a33101b436302e4ae82387c2d8aa1195f65956f15f6"
+    },
+    {
+      "path": "evidence/tables/r_test_primary.csv",
+      "sha256": "690890fa1d2e65e6e0f472ed234162ed21f5f551bf547b59350416f173fafa8b"
+    }
+  ],
+  "scripts": "scripts/build_results_summary.py",
+  "private_artifacts_excluded": true,
+  "LT15_state": "NOT_STARTED_DEV_CRITERIA"
+}

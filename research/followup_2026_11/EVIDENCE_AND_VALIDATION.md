@@ -1,6 +1,6 @@
 # Evidence, provenance and validation boundaries
 
-Prepared 13 November 2026. [Portfolio](README.md) · [Korean report](REPORT_KO.md)
+Prepared 13 November 2026; aggregate update and local recovery check added 20 November 2026. [Portfolio](README.md) · [Korean report](REPORT_KO.md)
 
 ## What is published
 
@@ -20,7 +20,7 @@ All public paths are repository-relative. Private delivery URLs and workstation 
 | LT2C weighted pulse and covariance | [contrasts](evidence/tables/lt2c_contrasts.csv), [summary](evidence/tables/lt2c_pulse.csv) | Original numerical tables preserved |
 | LT3 and OP5 early pulse contrasts positive | [LT3](evidence/tables/lt3_contrasts.csv), [LT4](evidence/tables/lt4_contrasts.csv) | Figure values read directly from original rows |
 | LT5 policy did not establish gain | [primary](evidence/tables/lt5_primary.csv), [auxiliary](evidence/tables/lt5_auxiliary.csv) | Original numerical tables preserved |
-| LT6 original 95% interval | Researcher's completion account; matching point estimate in [M-dev](evidence/tables/m_dev_contrasts.csv) | **Standalone LT6 compact unavailable here; original CI not independently replayed** |
+| LT6 original 95% interval | [One-row source-linked aggregate](evidence/tables/lt6_primary_20261120.csv), [provenance](data/aggregate_source_manifest_20261120.json) | Original 512-unit panel and both CI endpoints replayed locally on November 20; the recovered unit inputs are not newly published |
 | M-confirm context/layout/dose effects | [256 units](evidence/tables/m_confirm_units.csv), [contrasts](evidence/tables/m_confirm_contrasts.csv) | Counts from bit strings, class means, six contrasts, 20,000 paired draws and 12 CI endpoints replayed |
 | R0/R-cal/R-alt diagnostics | [R0](evidence/tables/r0_contrasts.csv), [calibration](evidence/tables/r_cal_scores.csv), [R-alt](evidence/tables/r_alt_contrasts.csv) | Original source tables preserved; not all independently regenerated in this publication |
 | R-test six primary intervals include zero | [5,760 endpoints](evidence/tables/r_test_endpoints.csv), [policy freeze](evidence/tables/r_test_policy.json), [primary](evidence/tables/r_test_primary.csv) | Pairing, complete 320×2×9 panel, reference identity, class aggregation and 12 CI endpoints replayed |
@@ -94,7 +94,23 @@ This command makes descriptive figures only. It does not rerun the model, fit a 
 ## Preserved boundaries and remaining gaps
 
 - The archived v1.0.0 paper, source, DOI metadata, release and original data are not replaced. The root README links this addendum and the separate correction PR.
-- LT6 standalone original input and the complete seven-stage PAPER-EVIDENCE archive were unavailable during publication preparation. The LT10 delivery bundle includes inherited M-confirm and restoration numerical inputs, enabling the explicitly listed replays. This is not evidence that all missing original files were recovered.
+- During the November 13 preparation, the standalone LT6 input and complete seven-stage PAPER-EVIDENCE archive were unavailable. On November 20, retained LT6 scalar inputs and PAPER-EVIDENCE delivery/completion paths were accessible. Specific source tables and the local scalar panels below were checked; this does not establish a new complete historical full-law/model audit.
 - Independent model-level verification of every earlier categorical law, image, quantizer tensor and LOBO model fit is outside this publication. Statistical replay cannot substitute for those checks.
 - Reference LPIPS discrepancy, token agreement and image quality are different objectives. No human-preference, speedup, packed-INT8, multi-model generalization or restoration impossibility claim is made.
 - Later proposed plans in historical summaries describe the state at that time. The current consolidated recommendation is [NEXT_RESEARCH_KO.md](NEXT_RESEARCH_KO.md), and is explicitly unexecuted.
+
+## Aggregate update and local recovery check: 20 November 2026
+
+The root [Korean synthesis](../../RESULTS_SUMMARY_KO.md), [English synthesis](../../RESULTS_SUMMARY.md) and [70-row result index](data/consolidated_results.csv) connect the original study through LT16. These are summaries of existing results and original interval levels, not a new statistical family. The existing 68 source artifacts remain unchanged.
+
+The new public data are aggregate rows only. [LT6 provenance](data/aggregate_source_manifest_20261120.json) records the original analysis member SHA-256 and the published aggregate hash. Its 512-unit input was reaggregated locally, reproducing the 32-class estimate, original bootstrap index and both confidence limits. That unit-level input is retained locally, so readers cannot reconstruct the LT6 interval from its one-row aggregate alone.
+
+A separate local scalar check covered 2,430 recovered rows from LT6/LT11/LT12/LT13 and LT14 OOF outcomes: 22 contrasts, 44 interval endpoints, historical bootstrap hashes, eligible denominators, pair/class clustering and the failed LT14 development gate. Its 20 mutation/boundary tests passed. Those new unit-level inputs and the extended replay code are not redistributed by this summary publication. This local check did not replay full categorical laws, invoke models/decoder/LPIPS, or refit LT14's nested policies.
+
+The public repository still provides the existing M-confirm/R-test/LT10/LT16 scalar replay above. The new summary builder verifies unique source-row keys and the generated index:
+
+```bash
+python -B research/followup_2026_11/scripts/build_results_summary.py --check
+```
+
+[Consolidation validation receipt](data/CONSOLIDATION_VALIDATION_20261120.json) separates the 158 existing public tests from the additional local-only checks. A CSV newline portability issue in the new index builder was corrected before upload; no original measurement, estimator, interval or decision changed. No new GPU experiment, holdout evaluation or scientific correction PR merge is part of this publication.

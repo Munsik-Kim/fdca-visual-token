@@ -1,0 +1,20 @@
+{
+  "schema": "FDCA_AGGREGATE_SOURCE_MANIFEST_V1",
+  "date": "2026-11-20",
+  "scope": "Aggregate results only; no newly recovered unit-level input is redistributed",
+  "files": [
+    {
+      "path": "evidence/tables/lt6_primary_20261120.csv",
+      "sha256": "8f27674a2de37b881a98120916b9d0e8bd6e64b8c0f21b887dade6728e390ab3",
+      "size_bytes": 409,
+      "rows": 1,
+      "source_collection": "LT6-CONTEXT_20261109_r1",
+      "source_member": "analysis/analysis.json",
+      "source_sha256": "18056c21d67e6fc26b36ad38d9138ee4715f2c0e29ee35d28860cbc0b28d59ba",
+      "transformation": "Exact numeric primary fields; public schema and scope labels"
+    }
+  ],
+  "local_verification": "LT6 original 512 paired-unit scalar panel, 32-class bootstrap, both endpoints and index hash were checked locally; no new GPU or raw-law execution",
+  "public_replay_limit": "The one-row LT6 aggregate can be hash checked and indexed here; its original CI cannot be independently reconstructed from that row alone. Newly recovered unit inputs remain local.",
+  "unchanged_public_source_manifest": "data/source_manifest.json"
+}

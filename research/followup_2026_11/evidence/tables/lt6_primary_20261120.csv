@@ -1,0 +1,2 @@
+contrast,estimate,ci_low,ci_high,confidence,n_classes,n_paired_units,mcse_suffix,role,unit,scope
+SPARSE_minus_PREFILL15,0.25787353515625,0.2269287109375,0.2882080078125,0.95,32,512,0.006452140659138786,fixed-seed context mechanism diagnostic,mismatch fraction over 32 subsequent coordinates,Fixed-seed partial-generation contrast with context content and visibility jointly changed on the reused LT3 classes.

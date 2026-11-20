@@ -1,5 +1,7 @@
 # FDCA · When a small model change alters an image
 
+**Updated 20 November 2026:** [Consolidated results](RESULTS_SUMMARY.md) · [한국어 전체 결과](RESULTS_SUMMARY_KO.md) · [Machine-readable result index](research/followup_2026_11/data/consolidated_results.csv). The update adds aggregate evidence from archived LT6 and later diagnostics; it does not run new GPU experiments.
+
 **Where do two image-generation runs first make different choices, how does that difference spread, and can a limited precision repair reduce it?**
 
 I built controlled comparisons and numerical audit tools to study these questions in masked visual generators. The work separates the occurrence of a changed token, its later consequences, and the signed benefit of a proposed repair. The November follow-up found reproducible context effects in its tested settings; the tested reference-free repair policies did not establish reliable gains over the specified baselines.

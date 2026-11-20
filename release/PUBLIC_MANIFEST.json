@@ -7,8 +7,8 @@
     },
     {
       "path": ".github/workflows/model-free-ci.yml",
-      "sha256": "80a1a5f7e9f7befd32b9c70940443900029598acf453d0c6cb0ba83426ee1bc7",
-      "size": 725
+      "sha256": "de29f0f823635354df44909ca900786e19b471fcaa36e2c359ad7e70bf5df6e7",
+      "size": 861
     },
     {
       "path": ".github/workflows/paper-build.yml",
@@ -57,13 +57,23 @@
     },
     {
       "path": "README.md",
-      "sha256": "23d4509e369f74987dec51055173a8118076fd9ee3f3698ac03ae206f7837ed8",
-      "size": 11076
+      "sha256": "3b10921a3f912dc11c83f0355c096b2e4706431036936c16a7c9b9f9715eef44",
+      "size": 11408
     },
     {
       "path": "README_KO.md",
-      "sha256": "14e922fb0372f38bb1dfcf5703ca541bbbfd77e7f481825b7ce9aa1efad14209",
-      "size": 9438
+      "sha256": "69451da837519592cfa4e7a107f064ceda17c19bf2601d97e9ed033798a88390",
+      "size": 9756
+    },
+    {
+      "path": "RESULTS_SUMMARY.md",
+      "sha256": "70122cf17f14fa7769e92d81399602ff539aafb6a928fbb2dc6cde516c1a154c",
+      "size": 4571
+    },
+    {
+      "path": "RESULTS_SUMMARY_KO.md",
+      "sha256": "b7ea29b4e026756f1b62b03181f72416cc951b167e0f59e1a4ade1a0936e535c",
+      "size": 14617
     },
     {
       "path": "SECURITY.md",
@@ -72,8 +82,8 @@
     },
     {
       "path": "START_HERE_KO.md",
-      "sha256": "40325043de66b9ca2ef4fa8cc928a107867f5803ac198e5892129463fe948c44",
-      "size": 26406
+      "sha256": "9a855203fcf04a173ea8aba397d73c7660035d17bfc7bfa558ce472d2e7f32d6",
+      "size": 26651
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
@@ -702,8 +712,8 @@
     },
     {
       "path": "research/followup_2026_11/EVIDENCE_AND_VALIDATION.md",
-      "sha256": "d4ab27722efa1af609b51767c1ec2f2e68341ee8fc927444f0326e89c336eaf0",
-      "size": 14317
+      "sha256": "5186d29b285bc738c57add9438c5a79bed45b794e5d6591ff607810c16bd25d5",
+      "size": 16576
     },
     {
       "path": "research/followup_2026_11/FAILURE_ANALYSIS_KO.md",
@@ -722,8 +732,8 @@
     },
     {
       "path": "research/followup_2026_11/README.md",
-      "sha256": "090d68f7fbf32395756db30f28e42fd4c5aa7dc7974214a2fe893ba580c3a749",
-      "size": 6373
+      "sha256": "ba200dac334c715b17430365b99d089156e80f8a21df59c4136960604225ab96",
+      "size": 6629
     },
     {
       "path": "research/followup_2026_11/REPORT_KO.md",
@@ -731,9 +741,19 @@
       "size": 28168
     },
     {
+      "path": "research/followup_2026_11/data/CONSOLIDATION_VALIDATION_20261120.json",
+      "sha256": "cec1aa1fb5e14c04a54b5447b52c0acec026583aae9883f5b9e64cce67da51f6",
+      "size": 4175
+    },
+    {
       "path": "research/followup_2026_11/data/PUBLIC_VALIDATION.json",
       "sha256": "1cc0525d656ed35097c744a673fad6a404142372ce49d723c13b7233a104b419",
       "size": 1117
+    },
+    {
+      "path": "research/followup_2026_11/data/aggregate_source_manifest_20261120.json",
+      "sha256": "f39d9c313dde3cd04b511aca9b4df37bf1c276c67b78128e4f92b40554af03ae",
+      "size": 1112
     },
     {
       "path": "research/followup_2026_11/data/block2_restored_tensors.csv",
@@ -741,9 +761,19 @@
       "size": 547
     },
     {
+      "path": "research/followup_2026_11/data/consolidated_results.csv",
+      "sha256": "ebe3e76b4daf03bf0d8a410b0cd55c8239ede7913eb0d27ae35418da51305b41",
+      "size": 17630
+    },
+    {
+      "path": "research/followup_2026_11/data/consolidation_index.json",
+      "sha256": "13c103d30da2d878cfb399c66ea625f2ed7faa07952ed8dad5f49537d9efb58c",
+      "size": 3454
+    },
+    {
       "path": "research/followup_2026_11/data/experiment_ledger.csv",
-      "sha256": "9326cec8f22d25b8d4af2fe9a1671937e11535307e1967c541d012d79d8511b0",
-      "size": 5800
+      "sha256": "92562a42cbbd4ab1cff0afddfb5502a8bf5a11da22cad8d962c76f7779f712b6",
+      "size": 5878
     },
     {
       "path": "research/followup_2026_11/data/figure_data.csv",
@@ -1026,6 +1056,11 @@
       "size": 389
     },
     {
+      "path": "research/followup_2026_11/evidence/tables/lt6_primary_20261120.csv",
+      "sha256": "8f27674a2de37b881a98120916b9d0e8bd6e64b8c0f21b887dade6728e390ab3",
+      "size": 409
+    },
+    {
       "path": "research/followup_2026_11/evidence/tables/m_confirm_analysis.json",
       "sha256": "b1883aacdea99748fb7a963bbd66dc5061da5a62ee74faba1db00ce0abcdb0a6",
       "size": 5645
@@ -1209,6 +1244,11 @@
       "path": "research/followup_2026_11/scripts/build_figures.py",
       "sha256": "0222f5c873002feb6d313c00937cbba1b88622066743eeafcba70d5d2243391e",
       "size": 11162
+    },
+    {
+      "path": "research/followup_2026_11/scripts/build_results_summary.py",
+      "sha256": "9137d1f00a0dda451d8548d13ea84c829ec2255e9e9dfee3a0f889565c48de99",
+      "size": 24041
     },
     {
       "path": "research/followup_2026_11/scripts/replay_public_evidence.py",

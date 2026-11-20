@@ -1,5 +1,7 @@
 # From divergence measurement to an unsuccessful restoration policy
 
+**20 November evidence update:** [Consolidated results](../../RESULTS_SUMMARY.md) · [한국어 총정리](../../RESULTS_SUMMARY_KO.md) · [Aggregate source manifest](data/aggregate_source_manifest_20261120.json). Original source tables remain unchanged.
+
 **FDCA follow-up research portfolio · Munsik Kim · 13 November 2026**
 
 **First visit:** [Illustrated explanation in Korean](../../START_HERE_KO.md) · [Korean overview](../../README_KO.md) · [English overview](../../README.md) · [Implementation and contribution](../../docs/PORTFOLIO_KO.md).

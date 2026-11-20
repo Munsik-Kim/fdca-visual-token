@@ -1,0 +1,107 @@
+{
+  "schema": "FDCA_CONSOLIDATION_VALIDATION_V1",
+  "date": "2026-11-20",
+  "base_commit": "efaf22c24b3b3f6f8f5a61bd8d05c442314f97fb",
+  "status": "PASS",
+  "scope": "Aggregate-only publication; existing public scalar replay plus separately recorded local reaggregation. No new GPU experiment.",
+  "checks": {
+    "tests_passed": 158,
+    "original_reproduction_checks": 10,
+    "followup_source_hashes": 68,
+    "followup": {
+      "status": "PASS",
+      "source_files_sha256": 68,
+      "M_confirm": {
+        "classes": 32,
+        "paired_units": 256,
+        "contrasts": 6,
+        "CI_endpoints": 12,
+        "bootstrap_index_sha256": "520bb8d5e9ce6582b99ce5f0c52dccd4340a6765be072ba427a291e024c55994"
+      },
+      "R_test_and_LT10": {
+        "classes": 320,
+        "units": 640,
+        "endpoints": 5760,
+        "R_test_primary_contrasts": 6,
+        "LT10_contrasts": 13,
+        "CI_endpoints": 64,
+        "bootstrap_index_sha256": "e9e0a24994671a8ed744f364087ea421bb599bb3536094326b745e374ee90031"
+      },
+      "LT16": {
+        "tables_verified": 16,
+        "tables_byte_identical": 16,
+        "calibration_numeric_check": {
+          "numeric_values": 8,
+          "max_absolute_error": 0.0,
+          "absolute_tolerance": 2e-14,
+          "relative_tolerance": 2e-12,
+          "byte_identical": true
+        },
+        "numerical_JSON": "MATCH",
+        "bootstrap_arrays": 2,
+        "independent_values": 4653,
+        "counts": {
+          "classes": 24,
+          "original_trajectories": 48,
+          "unique_states": 158,
+          "unique_state_draws": 1264,
+          "selector_rows": 240,
+          "selector_draw_rows": 1920
+        }
+      },
+      "scope": "Published scalar values, paired aggregation, bootstrap draws and intervals only.",
+      "exclusions": [
+        "no model/decoder/LPIPS execution",
+        "no full raw-law audit",
+        "no new experiments",
+        "no reserved holdout access"
+      ]
+    },
+    "consolidated_source_rows": 70,
+    "normalized_source_row_keys_unique": true,
+    "reserved_class_overlap": 0,
+    "new_negative_path_regressions_local_only": 20,
+    "extended_local_only": {
+      "status": "PASS",
+      "verified_input_and_expected_hashes": 13,
+      "projected_numeric_rows": 2430,
+      "replayed_contrasts": 22,
+      "interval_endpoints_checked": 44,
+      "LT14_OOF_policy_rows": 480,
+      "LT14_gate": "DEV_CRITERIA_NOT_MET",
+      "LT15": "NOT_STARTED_DEV_CRITERIA",
+      "numpy_version": "2.2.6",
+      "scope": "Independent numeric projection replay: complete keys, balanced hierarchical aggregation, preserved eligible denominators, both CI endpoints, deterministic bootstrap hashes, frozen OOF gains and development gate.",
+      "not_reexecuted": [
+        "GPU models",
+        "decoder or LPIPS",
+        "categorical law/token/state replay",
+        "LT11 donor-grid reconstruction",
+        "LT14 ridge fitting or nested policy selection"
+      ],
+      "public_inputs_available": false,
+      "publication_scope": "Results of local checks only. Newly recovered unit-level inputs and new extended replay code are retained locally."
+    }
+  },
+  "new_publication_amendment": {
+    "scope": "Publication-only generated CSV newline portability",
+    "initial_failure": "Universal-newline read compared with CRLF writer output",
+    "fix": "Use deterministic LF CSV line terminator",
+    "scientific_effect": "None; only generated index CSV newlines changed. Original science values and intervals unchanged.",
+    "retained_record": "Private local publication audit; no original science record altered"
+  },
+  "not_reexecuted": [
+    "GPU generation",
+    "full categorical law token/state replay",
+    "decoder/LPIPS model",
+    "nested ridge fitting",
+    "unopened LT15 confirmation"
+  ],
+  "commands": [
+    "python -B -m pytest -q tests/model_free tests/public_contract",
+    "python -B scripts/reproduce_public_results.py",
+    "python -B research/followup_2026_11/scripts/replay_public_evidence.py --output build/followup-replay",
+    "python -B research/followup_2026_11/scripts/build_results_summary.py --check",
+    "python -B scripts/verify_public_repo.py"
+  ]
+}
